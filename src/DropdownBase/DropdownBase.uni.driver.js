@@ -41,7 +41,7 @@ export const dropdownBaseDriverFactory = (base, body) => {
     /** Click outside of the component */
     clickOutside: () => testkit(base, body).clickOutside(),
 
-    /** Options count */
+    /** Options count (requires the DropdownBase to be opened) */
     optionsCount: async () =>
       (await createDropdownLayoutDriver()).optionsLength(),
 
