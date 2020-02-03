@@ -457,5 +457,8 @@
   },
   "Image": {
     "path": "src/Image"
+  },
+  "CustomModal": {
+    "path": "src/CustomModal"
   }
 }

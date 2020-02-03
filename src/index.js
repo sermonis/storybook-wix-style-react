@@ -176,3 +176,4 @@ export { default as Palette } from './Palette';
 export { default as VariableInput } from './VariableInput';
 export { default as Image } from './Image';
 export { default as Selector } from './Selector';
+export { default as CustomModal } from './CustomModal';

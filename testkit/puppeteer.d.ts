@@ -128,6 +128,7 @@ export const paletteTestkitFactory: any;
 export const warningIndicatorTestkitFactory: any;
 export const variableInputTestkitFactory: any;
 export const imageTestkitFactory: any;
+export const customModalTestkitFactory: any;
 export const drillViewTestkitFactory: any;
 export const cardHeaderTestkitFactory: any;
 export const sideMenuTestkitFactory: any;
