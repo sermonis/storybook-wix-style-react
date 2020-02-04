@@ -80,16 +80,21 @@ function renderHiddenActions(actions, popoverMenuProps, upgrade) {
       }
       {...popoverMenuProps}
     >
-      {actions.map(({ text, icon, onClick, disabled, dataHook }, index) => (
-        <PopoverMenu.MenuItem
-          key={index}
-          dataHook={dataHook || 'table-action-cell-popover-menu-item'}
-          prefixIcon={icon}
-          onClick={() => onClick()}
-          text={text}
-          disabled={disabled}
-        />
-      ))}
+      {actions.map(
+        ({ text, icon, onClick, disabled, dataHook, divider }, index) =>
+          !divider ? (
+            <PopoverMenu.MenuItem
+              key={index}
+              dataHook={dataHook || 'table-action-cell-popover-menu-item'}
+              prefixIcon={icon}
+              onClick={() => onClick()}
+              text={text}
+              disabled={disabled}
+            />
+          ) : (
+            <PopoverMenu.Divider />
+          ),
+      )}
     </PopoverMenu>
   ) : (
     <OldPopoverMenu
@@ -205,6 +210,7 @@ TableActionCell.propTypes = {
    * `disabled` is an optional prop for the secondary action to be disabled
    * `dataHook` is an optional prop for accessing the action in tests
    * 'disabledDescription' is an optional prop that indicates what string to display in tooltip when action is visible and disabled (if non is provided, the text prop is used)
+   * 'divider' is an optional prop to display a divider between the items (supported only when `upgrade` prop is enabled)
    */
   secondaryActions: PropTypes.arrayOf(
     PropTypes.shape({
@@ -214,6 +220,7 @@ TableActionCell.propTypes = {
       disabled: PropTypes.bool,
       dataHook: PropTypes.string,
       disabledDescription: PropTypes.string,
+      divider: PropTypes.bool,
     }),
   ),
 
