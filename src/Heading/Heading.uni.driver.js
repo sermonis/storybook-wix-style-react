@@ -1,15 +1,6 @@
-import {
-  baseUniDriverFactory,
-  StylableUnidriverUtil,
-  ReactBase,
-} from '../../test/utils/unidriver';
-
-import style from './Heading.st.css';
+import { baseUniDriverFactory } from '../../test/utils/unidriver';
 
 export const headingUniDriverFactory = base => {
-  const stylableUnidriverUtil = new StylableUnidriverUtil(style);
-  const reactBase = ReactBase(base);
-
   return {
     ...baseUniDriverFactory(base),
     /**
@@ -23,12 +14,11 @@ export const headingUniDriverFactory = base => {
      * @ReactDOMOnly
      * @returns {'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6' }
      * */
-    getAppearance: () =>
-      stylableUnidriverUtil.getStyleState(base, 'appearance'),
+    getAppearance: () => base.attr('data-appearance'),
     /**
      * Is light
      * @returns { boolean }
      */
-    isLight: () => stylableUnidriverUtil.hasStyleState(base, 'light'),
+    isLight: async () => (await base.attr('data-light')) === 'true',
   };
 };

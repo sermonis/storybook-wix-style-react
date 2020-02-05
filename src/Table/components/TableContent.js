@@ -5,9 +5,10 @@ import DataTable from '../../DataTable';
 import { getDataTableProps, createColumns } from '../Table';
 import { TableContext } from '../TableContext';
 
+import styles from '../Table.st.css';
 import { BulkSelectionConsumer } from '../BulkSelection';
 
-export const TableContent = ({ titleBarVisible, dataHook }) => {
+export const TableContent = ({ titleBarVisible, dataHook, ...rest }) => {
   //TODO: figure out if we need to put result of createColumns() on state, in order to avoid
   // redundant renders.
   return (
@@ -19,28 +20,33 @@ export const TableContent = ({ titleBarVisible, dataHook }) => {
           hideHeader: !titleBarVisible,
         };
 
-        if (tableProps.showSelection) {
-          return (
-            <BulkSelectionConsumer
-              consumerCompName="Table.Content"
-              providerCompName="Table"
-            >
-              {bulkSelectionContext => (
-                <DataTable
-                  {...dataTableProps}
-                  isRowSelected={(rowData, rowIndex) =>
-                    bulkSelectionContext.isSelected(
-                      defaultTo(rowData.id, rowIndex),
-                    )
-                  }
-                  columns={createColumns({ tableProps, bulkSelectionContext })}
-                />
-              )}
-            </BulkSelectionConsumer>
-          );
-        } else {
-          return <DataTable {...dataTableProps} />;
-        }
+        return (
+          <div {...styles('content', { titleBarVisible }, rest)}>
+            {tableProps.showSelection ? (
+              <BulkSelectionConsumer
+                consumerCompName="Table.Content"
+                providerCompName="Table"
+              >
+                {bulkSelectionContext => (
+                  <DataTable
+                    {...dataTableProps}
+                    isRowSelected={(rowData, rowIndex) =>
+                      bulkSelectionContext.isSelected(
+                        defaultTo(rowData.id, rowIndex),
+                      )
+                    }
+                    columns={createColumns({
+                      tableProps,
+                      bulkSelectionContext,
+                    })}
+                  />
+                )}
+              </BulkSelectionConsumer>
+            ) : (
+              <DataTable {...dataTableProps} />
+            )}
+          </div>
+        );
       }}
     </TableContext.Consumer>
   );

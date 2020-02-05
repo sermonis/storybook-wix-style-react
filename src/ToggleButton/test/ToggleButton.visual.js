@@ -1,7 +1,7 @@
 import React from 'react';
+import CropRotate from 'wix-ui-icons-common/CropRotate';
 import { storiesOf } from '@storybook/react';
 import ToggleButton from '../ToggleButton';
-import CropRotate from '../../new-icons/CropRotate';
 
 const tests = [
   {
@@ -63,8 +63,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`ToggleButton/${describe}`, module).add(it, () => (
-      <ToggleButton {...props} />
-    ));
+    storiesOf(`ToggleButton${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => <ToggleButton {...props} />,
+    );
   });
 });

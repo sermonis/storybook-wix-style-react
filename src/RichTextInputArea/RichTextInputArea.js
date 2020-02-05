@@ -51,7 +51,7 @@ class RichTextInputArea extends React.PureComponent {
     status: PropTypes.oneOf(['error']),
     /** Text to be shown within the tooltip of the status indicator */
     statusMessage: PropTypes.string,
-    /** Callback function for changes */
+    /** Callback function for changes: `onChange(htmlText, { plainText })` */
     onChange: PropTypes.func,
     /** Defines a maximum height for the editor (it grows by default) */
     maxHeight: PropTypes.string,
@@ -170,9 +170,10 @@ class RichTextInputArea extends React.PureComponent {
   _setEditorState = (newEditorState, onStateChanged = () => {}) => {
     this.setState({ editorState: newEditorState }, () => {
       const { onChange = () => {} } = this.props;
+      const htmlText = EditorUtilities.convertToHtml(newEditorState);
+      const plainText = newEditorState.getCurrentContent().getPlainText();
 
-      // Invoking the external `onChange` callback with the converted HTML value
-      onChange(EditorUtilities.convertToHtml(newEditorState));
+      onChange(htmlText, { plainText });
       onStateChanged();
     });
   };

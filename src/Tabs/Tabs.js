@@ -15,19 +15,19 @@ class Tabs extends React.Component {
 
   getTabItemsProps = () => {
     /* eslint-disable no-unused-vars */
-    const { sideContent, ...tabItemsProps } = this.props;
+    const { sideContent, dataHook, ...tabItemsProps } = this.props;
     return tabItemsProps;
   };
 
   render() {
-    const { sideContent, hasDivider } = this.props;
+    const { sideContent, hasDivider, dataHook } = this.props;
     const tabItemsProps = this.getTabItemsProps();
     const className = classNames(styles.container, {
       [styles.hasDivider]: hasDivider,
     });
 
     return (
-      <div className={className}>
+      <div data-hook={dataHook} className={className}>
         <TabItems {...tabItemsProps} />
         <SideContent content={sideContent} />
       </div>

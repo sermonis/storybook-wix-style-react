@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ButtonNext } from 'wix-ui-core/dist/src/components/button-next';
-import cx from 'classnames';
-import { iconButton } from 'wix-ui-core/dist/src/themes/backoffice';
+
 import { oneOfType, string, node, oneOf, object, bool, func } from 'prop-types';
 import { iconChildSize } from './constants';
 
-class IconButton extends Component {
+import { generateDataAttr } from '../utils/generateDataAttr';
+import cx from 'classnames';
+import styles from './IconButton.st.css';
+
+class IconButton extends PureComponent {
   static displayName = 'IconButton';
 
   static propTypes = {
@@ -39,24 +42,26 @@ class IconButton extends Component {
   render() {
     const {
       skin,
+      className: userClassName,
       priority,
       size,
-      className,
       children,
-      disabled,
       dataHook,
       ...rest
     } = this.props;
 
-    const classNames = cx(className, iconButton(skin, priority, size));
     const childSize = iconChildSize[size];
+
+    const { className } = styles('root', { skin, priority, size });
+    const classNames = cx(className, userClassName);
 
     return (
       <ButtonNext
         {...rest}
+        {...styles('root', { skin, priority, size }, this.props)}
+        {...generateDataAttr(this.props, ['skin', 'priority', 'size'])}
         data-hook={dataHook}
         className={classNames}
-        disabled={disabled}
       >
         {children &&
           React.cloneElement(children, {

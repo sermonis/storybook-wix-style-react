@@ -438,6 +438,31 @@ describe('Calendar', () => {
       });
     });
 
+    describe('excludePastDates', () => {
+      const defaultProps = {
+        onChange: () => {},
+      };
+
+      it('past dates should not be active', async () => {
+        const { driver } = render(
+          <Calendar
+            {...defaultProps}
+            value={new Date(2020, 0, 17)}
+            excludePastDates
+          />,
+        );
+        expect(await driver.isDayActive(new Date(2020, 0, 7))).toBe(false);
+      });
+
+      it('other days should be active', async () => {
+        const { driver } = render(
+          <Calendar {...defaultProps} value={new Date()} excludePastDates />,
+        );
+
+        expect(await driver.isDayActive(new Date())).toBe(true);
+      });
+    });
+
     describe('Auto Focus', () => {
       const defaultProps = {
         onChange: () => {},

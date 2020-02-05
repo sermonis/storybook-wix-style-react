@@ -50,34 +50,14 @@ class MessageBoxFunctionalLayout extends WixComponent {
     }
   }, 16);
 
-  render() {
+  _renderContent = () => {
     const {
-      title,
-      onCancel,
-      onOk,
-      onClose,
-      confirmText,
-      confirmPrefixIcon,
-      confirmSuffixIcon,
-      cancelText,
-      cancelPrefixIcon,
-      cancelSuffixIcon,
       children,
-      buttonsHeight,
       hideFooter,
-      footerBottomChildren,
-      theme,
-      closeButton,
-      disableConfirmation,
-      disableCancel,
-      width,
-      margin,
       noBodyPadding,
       maxHeight,
       fullscreen,
       withEmptyState,
-      sideActions,
-      image,
     } = this.props;
     const { hasScroll, scrolledToBottom } = this.state;
 
@@ -93,6 +73,46 @@ class MessageBoxFunctionalLayout extends WixComponent {
     const messageBoxBodyStyle = {
       maxHeight,
     };
+
+    return (
+      <div
+        data-hook="message-box-body"
+        className={messageBoxBodyClassNames}
+        style={messageBoxBodyStyle}
+        ref={this._initializeMessageBoxRef}
+      >
+        {children}
+      </div>
+    );
+  };
+
+  render() {
+    const {
+      title,
+      onCancel,
+      onOk,
+      onClose,
+      confirmText,
+      confirmPrefixIcon,
+      confirmSuffixIcon,
+      cancelText,
+      cancelPrefixIcon,
+      cancelSuffixIcon,
+      buttonsHeight,
+      hideFooter,
+      footerBottomChildren,
+      theme,
+      closeButton,
+      disableConfirmation,
+      disableCancel,
+      width,
+      margin,
+      noBodyPadding,
+      fullscreen,
+      withEmptyState,
+      sideActions,
+      image,
+    } = this.props;
 
     const contentClassName = classNames(styles.content, {
       [styles.fullscreenContent]: fullscreen,
@@ -114,24 +134,10 @@ class MessageBoxFunctionalLayout extends WixComponent {
         {image && !withEmptyState ? (
           <div className={styles.messageWithImage}>
             <div className={imageClassName} children={image} />
-            <div
-              data-hook="message-box-body"
-              className={messageBoxBodyClassNames}
-              style={messageBoxBodyStyle}
-              ref={this._initializeMessageBoxRef}
-            >
-              {children}
-            </div>
+            {this._renderContent()}
           </div>
         ) : (
-          <div
-            data-hook="message-box-body"
-            className={messageBoxBodyClassNames}
-            style={messageBoxBodyStyle}
-            ref={this._initializeMessageBoxRef}
-          >
-            {children}
-          </div>
+          this._renderContent()
         )}
         {!hideFooter ? (
           <FooterLayout

@@ -10,7 +10,7 @@ describe('TextLink', () => {
   it('should have a textLink', () => {
     const driver = createDriver(<TextLink link="" />);
 
-    expect(driver.exists()).toBeTruthy();
+    expect(driver.exists()).toBe(true);
   });
 
   it('should render children', () => {
@@ -35,21 +35,21 @@ describe('TextLink', () => {
     const driver = createDriver(
       <TextLink link="" darkBackground size="small" />,
     );
-    expect(driver.isDarkBackground()).toBeTruthy();
+    expect(driver.isDarkBackground()).toBe(true);
   });
 
   it('should be with dark background', () => {
     const driver = createDriver(
       <TextLink link="" theme="darkBackground" size="small" />,
     );
-    expect(driver.isDarkBackground()).toBeTruthy();
+    expect(driver.isDarkBackground()).toBe(true);
   });
 
   it('should be with greyscale theme', () => {
     const driver = createDriver(
       <TextLink link="" theme="greyScale" size="small" />,
     );
-    expect(driver.isGreyScale()).toBeTruthy();
+    expect(driver.isGreyScale()).toBe(true);
   });
 
   it('should get greyscale theme', () => {
@@ -66,29 +66,29 @@ describe('TextLink', () => {
 
   it('should be with light background', () => {
     const driver = createDriver(<TextLink link="" size="small" />);
-    expect(driver.isLightBackground()).toBeTruthy();
+    expect(driver.isLightBackground()).toBe(true);
   });
 
   it('should be with underline', () => {
     const driver = createDriver(<TextLink link="" underlineStyle="always" />);
-    expect(driver.isUnderline()).toBeTruthy();
+    expect(driver.isUnderline()).toBe(true);
   });
 
   it('should not be with underline', () => {
     const driver = createDriver(<TextLink link="" underlineStyle="never" />);
     driver.hover();
-    expect(driver.isUnderline()).toBeFalsy();
+    expect(driver.isUnderline()).toBe(false);
   });
 
   it('should not be with underline by default', () => {
     const driver = createDriver(<TextLink link="" />);
-    expect(driver.isUnderline()).toBeFalsy();
+    expect(driver.isUnderline()).toBe(false);
   });
 
   it('should have underline on hover', () => {
     const driver = createDriver(<TextLink link="" />);
     driver.hover();
-    expect(driver.isUnderline()).toBeTruthy();
+    expect(driver.isUnderline()).toBe(true);
   });
 
   it('should have a link', () => {

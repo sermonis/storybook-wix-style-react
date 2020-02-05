@@ -61,6 +61,8 @@ export function ReactBase(base) {
       Simulate.mouseEnter(await htmlElement(), eventData),
     mouseLeave: async eventData =>
       Simulate.mouseLeave(await htmlElement(), eventData),
+    beforeInput: async eventData =>
+      Simulate.beforeInput(await htmlElement(), eventData),
   };
 
   const _private = {

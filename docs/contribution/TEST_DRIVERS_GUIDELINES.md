@@ -39,8 +39,7 @@ Private drivers (`Component.private.driver.js`) are used for actions that must b
 In general, drivers methods are separated into two types - **getters** and **interactions**.
 
 ### Getters
-As a rule of thumb, we write a getter for each prop passed.
-these getters assist the consumer to make sure the he wired of the component correctly. The driver should return a primitive value or a node, but not a complex object
+As a rule of thumb, we write a getter for (almost) every prop passed. These getters assist the consumer to make sure the he wired of the component correctly. The driver should return a primitive value or a node, but not a complex object. Usually, we will not right a driver for visual properties like `skin`
 
 #### Primitives: String, Number and Boolean
 Props that effects rendering values are usually just returned in their same type:
@@ -108,6 +107,8 @@ The above actions can be exposed in a private driver to unit-test the component,
 ```
 
 1. If you write a boolean driver method (e.g. `isDisabled()`), remember to test it both ways (when it's `true` and also `false`).
+
+1. Avoid importing stylesheets or any asset that is not pure javascript (JSX code, stylesheets, etc...)
 
 ## Exposed Testkits
 The following process is automated, so no action is needed from the developer side.

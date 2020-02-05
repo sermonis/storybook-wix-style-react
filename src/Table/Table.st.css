@@ -25,6 +25,14 @@
   background-color: value(B50);
 }
 
+.content {
+  -st-states: titleBarVisible;
+}
+
+.content:not(:first-child):not(:titleBarVisible) {
+  border-top: 1px solid value(D60);
+}
+
 /*
  * TableActionCell
  */

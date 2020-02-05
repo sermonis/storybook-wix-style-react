@@ -8,24 +8,30 @@ $FontMedium: "HelveticaNeueW01-65Medi", "HelveticaNeueW02-65Medi", "HelveticaNeu
 $FontBold: "HelveticaNeueW01-75Bold", "HelveticaNeueW02-75Bold", "HelveticaNeueW10-75Bold", $fonts-fallback;
 
 @mixin FontUltraThin() {
-  font-family: $FontUltraThin;
+  font-family: $FontUltraThin; /* IE11 */
+  font-family: var(--wsr-font-family, $FontUltraThin);
 }
 
 @mixin FontThin() {
-  font-family: $FontThin;
+  font-family: $FontThin; /* IE11 */
+  font-family: var(--wsr-font-family, $FontThin);
 }
 @mixin FontLight() {
-  font-family: $FontLight;
+  font-family: $FontLight; /* IE11 */
+  font-family: var(--wsr-font-family, $FontLight);
 }
 
 @mixin FontRoman() {
-  font-family: $FontRoman;
+  font-family: $FontRoman; /* IE11 */
+  font-family: var(--wsr-font-family, $FontRoman);
 }
 
 @mixin FontMedium() {
-  font-family: $FontMedium;
+  font-family: $FontMedium; /* IE11 */
+  font-family: var(--wsr-font-family, $FontMedium);
 }
 
 @mixin FontBold() {
-  font-family: $FontBold;
+  font-family: $FontBold; /* IE11 */
+  font-family: var(--wsr-font-family, $FontBold);
 }

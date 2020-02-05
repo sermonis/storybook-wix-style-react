@@ -80,18 +80,16 @@ class InteractiveEyeTest extends React.Component {
 }
 
 tests.forEach(({ describe, its }) => {
-  let _describe = '';
-  if (describe) {
-    _describe += `/${describe}`;
-  }
-
   its.forEach(({ it, props }) => {
-    storiesOf(`InputWithOptions${_describe}`, module).add(it, () => (
-      <Box direction="vertical">
-        <Box margin={2}>
-          <InteractiveEyeTest {...props} />
+    storiesOf(`InputWithOptions${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <Box direction="vertical">
+          <Box margin={2}>
+            <InteractiveEyeTest {...props} />
+          </Box>
         </Box>
-      </Box>
-    ));
+      ),
+    );
   });
 });

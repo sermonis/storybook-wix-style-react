@@ -1,27 +1,28 @@
 import ReactTestUtils from 'react-dom/test-utils';
+import { DataHooks } from './constants';
 
 export const colorPickerDriverFactory = ({ element }) => {
   return {
     exists: () => !!element,
     confirm: () =>
       ReactTestUtils.Simulate.click(
-        element.querySelector('[data-hook="color-picker-confirm-button"]'),
+        element.querySelector(`[data-hook="${DataHooks.confirmButton}"]`),
       ),
     cancel: () =>
       ReactTestUtils.Simulate.click(
-        element.querySelector('[data-hook="color-picker-cancel-button"]'),
+        element.querySelector(`[data-hook="${DataHooks.cancelButton}"]`),
       ),
     clickOnPreviousColor: () =>
       ReactTestUtils.Simulate.click(
-        element.querySelector('[data-hook="color-picker-history-previous"]'),
+        element.querySelector(`[data-hook="${DataHooks.historyPrevious}"]`),
       ),
     historyPanelExists: () =>
-      !!element.querySelector('[data-hook="color-picker-history"]'),
+      !!element.querySelector(`[data-hook="${DataHooks.history}"]`),
     historyCurrentColor: () =>
-      element.querySelector('[data-hook="color-picker-history-current"]').style
+      element.querySelector(`[data-hook="${DataHooks.historyCurrent}"]`).style
         .background,
     historyPreviousColor: () =>
-      element.querySelector('[data-hook="color-picker-history-previous"]').style
+      element.querySelector(`[data-hook="${DataHooks.historyPrevious}"]`).style
         .background,
   };
 };

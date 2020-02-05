@@ -16,8 +16,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it }) => {
-    storiesOf(`SidebarBackButton/${describe}`, module).add(it, () => (
-      <SidebarBackButton>Go Back</SidebarBackButton>
-    ));
+    storiesOf(
+      `SidebarBackButton${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <SidebarBackButton>Go Back</SidebarBackButton>);
   });
 });

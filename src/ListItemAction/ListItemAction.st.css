@@ -1,3 +1,4 @@
+
 :import {
   -st-from: "../Foundation/stylable/colors.st.css";
   -st-named:
@@ -14,8 +15,8 @@
 }
 
 :import {
-  -st-from: "wix-ui-core/dist/src/hocs/Focusable/Focusable.st.css";
-  -st-default: Focusable;
+  -st-from: "wix-ui-core/hocs.st.css";
+  -st-named: Focusable;
 }
 
 
@@ -30,7 +31,10 @@
 
   background-color: value(D80);
   cursor: pointer;
-  text-align: start;
+
+  /* not supported in IE11 & Edge; 'left' as fallback */
+  text-align: left;
+  text-align: start;  
 
   outline:none;
   border: none;

@@ -42,7 +42,7 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Card/${describe}`, module).add(it, () => (
+    storiesOf(`Card${describe ? '/' + describe : ''}`, module).add(it, () => (
       <Subheader {...props} />
     ));
   });

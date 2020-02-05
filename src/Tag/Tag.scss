@@ -9,6 +9,7 @@
   max-width: -moz-available;
   max-width: -webkit-fill-available;
   max-width: stretch;
+  min-height: 18px;
 
   .thumb {
     //TODO - should be done in the Avatar component

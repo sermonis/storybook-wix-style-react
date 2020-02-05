@@ -212,6 +212,14 @@ const tests = [
           selectionDisabled: true,
         },
       },
+      {
+        it: 'Should display the table without column titles',
+        props: {
+          data,
+          columns,
+          children: <Table.Content titleBarVisible={false} />,
+        },
+      },
     ],
   },
   {
@@ -247,6 +255,17 @@ const tests = [
           ],
         },
       },
+      {
+        it: 'Should display the table with toolbar and without column titles',
+        props: {
+          data,
+          columns,
+          children: [
+            <ToolbarExample key="toolbar" />,
+            <Table.Content key="content" titleBarVisible={false} />,
+          ],
+        },
+      },
     ],
   },
   {
@@ -261,13 +280,25 @@ const tests = [
           children: <EmptyStateExample />,
         },
       },
+      {
+        it: 'Should display the table with toolbar and EmptyState',
+        props: {
+          data,
+          columns,
+          showSelection: true,
+          children: [
+            <ToolbarExample key="toolbar" />,
+            <EmptyStateExample key="emptystate" />,
+          ],
+        },
+      },
     ],
   },
 ];
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Table/${describe}`, module).add(it, () => (
+    storiesOf(`Table${describe ? '/' + describe : ''}`, module).add(it, () => (
       <div style={{ backgroundColor: '#DFE5EB', padding: '20px' }}>
         <Card>
           <Table {...props} />

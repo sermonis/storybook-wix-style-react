@@ -64,8 +64,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`FillPreview/${describe}`, module).add(it, () => (
-      <FillPreview {...props} />
-    ));
+    storiesOf(`FillPreview${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => <FillPreview {...props} />,
+    );
   });
 });

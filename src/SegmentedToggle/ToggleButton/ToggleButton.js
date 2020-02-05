@@ -28,6 +28,7 @@ const ToggleButton = ({
     {...rest}
     {...styles('root', { selected }, rest)}
     data-hook={dataHook}
+    data-selected={selected}
     disabled={disabled}
     onFocus={focusableOnFocus}
     onBlur={focusableOnBlur}

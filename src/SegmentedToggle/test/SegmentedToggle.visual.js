@@ -1,8 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import SegmentedToggle from '../SegmentedToggle';
-import LockLocked from '../../new-icons/LockLocked';
+import LockLocked from 'wix-ui-icons-common/LockLocked';
 import { Layout, Cell } from 'wix-style-react/Layout';
+
+import SegmentedToggle from '../SegmentedToggle';
 
 const options = [
   { value: 'option1', text: 'Option1' },
@@ -97,24 +98,27 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`SegmentedToggle/${describe}`, module).add(it, () => {
-      const twoOptions = options.slice(0, 2);
+    storiesOf(`SegmentedToggle${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => {
+        const twoOptions = options.slice(0, 2);
 
-      return (
-        <Layout>
-          <Cell span={4}>
-            {renderSegmentedToggle({
-              options: twoOptions,
-              ...props,
-              ...defaultProps,
-            })}
-          </Cell>
-          <Cell span={6}>
-            {renderSegmentedToggle({ options, ...props, ...defaultProps })}
-          </Cell>
-        </Layout>
-      );
-    });
+        return (
+          <Layout>
+            <Cell span={4}>
+              {renderSegmentedToggle({
+                options: twoOptions,
+                ...props,
+                ...defaultProps,
+              })}
+            </Cell>
+            <Cell span={6}>
+              {renderSegmentedToggle({ options, ...props, ...defaultProps })}
+            </Cell>
+          </Layout>
+        );
+      },
+    );
   });
 });
 

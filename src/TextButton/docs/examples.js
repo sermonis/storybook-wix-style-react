@@ -1,6 +1,7 @@
 export const skins = `
-<Layout cols={4} gap={0} justifyItems="center">
+<Layout cols={5} gap={0} justifyItems="center">
   <TextButton >standard</TextButton>
+  <TextButton skin="destructive">destructive</TextButton>
   <Box backgroundColor="D10">
     <TextButton skin="light">light</TextButton>
   </Box>

@@ -1,13 +1,6 @@
-import {
-  baseUniDriverFactory,
-  StylableUnidriverUtil,
-} from '../../test/utils/unidriver';
-
-import style from './Text.st.css';
+import { baseUniDriverFactory } from '../../test/utils/unidriver';
 
 export const textUniDriverFactory = base => {
-  const stylableUtil = new StylableUnidriverUtil(style);
-
   return {
     ...baseUniDriverFactory(base),
     /**
@@ -26,26 +19,26 @@ export const textUniDriverFactory = base => {
      * Get size
      * @returns { 'tiny' | 'small' | 'medium' }
      */
-    getSize: () => stylableUtil.getStyleState(base, 'size'),
+    getSize: () => base.attr('data-size'),
     /**
      * Get skin
      * @returns { 'standard'| 'error'| 'success'| 'premium'| 'disabled' }
      */
-    getSkin: () => stylableUtil.getStyleState(base, 'skin'),
+    getSkin: () => base.attr('data-skin'),
     /**
      * Get weight
      * @returns { 'thin' | 'normal' | 'bold' }
      */
-    getWeight: () => stylableUtil.getStyleState(base, 'weight'),
+    getWeight: () => base.attr('data-weight'),
     /**
      * Is light
      * @returns { boolean }
      */
-    isLight: () => stylableUtil.hasStyleState(base, 'light'),
+    isLight: async () => (await base.attr('data-light')) === 'true',
     /**
      * Is secondary
      * @returns { boolean }
      */
-    isSecondary: () => stylableUtil.hasStyleState(base, 'secondary'),
+    isSecondary: async () => (await base.attr('data-secondary')) === 'true',
   };
 };

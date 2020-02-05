@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { storiesOf } from '@storybook/react';
-import { storySettings } from '../docs/storySettings';
 import { uniTestkitFactoryCreator } from 'wix-ui-test-utils/vanilla';
 import ColorPicker from '..';
 
@@ -80,8 +79,11 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`ColorPicker/${describe}`, module).add(it, () => (
-      <ColorPickerWrapper {...props} componentDidMount={componentDidMount} />
-    ));
+    storiesOf(`ColorPicker${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <ColorPickerWrapper {...props} componentDidMount={componentDidMount} />
+      ),
+    );
   });
 });

@@ -1,9 +1,12 @@
-@import "../common";
+@import '../common';
 
 $sidebarWidth: 228px;
-$mainBackgroundColor: #23263e;
-$scrollbarThumbHoverColor : #555;
-$scrollbarThumbColor: rgba(255, 255, 255, 0.4);
+$mainBackgroundColor: #23263c;
+
+$darkScrollbarThumbHoverColor : $D80-66;
+$darkScrollbarThumbColor: $D80-42;
+$lightScrollbarThumbHoverColor: $D10-66;
+$lightScrollbarThumbColor: $D10-42;
 
 @keyframes inFromLeft {
   from {
@@ -46,7 +49,6 @@ $scrollbarThumbColor: rgba(255, 255, 255, 0.4);
   width: $sidebarWidth;
   height: 100%;
   position: relative;
-  border-right: 1px solid $D60;
 
   overflow: hidden;
   min-height: 0;
@@ -60,6 +62,7 @@ $scrollbarThumbColor: rgba(255, 255, 255, 0.4);
 
   &.light {
     background-color: $D80;
+    border-right: 1px solid $D60;
   }
 
   transition-property: margin-left, margin-right;
@@ -96,6 +99,29 @@ $scrollbarThumbColor: rgba(255, 255, 255, 0.4);
   animation-timing-function: ease-in-out;
 }
 
+.slider::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 8px;
+}
+
+.slider::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: $darkScrollbarThumbColor;
+}
+
+.slider.light::-webkit-scrollbar-thumb {
+  background-color: $lightScrollbarThumbColor;
+}
+
+.slider::-webkit-scrollbar-thumb:hover {
+  border-radius: 4px;
+  background: $darkScrollbarThumbHoverColor;
+}
+
+.slider.light::-webkit-scrollbar-thumb:hover {
+  background: $lightScrollbarThumbHoverColor;
+}
+
 .sliderInFromRight {
   animation-name: inFromRight;
 
@@ -126,18 +152,4 @@ $scrollbarThumbColor: rgba(255, 255, 255, 0.4);
   [dir='rtl'] & {
     animation-name: outToRight;
   }
-}
-
-.slider::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 8px;
-}
-
-.slider::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: $scrollbarThumbColor;
-}
-
-.slider::-webkit-scrollbar-thumb:hover {
-  background: $scrollbarThumbHoverColor;
 }

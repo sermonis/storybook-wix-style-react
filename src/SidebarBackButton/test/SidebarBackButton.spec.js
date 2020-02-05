@@ -16,7 +16,7 @@ describe('SidebarBackButton', () => {
   it('should render', async () => {
     const { driver } = render(<SidebarBackButton>Click Me</SidebarBackButton>);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
     expect(await driver.getButtonText()).toEqual('Click Me');
   });
 });

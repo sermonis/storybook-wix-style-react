@@ -4,7 +4,7 @@ import Card from 'wix-style-react/Card';
 import Box from 'wix-style-react/Box';
 
 const Preview = props => {
-  const { children, wrapWithCard, stretch } = props;
+  const { children, wrapWithCard, wrapWithCardContent, stretch } = props;
 
   return (
     <Box
@@ -14,6 +14,8 @@ const Preview = props => {
       backgroundColor="D70"
     >
       {wrapWithCard ? (
+        <Card>{children}</Card>
+      ) : wrapWithCardContent ? (
         <Card>
           <Card.Content>{children}</Card.Content>
         </Card>

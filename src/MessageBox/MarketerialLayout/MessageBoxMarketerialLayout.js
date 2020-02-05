@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import WixComponent from '../../BaseComponents/WixComponent';
 import Heading from '../../Heading';
 import Text from '../../Text';
+import TextButton from '../../TextButton';
 import classNames from 'classnames';
 import CloseButton from '../../CloseButton';
 
@@ -23,19 +24,23 @@ class MessageBoxMarketerialLayout extends WixComponent {
       imageComponent,
       footerBottomChildren,
       removeButtonsPadding,
+      width,
+      noBodyPadding,
     } = this.props;
 
     const headerClasses = classNames({
-      [styles.header]: true,
+      [styles.headerBase]: true,
+      [styles.header]: !!imageComponent || !!imageUrl,
       [styles[`header-${theme}`]]: true,
     });
 
     // instead of introducing a breaking change for padding removal for non buttons existence, we add this prop
     const shouldRemoveButtonsPadding =
-      removeButtonsPadding && !primaryButtonLabel & !secondaryButtonLabel;
+      removeButtonsPadding && !primaryButtonLabel && !secondaryButtonLabel;
+    const shouldDisplayBodyPadding = !noBodyPadding;
 
     return (
-      <div className={styles.root}>
+      <div className={styles.root} style={{ width }}>
         <div className={headerClasses}>
           <div className={styles.close}>
             <CloseButton
@@ -47,16 +52,25 @@ class MessageBoxMarketerialLayout extends WixComponent {
           </div>
           {imageComponent ? (
             <div className={styles.headerImageComponent}>{imageComponent}</div>
-          ) : (
+          ) : imageUrl ? (
             <div className={styles.headerImage}>
               <img src={imageUrl} data-hook="header-image" />
             </div>
-          )}
+          ) : null}
         </div>
-        <div className={styles.title} data-hook="message-box-title">
+        <div
+          className={classNames(styles.title, {
+            [styles.bodyPadding]: shouldDisplayBodyPadding,
+          })}
+          data-hook="message-box-title"
+        >
           <Heading appearance="H1">{title}</Heading>
         </div>
-        <div className={styles.content}>
+        <div
+          className={classNames(styles.content, {
+            [styles.bodyPadding]: shouldDisplayBodyPadding,
+          })}
+        >
           <Text size="medium" weight="thin">
             {content}
           </Text>
@@ -82,6 +96,7 @@ class MessageBoxMarketerialLayout extends WixComponent {
     const {
       primaryButtonLabel,
       primaryButtonTheme,
+      primaryButtonNode,
       theme,
       onPrimaryButtonClick,
       primaryButtonDisabled,
@@ -91,25 +106,30 @@ class MessageBoxMarketerialLayout extends WixComponent {
     } = this.props;
     return (
       <div className={styles.buttonsContainer}>
-        {primaryButtonLabel ? (
-          <div className={styles.primaryButtonContainer}>
-            <Button
-              theme={`full${primaryButtonTheme || theme}`}
-              onClick={onPrimaryButtonClick}
-              dataHook="primary-button"
-              disabled={primaryButtonDisabled}
-            >
-              {primaryButtonLabel}
-            </Button>
-          </div>
-        ) : null}
-        {secondaryButtonLabel && !footerBottomChildren ? (
+        {!!primaryButtonNode && (
+          <div data-hook="primary-button-node">{primaryButtonNode}</div>
+        )}
+        {!primaryButtonNode && primaryButtonLabel && (
+          <Button
+            theme={`full${primaryButtonTheme || theme}`}
+            onClick={onPrimaryButtonClick}
+            dataHook="primary-button"
+            disabled={primaryButtonDisabled}
+          >
+            {primaryButtonLabel}
+          </Button>
+        )}
+        {secondaryButtonLabel && !footerBottomChildren && (
           <div className={styles.secondaryButtonContainer}>
-            <span onClick={onSecondaryButtonClick} data-hook="secondary-button">
+            <TextButton
+              size="small"
+              onClick={onSecondaryButtonClick}
+              dataHook="secondary-button"
+            >
               {secondaryButtonLabel}
-            </span>
+            </TextButton>
           </div>
-        ) : null}
+        )}
       </div>
     );
   };
@@ -120,6 +140,7 @@ MessageBoxMarketerialLayout.propTypes = {
   content: PropTypes.node.isRequired,
   primaryButtonLabel: PropTypes.string,
   primaryButtonDisabled: PropTypes.bool,
+  primaryButtonNode: PropTypes.node,
   secondaryButtonLabel: PropTypes.string,
   onPrimaryButtonClick: PropTypes.func,
   onSecondaryButtonClick: PropTypes.func,
@@ -130,11 +151,15 @@ MessageBoxMarketerialLayout.propTypes = {
   theme: PropTypes.oneOf(['blue', 'purple', 'white']),
   primaryButtonTheme: PropTypes.oneOf(['blue', 'purple']),
   removeButtonsPadding: PropTypes.bool,
+  width: PropTypes.string,
+  noBodyPadding: PropTypes.bool,
 };
 
 MessageBoxMarketerialLayout.defaultProps = {
   theme: 'blue',
   removeButtonsPadding: false,
+  width: '600px',
+  noBodyPadding: false,
 };
 
 export default MessageBoxMarketerialLayout;

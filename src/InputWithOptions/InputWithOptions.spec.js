@@ -59,8 +59,8 @@ describe('InputWithOptions', () => {
       const { inputDriver, dropdownLayoutDriver } = createDriver(
         <InputWithOptions options={options} autoFocus />,
       );
-      expect(await inputDriver.isFocus()).toBeTruthy();
-      expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+      expect(await inputDriver.isFocus()).toBe(true);
+      expect(await dropdownLayoutDriver.isShown()).toBe(false);
     });
 
     it('should have an Input and an hidden DropdownLayout', async () => {
@@ -77,7 +77,7 @@ describe('InputWithOptions', () => {
         <InputWithOptions options={options} />,
       );
       await driver.focus();
-      expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(false);
     });
 
     describe('showOptionsIfEmptyInput property', () => {
@@ -207,7 +207,7 @@ describe('InputWithOptions', () => {
         <InputWithOptions options={options} />,
       );
       await driver.pressKey('Any');
-      expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(false);
     });
 
     it('should show DropdownLayout on down key', async () => {
@@ -215,7 +215,7 @@ describe('InputWithOptions', () => {
         <InputWithOptions options={options} />,
       );
       await driver.pressKey('ArrowDown');
-      expect(await dropdownLayoutDriver.isShown()).toBeTruthy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(true);
     });
 
     it('should not show DropdownLayout on modifier keys', async () => {
@@ -223,11 +223,11 @@ describe('InputWithOptions', () => {
         <InputWithOptions options={options} />,
       );
       await driver.pressKey('Shift');
-      expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(false);
       await driver.pressKey('Alt');
-      expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(false);
       await driver.pressKey('Control');
-      expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(false);
     });
 
     it('should hide DropdownLayout on enter and esc key press', async () => {
@@ -235,11 +235,11 @@ describe('InputWithOptions', () => {
         <InputWithOptions options={options} />,
       );
       await driver.pressKey('ArrowDown');
-      expect(await dropdownLayoutDriver.isShown()).toBeTruthy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(true);
       await driver.pressKey('Enter');
-      expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(false);
       await driver.pressKey('Escape');
-      expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(false);
     });
 
     it('should start keyboard navigation from last selected option when re-opening the dropdown layout', async () => {
@@ -253,10 +253,10 @@ describe('InputWithOptions', () => {
       await driver.focus();
       await driver.pressKey('ArrowDown');
 
-      expect(await dropdownLayoutDriver.isOptionSelected(1)).toBeTruthy();
+      expect(await dropdownLayoutDriver.isOptionSelected(1)).toBe(true);
 
       await driver.pressKey('ArrowDown'); // going to skip disabled option at index 2
-      expect(await dropdownLayoutDriver.isOptionHovered(3)).toBeTruthy();
+      expect(await dropdownLayoutDriver.isOptionHovered(3)).toBe(true);
     });
 
     it('should call onManuallyInput on enter key press with a trimmed value', async () => {
@@ -410,7 +410,7 @@ describe('InputWithOptions', () => {
       );
       await driver.focus();
       await dropdownLayoutDriver.clickAtOption(0);
-      expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(false);
     });
 
     it('should hide options on outside click', async () => {
@@ -418,7 +418,19 @@ describe('InputWithOptions', () => {
         <InputWithOptions options={options} />,
       );
       await driver.outsideClick();
-      expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(false);
+    });
+
+    it('should trigger callback function on clicking outside', async () => {
+      const handleClickOutside = jest.fn();
+      const { driver } = createDriver(
+        <InputWithOptions
+          options={options}
+          onClickOutside={handleClickOutside}
+        />,
+      );
+      await driver.outsideClick();
+      expect(handleClickOutside).toHaveBeenCalled();
     });
 
     it('should not hide options on selection', async () => {
@@ -427,7 +439,7 @@ describe('InputWithOptions', () => {
       );
       await driver.focus();
       await dropdownLayoutDriver.clickAtOption(0);
-      expect(await dropdownLayoutDriver.isShown()).toBeTruthy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(true);
     });
 
     it('should call onSelect when an option is pressed', async () => {
@@ -493,18 +505,18 @@ describe('InputWithOptions', () => {
       const { driver } = createDriver(
         <InputWithOptions options={options} highlight />,
       );
-      expect(
-        await driver.isOptionWrappedToHighlighter(options[0].id),
-      ).toBeTruthy();
+      expect(await driver.isOptionWrappedToHighlighter(options[0].id)).toBe(
+        true,
+      );
     });
 
     it('should not wrap all options to highlighter component if prop highlight false', async () => {
       const { driver } = createDriver(
         <InputWithOptions options={options} highlight={false} />,
       );
-      expect(
-        await driver.isOptionWrappedToHighlighter(options[0].id),
-      ).toBeFalsy();
+      expect(await driver.isOptionWrappedToHighlighter(options[0].id)).toBe(
+        false,
+      );
     });
 
     // TODO
@@ -557,14 +569,14 @@ describe('InputWithOptions', () => {
 
     it('should support required prop', async () => {
       const { inputDriver } = createDriver(<InputWithOptions required />);
-      expect(await inputDriver.getRequired()).toBeTruthy();
+      expect(await inputDriver.getRequired()).toBe(true);
     });
 
     it('should support a divider option', async () => {
       const { dropdownLayoutDriver } = createDriver(
         <InputWithOptions options={options} />,
       );
-      expect(await dropdownLayoutDriver.isOptionADivider(4)).toBeTruthy();
+      expect(await dropdownLayoutDriver.isOptionADivider(4)).toBe(true);
     });
 
     describe('onKeyArrowDown', () => {
@@ -573,11 +585,11 @@ describe('InputWithOptions', () => {
           <InputWithOptions options={options} onKeyArrowDown={() => null} />,
         );
         await driver.pressKey('ArrowDown');
-        expect(await dropdownLayoutDriver.isShown()).toBeTruthy();
+        expect(await dropdownLayoutDriver.isShown()).toBe(true);
         await driver.pressKey('Enter');
-        expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+        expect(await dropdownLayoutDriver.isShown()).toBe(false);
         await driver.pressKey('Escape');
-        expect(await dropdownLayoutDriver.isShown()).toBeFalsy();
+        expect(await dropdownLayoutDriver.isShown()).toBe(false);
       });
     });
 
@@ -647,6 +659,100 @@ describe('InputWithOptions', () => {
         await driver.pressKey('ArrowDown');
         await driver.pressKey(' ');
         expect(onSelect).toBeCalledWith(options[0]);
+      });
+    });
+
+    describe('onClose', () => {
+      it('should call onClose when click on option element', async () => {
+        const onClose = jest.fn();
+        const { driver, dropdownLayoutDriver } = createDriver(
+          <InputWithOptions options={options} onClose={onClose} />,
+        );
+
+        await driver.focus();
+        expect(onClose).not.toHaveBeenCalled();
+        await dropdownLayoutDriver.clickAtOption(0);
+        expect(onClose).toHaveBeenCalled();
+      });
+
+      it('should call onClose when press escape button', async () => {
+        const onClose = jest.fn();
+        const { driver } = createDriver(
+          <InputWithOptions options={options} onClose={onClose} />,
+        );
+
+        await driver.focus();
+        await driver.pressKey('ArrowDown');
+        expect(onClose).not.toHaveBeenCalled();
+        await driver.pressKey('Escape');
+        expect(onClose).toHaveBeenCalled();
+      });
+    });
+
+    describe('onOptionsHide', () => {
+      it('should call onOptionsHide when click on option element', async () => {
+        const onOptionsHide = jest.fn();
+        const { driver, dropdownLayoutDriver } = createDriver(
+          <InputWithOptions options={options} onOptionsHide={onOptionsHide} />,
+        );
+
+        await driver.focus();
+        await dropdownLayoutDriver.clickAtOption(0);
+        expect(onOptionsHide).toHaveBeenCalled();
+      });
+
+      it('should call on onOptionsHide key after options hide when select element by enter', async () => {
+        const onOptionsHide = jest.fn();
+        const { driver } = createDriver(
+          <InputWithOptions options={options} onOptionsHide={onOptionsHide} />,
+        );
+
+        await driver.focus();
+        await driver.pressKey('ArrowDown');
+        await driver.pressKey('Enter');
+        expect(onOptionsHide).toHaveBeenCalled();
+      });
+
+      it('should not call onOptionsHide when closeOnSelect is false and when click by element', async () => {
+        const onOptionsHide = jest.fn();
+
+        const { inputDriver, dropdownLayoutDriver } = createDriver(
+          <InputWithOptions
+            options={options}
+            onOptionsHide={onOptionsHide}
+            closeOnSelect={false}
+          />,
+        );
+
+        await inputDriver.focus();
+        await dropdownLayoutDriver.clickAtOption(0);
+        expect(onOptionsHide).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('onOptionsShow', () => {
+      it('should call onOptionsShow when focusing an element with arrow down', async () => {
+        const onOptionsShow = jest.fn();
+        const { driver } = createDriver(
+          <InputWithOptions options={options} onOptionsShow={onOptionsShow} />,
+        );
+
+        await driver.pressKey('ArrowDown');
+
+        expect(onOptionsShow).toHaveBeenCalled();
+      });
+
+      it('should call onOptionsShow after enter text', async () => {
+        const onOptionsShow = jest.fn();
+        const { inputDriver } = createDriver(
+          <InputWithOptions options={options} onOptionsShow={onOptionsShow} />,
+        );
+
+        expect(onOptionsShow).not.toHaveBeenCalled();
+        await inputDriver.focus();
+        expect(onOptionsShow).not.toHaveBeenCalled();
+        await inputDriver.enterText('some value');
+        expect(onOptionsShow).toHaveBeenCalled();
       });
     });
 

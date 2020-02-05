@@ -205,14 +205,17 @@ const InteractiveModalMobileLayout = ({ componentDidMount, ...props }) => {
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`ModalMobileLayout/${describe}`, module).add(it, () => (
-      <Box
-        width="375px"
-        height="640px"
-        backgroundColor="rgba(22, 45, 61, 0.66)"
-      >
-        <InteractiveModalMobileLayout {...props} />
-      </Box>
-    ));
+    storiesOf(`ModalMobileLayout${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <Box
+          width="375px"
+          height="640px"
+          backgroundColor="rgba(22, 45, 61, 0.66)"
+        >
+          <InteractiveModalMobileLayout {...props} />
+        </Box>
+      ),
+    );
   });
 });

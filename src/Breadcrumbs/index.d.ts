@@ -3,7 +3,7 @@ import WixComponent, {WixComponentProps} from "../BaseComponents/WixComponent";
 
 export interface BreadcrumbsProps extends WixComponentProps {
   items: BreadcrumbsItem[];
-  onClick?: (BreadcrumbsItem) => any;
+  onClick?: (item: BreadcrumbsItem) => any;
   activeId?: string | number,
   size?: BreadcrumbsSize;
   theme?: BreadcrumbsTheme;

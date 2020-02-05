@@ -47,6 +47,7 @@ export const positionExample = `
       label="Text Area label"
       infoContent="Tooltip text"
       labelPlacement="left"
+      labelAlignment="top"
       required
     >
       {({ setCharactersLeft }) => (
@@ -64,6 +65,7 @@ export const positionExample = `
       label="Text Area label"
       infoContent="Tooltip text"
       labelPlacement="right"
+      labelAlignment="top"
       required
     >
       {({ setCharactersLeft }) => (

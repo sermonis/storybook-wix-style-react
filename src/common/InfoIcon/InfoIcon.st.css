@@ -1,9 +1,0 @@
-:import {
-  -st-from: "../../Foundation/stylable/colors.st.css";
-  -st-named: B10;
-}
-
-.color {
-  color: value(B10);
-  height: 24px;
-}

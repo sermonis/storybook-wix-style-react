@@ -31,20 +31,30 @@ export function createColumns({ tableProps, bulkSelectionContext }) {
       ) : (
         <TableBulkSelectionCheckbox dataHook="table-select" />
       ),
+      onCellClick: (column, row, rowNum, event) => {
+        if (row.unselectable) {
+          return;
+        }
+
+        const id = defaultTo(row.id, rowNum);
+        toggleSelectionById(id, 'Checkbox');
+        event.preventDefault();
+        event.stopPropagation();
+      },
       render: (row, rowNum) => {
         const id = defaultTo(row.id, rowNum);
         return row.unselectable ? null : (
-          <div onClick={e => e.stopPropagation()}>
+          <div>
             <Checkbox
               disabled={disabled}
               dataHook="row-select"
               checked={isSelected(id)}
-              onChange={() => toggleSelectionById(id)}
             />
           </div>
         );
       },
       width: '12px',
+      style: (_, row) => (row.unselectable ? undefined : { cursor: 'pointer' }),
     };
   };
 
@@ -89,15 +99,11 @@ export class Table extends React.Component {
   }
 
   renderChildren() {
-    const children = this.props.children;
-    return this.props.withWrapper ? (
+    const { children, withWrapper, onRowClick, dataHook } = this.props;
+    return withWrapper ? (
       <div
-        data-hook={this.props.dataHook}
-        {...style(
-          'root',
-          { isRowClickable: !!this.props.onRowClick },
-          this.props,
-        )}
+        data-hook={dataHook}
+        {...style('root', { isRowClickable: !!onRowClick }, this.props)}
       >
         {children}
       </div>
@@ -175,9 +181,11 @@ Table.propTypes = {
   /** Called when row selection changes.
    * Receives 2 arguments: `selectedIds` array, and a `change` object ( in this order).
    * `selectedIds` is the updated selected ids.
-   * `change` object has a `type` property with the following possible values: 'ALL', 'NONE', 'SINGLE_TOGGLE'.
+   * The `change` object has a `type` property with the following possible values: 'ALL', 'NONE', 'SINGLE_TOGGLE'.
    * In case of 'SINGLE_TOGGLE' the `change` object will also include an `id` prop with the item's id,
-   * and a `value` prop with the new boolean selection state of the item. */
+   * and a `value` prop with the new boolean selection state of the item.
+   * The `change` object also contains an `origin` property which indicates what initiated the selection change.
+   * The `origin` property can be set when selection is updated using a `SelectionContext` method. */
   onSelectionChanged: PropTypes.func,
 
   /** Indicates whether to show a selection column (with checkboxes).<br>
@@ -224,10 +232,11 @@ Table.propTypes = {
    *    * `render`: a function which will be called for every row in `data` to display this row's value for this column<br>
    *
    *  Each column can also specify these fields:
+   *    * `onCellClick`: A callback method to be called when a cell in this column is clicked. Signature: `onCellClick(column, rowData, rowNum, event)`
    *    * `sortable`: Sets whether this field is sortable. If `true` clicking the header will call `onSortClick`
    *    * `sortDescending`: Sets what sort icon to display in the column header. `true` will show an up arrow, `false` will show a down arrow, `undefined' will show no icon
    *    * `infoTooltipProps`: Props object for column header's [tooltip](https://wix-wix-style-react.surge.sh/?selectedKind=7.%20Tooltips&selectedStory=7.1.%20Tooltip&full=0&addons=0&stories=1&panelRight=0). Note: `dataHook`, `moveBy` and `children` will not be passed to tooltip.
-   *    * `style`: Sets the column inline style. Vertical padding cannot be set here, please use table's `rowVerticalPadding` prop
+   *    * `style`: Can be a CSS style `object` or a function that returns a style `object` (signature: `style(column, rowData, rowNum)`). Sets the column inline style. Vertical padding cannot be set here, please use table's `rowVerticalPadding` prop
    *    * `align`: Sets the alignment of the column content
    *    * `width`: CSS value to set the width to use for this column. No value means column will try to contain its children, if possible
    *    * `important`: Sets whether font color of the column should be stronger, more dominant
@@ -236,10 +245,11 @@ Table.propTypes = {
     PropTypes.shape({
       title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
       render: PropTypes.func.isRequired,
+      onCellClick: PropTypes.func,
       sortable: PropTypes.bool,
       sortDescending: PropTypes.bool,
       infoTooltipProps: PropTypes.shape(Tooltip.propTypes),
-      style: PropTypes.string,
+      style: PropTypes.oneOf([PropTypes.object, PropTypes.func]),
       align: PropTypes.oneOf(['start', 'center', 'end']),
       width: PropTypes.string,
       important: PropTypes.bool,
@@ -268,7 +278,7 @@ Table.propTypes = {
   loader: PropTypes.node,
   /** A callback when more items are requested by the user. */
   loadMore: PropTypes.func,
-  /** A callback method to be called on row click. Signature: `onRowClick(rowData, rowNum)` */
+  /** A callback method to be called on row click. Signature: `onRowClick(rowData, rowNum)`. To enable hover effect you should set this prop.*/
   onRowClick: PropTypes.func,
   /** A callback method to be called on row mouse enter. Signature: `onMouseEnterRow(rowData, rowNum)` */
   onMouseEnterRow: PropTypes.func,
@@ -296,6 +306,8 @@ Table.propTypes = {
   virtualizedTableHeight: PropTypes.number,
   /** ++EXPERIMENTAL++ Set virtualized table row height */
   virtualizedLineHeight: PropTypes.number,
+  /** ++EXPERIMENTAL++ Set ref on virtualized List containing table rows */
+  virtualizedListRef: PropTypes.any,
   /** The width of the fixed table. Can be in percentages or pixels. */
   width: PropTypes.string,
   /** Table styling. Supports `standard` and `neutral`. */

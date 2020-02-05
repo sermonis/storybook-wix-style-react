@@ -10,14 +10,13 @@ import Table from 'wix-style-react/Table';
 import TableActionCell from 'wix-style-react/TableActionCell';
 import Card from 'wix-style-react/Card';
 import Search from 'wix-style-react/Search';
-import Star from 'wix-style-react/new-icons/Star';
+import Star from 'wix-ui-icons-common/Star';
 import Avatar from 'wix-style-react/Avatar';
 
 import {
   TableToolbar,
   ItemGroup,
   Item,
-  Label,
   Title,
 } from 'wix-style-react/TableToolbar';
 

@@ -55,12 +55,12 @@ describe('Badge', () => {
     describe('uppercase prop', () => {
       it('should be uppercase by default', async () => {
         const driver = createDriver(<Badge>Hello</Badge>);
-        expect(await driver.isUppercase()).toBeTruthy();
+        expect(await driver.isUppercase()).toBe(true);
       });
 
       it('should be free-case when value is false', async () => {
         const driver = createDriver(<Badge uppercase={false}>Hello</Badge>);
-        expect(await driver.isUppercase()).toBeFalsy();
+        expect(await driver.isUppercase()).toBe(false);
       });
     });
 
@@ -81,12 +81,12 @@ describe('Badge', () => {
     describe('onClick prop', () => {
       it('cursor should be default when no onClick', async () => {
         const driver = createDriver(<Badge>Hello</Badge>);
-        expect(await driver.hasClickCursor()).toBeFalsy();
+        expect(await driver.hasClickCursor()).toBe(false);
       });
 
       it('cursor should be pointer when onClick set', async () => {
         const driver = createDriver(<Badge onClick={e => e}>Hello</Badge>);
-        expect(await driver.hasClickCursor()).toBeTruthy();
+        expect(await driver.hasClickCursor()).toBe(true);
       });
 
       it('should call event handler on badge click', async () => {

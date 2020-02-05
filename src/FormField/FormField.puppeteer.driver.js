@@ -5,17 +5,14 @@ const formFieldDriverFactory = async (component, page, { dataHook }) => {
     element: () => component,
     getLabelValue: async () => {
       const label = await component.$('[data-hook="formfield-label"]');
-      return page.evaluate(
-        _label => _label.querySelector('label').innerText,
-        label,
-      );
+      return page.evaluate(_label => _label.innerText, label);
     },
     getTooltipInfoValue: async delay => {
       const infoIcon = await component.$('[data-hook="formfield-infoicon"]');
       await infoIcon.hover();
 
       const tooltip = await tooltipDriverFactory(
-        await page.$(`[data-hook="${dataHook}-formfield-infotooltip"]`),
+        await page.$(`[data-hook="${dataHook}-formfield-infoicon-tooltip"]`),
         page,
       );
       const tooltipContent = await tooltip.getTooltipTextContent(delay);

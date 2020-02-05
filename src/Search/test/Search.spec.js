@@ -90,6 +90,18 @@ describe('Search', () => {
         expect(await driver.inputDriver.hasMenuArrow()).toBe(false);
       });
 
+      it('should not render clear text button if clearButton=false', async () => {
+        const driver = createDriver(
+          <ControlledSearch
+            options={options}
+            clearButton={false}
+            value="fox"
+          />,
+        );
+
+        expect(await driver.inputDriver.hasClearButton()).toBe(false);
+      });
+
       it('should render clear text button if input is not empty', async () => {
         const driver = createDriver(
           <ControlledSearch options={options} value="fox" />,
@@ -238,8 +250,8 @@ describe('Search', () => {
           <Search options={options} expandable />,
         );
 
-        expect(await driver.isExpandable()).toBeTruthy();
-        expect(await driver.isCollapsed()).toBeTruthy();
+        expect(await driver.isExpandable()).toBe(true);
+        expect(await driver.isCollapsed()).toBe(true);
       });
 
       it('should extend the search input when clicked', async () => {
@@ -247,9 +259,9 @@ describe('Search', () => {
           <Search options={options} expandable />,
         );
 
-        expect(await driver.isCollapsed()).toBeTruthy();
+        expect(await driver.isCollapsed()).toBe(true);
         await inputDriver.click();
-        expect(await driver.isCollapsed()).toBeFalsy();
+        expect(await driver.isCollapsed()).toBe(false);
       });
 
       it('should be focused on the input after expanding the search component', async () => {
@@ -257,9 +269,9 @@ describe('Search', () => {
           <Search options={options} expandable />,
         );
 
-        expect(await inputDriver.isFocus()).toBeFalsy();
+        expect(await inputDriver.isFocus()).toBe(false);
         await inputDriver.click();
-        expect(await inputDriver.isFocus()).toBeTruthy();
+        expect(await inputDriver.isFocus()).toBe(true);
       });
 
       it('should not collapse the input if the input has no value and blurred', async () => {
@@ -270,7 +282,7 @@ describe('Search', () => {
         await inputDriver.click();
         await inputDriver.enterText('wix');
         await inputDriver.blur();
-        expect(await driver.isCollapsed()).toBeFalsy();
+        expect(await driver.isCollapsed()).toBe(false);
       });
 
       it('should collapse the input if the input has no value and blurred', async () => {
@@ -280,7 +292,7 @@ describe('Search', () => {
 
         await inputDriver.click();
         await inputDriver.blur();
-        expect(await driver.isCollapsed()).toBeTruthy();
+        expect(await driver.isCollapsed()).toBe(true);
       });
 
       it('should have non-collapsed input when expandable=true and the input has initial value', async () => {
@@ -288,8 +300,8 @@ describe('Search', () => {
           <Search options={options} expandable defaultValue={'Test'} />,
         );
 
-        expect(await driver.isExpandable()).toBeTruthy();
-        expect(await driver.isCollapsed()).toBeFalsy();
+        expect(await driver.isExpandable()).toBe(true);
+        expect(await driver.isCollapsed()).toBe(false);
       });
 
       it('should not be collapsed by default', async () => {
@@ -297,18 +309,18 @@ describe('Search', () => {
           <Search options={options} />,
         );
 
-        expect(await driver.isExpandable()).toBeFalsy();
-        expect(await driver.isCollapsed()).toBeFalsy();
+        expect(await driver.isExpandable()).toBe(false);
+        expect(await driver.isCollapsed()).toBe(false);
         await inputDriver.click();
-        expect(await driver.isCollapsed()).toBeFalsy();
+        expect(await driver.isCollapsed()).toBe(false);
       });
       it('should not be collapsed when specified with autoFocus', async () => {
         const { driver } = createDriver(
           <Search expandable autoFocus options={options} />,
         );
 
-        expect(await driver.isExpandable()).toBeTruthy();
-        expect(await driver.isCollapsed()).toBeFalsy();
+        expect(await driver.isExpandable()).toBe(true);
+        expect(await driver.isCollapsed()).toBe(false);
       });
     });
 

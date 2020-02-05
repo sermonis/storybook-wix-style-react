@@ -1,12 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-// import { createUniDriverFactory } from 'wix-ui-test-utils/uni-driver-factory';
-import { createRendererWithUniDriver, cleanup } from '../../../test/utils/unit';
+import ChevronDown from 'wix-ui-icons-common/ChevronDown';
 import { enzymeUniTestkitFactoryCreator } from 'wix-ui-test-utils/enzyme';
 
+import { createRendererWithUniDriver, cleanup } from '../../../test/utils/unit';
 import DropdownBase from '../DropdownBase';
 import IconButton from '../../IconButton';
-import ChevronDown from '../../new-icons/ChevronDown';
 import { dropdownBasePrivateDriverFactory } from '../DropdownBase.private.uni.driver';
 
 describe('DropdownBase', () => {
@@ -240,36 +239,36 @@ describe('DropdownBase', () => {
       const { args, driver } = createUncontrolledDriver();
 
       args.open();
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
 
       args.close();
-      expect(await driver.isDropdownShown()).toBeFalsy();
+      expect(await driver.isDropdownShown()).toBe(false);
 
       args.toggle();
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
 
       args.toggle();
-      expect(await driver.isDropdownShown()).toBeFalsy();
+      expect(await driver.isDropdownShown()).toBe(false);
     });
 
     it('should close on click outside', async () => {
       const { args, driver } = createUncontrolledDriver();
 
       args.open();
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
 
       await driver.clickOutside();
-      expect(await driver.isDropdownShown()).toBeFalsy();
+      expect(await driver.isDropdownShown()).toBe(false);
     });
 
     it('should close when selecting an option', async () => {
       const { args, driver } = createUncontrolledDriver();
 
       args.open();
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
 
       await driver.selectOption(0);
-      expect(await driver.isDropdownShown()).toBeFalsy();
+      expect(await driver.isDropdownShown()).toBe(false);
     });
 
     describe('keyDown handling', () => {
@@ -282,11 +281,11 @@ describe('DropdownBase', () => {
         args.open();
 
         await driver.keyDown('ArrowDown');
-        expect(await driver.isOptionHovered(0)).toBeTruthy();
+        expect(await driver.isOptionHovered(0)).toBe(true);
 
         await driver.keyDown('Enter');
         args.open();
-        expect(await driver.isOptionSelected(0)).toBeTruthy();
+        expect(await driver.isOptionSelected(0)).toBe(true);
       });
 
       it.each([['Enter', 'Spacebar', 'ArrowDown']])(
@@ -294,10 +293,10 @@ describe('DropdownBase', () => {
         async expectedKey => {
           const { driver } = createUncontrolledDriver();
 
-          expect(await driver.isDropdownShown()).toBeFalsy();
+          expect(await driver.isDropdownShown()).toBe(false);
 
           await driver.keyDown(expectedKey);
-          expect(await driver.isDropdownShown()).toBeTruthy();
+          expect(await driver.isDropdownShown()).toBe(true);
         },
       );
     });
@@ -321,15 +320,15 @@ describe('DropdownBase', () => {
         });
 
         await driver.mouseEnterTarget();
-        expect(await driver.isDropdownShown()).toBeTruthy();
+        expect(await driver.isDropdownShown()).toBe(true);
 
         // Dropdown should still be shown when a mouseLeave happens on the target
         await driver.mouseLeaveTarget();
-        expect(await driver.isDropdownShown()).toBeTruthy();
+        expect(await driver.isDropdownShown()).toBe(true);
 
         // Dropdown should be hidden when a mouseLeave happens on the DropdownLayout
         await driver.mouseLeave();
-        expect(await driver.isDropdownShown()).toBeFalsy();
+        expect(await driver.isDropdownShown()).toBe(false);
       });
     });
   });
@@ -339,43 +338,43 @@ describe('DropdownBase', () => {
       const { driver, wrapper } = createControlledDriver();
 
       wrapper.setProps({ open: true });
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
 
       wrapper.setProps({ open: false });
-      expect(await driver.isDropdownShown()).toBeFalsy();
+      expect(await driver.isDropdownShown()).toBe(false);
     });
 
     it('should not allow controlling the behaviour using a render prop', async () => {
       const { args, driver } = createControlledDriver();
 
       args.open();
-      expect(await driver.isDropdownShown()).toBeFalsy();
+      expect(await driver.isDropdownShown()).toBe(false);
 
       args.close();
-      expect(await driver.isDropdownShown()).toBeFalsy();
+      expect(await driver.isDropdownShown()).toBe(false);
 
       args.toggle();
-      expect(await driver.isDropdownShown()).toBeFalsy();
+      expect(await driver.isDropdownShown()).toBe(false);
     });
 
     it('should not close on click outside', async () => {
       const { driver, wrapper } = createControlledDriver();
 
       wrapper.setProps({ open: true });
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
 
       await driver.clickOutside();
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
     });
 
     it('should not close when selecting an option', async () => {
       const { driver, wrapper } = createControlledDriver();
 
       wrapper.setProps({ open: true });
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
 
       await driver.selectOption(0);
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
     });
 
     describe('keyDown handling', () => {
@@ -385,10 +384,10 @@ describe('DropdownBase', () => {
         wrapper.setProps({ open: true });
 
         await driver.keyDown('ArrowDown');
-        expect(await driver.isOptionHovered(0)).toBeFalsy();
+        expect(await driver.isOptionHovered(0)).toBe(false);
 
         await driver.keyDown('Enter');
-        expect(await driver.isDropdownShown()).toBeTruthy();
+        expect(await driver.isDropdownShown()).toBe(true);
       });
     });
   });
@@ -401,7 +400,7 @@ describe('DropdownBase', () => {
         </DropdownBase>,
       );
 
-      expect(await driver.isOptionSelected(2)).toBeTruthy();
+      expect(await driver.isOptionSelected(2)).toBe(true);
     });
 
     it('should store the selection after user interaction', async () => {
@@ -412,10 +411,10 @@ describe('DropdownBase', () => {
       );
 
       await driver.selectOption(0);
-      expect(await driver.isOptionSelected(0)).toBeTruthy();
+      expect(await driver.isOptionSelected(0)).toBe(true);
 
       await driver.selectOption(2);
-      expect(await driver.isOptionSelected(2)).toBeTruthy();
+      expect(await driver.isOptionSelected(2)).toBe(true);
     });
   });
 
@@ -428,7 +427,7 @@ describe('DropdownBase', () => {
         initialSelectedId: 2,
       });
 
-      expect(await driver.isOptionSelected(2)).toBeTruthy();
+      expect(await driver.isOptionSelected(2)).toBe(true);
     });
 
     it('should update according to the selectedId', async () => {
@@ -438,10 +437,10 @@ describe('DropdownBase', () => {
         selectedId: 1,
       });
 
-      expect(await driver.isOptionSelected(1)).toBeTruthy();
+      expect(await driver.isOptionSelected(1)).toBe(true);
 
       wrapper.setProps({ selectedId: 2 });
-      expect(await driver.isOptionSelected(2)).toBeTruthy();
+      expect(await driver.isOptionSelected(2)).toBe(true);
     });
 
     it('should not store the selection after user interaction', async () => {
@@ -452,12 +451,12 @@ describe('DropdownBase', () => {
       });
 
       await driver.selectOption(0);
-      expect(await driver.isOptionSelected(0)).toBeFalsy();
-      expect(await driver.isOptionSelected(1)).toBeTruthy();
+      expect(await driver.isOptionSelected(0)).toBe(false);
+      expect(await driver.isOptionSelected(1)).toBe(true);
 
       await driver.selectOption(2);
-      expect(await driver.isOptionSelected(2)).toBeFalsy();
-      expect(await driver.isOptionSelected(1)).toBeTruthy();
+      expect(await driver.isOptionSelected(2)).toBe(false);
+      expect(await driver.isOptionSelected(1)).toBe(true);
     });
   });
 });

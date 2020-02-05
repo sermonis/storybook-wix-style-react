@@ -111,7 +111,7 @@ const tests = [
 tests.forEach(({ describe, its }) => {
   its.forEach(
     ({ it, props, componentWrapper: ComponentWrapper = PageContainer }) => {
-      storiesOf(`Page/${describe}`, module).add(it, () => (
+      storiesOf(`Page${describe ? '/' + describe : ''}`, module).add(it, () => (
         <ComponentWrapper>
           <Page {...props} />
         </ComponentWrapper>

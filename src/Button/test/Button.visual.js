@@ -1,74 +1,68 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
+import AddChannel from 'wix-ui-icons-common/AddChannel';
 import Button from '../Button';
-import Box from 'wix-style-react/Box';
-import AddChannel from '../../new-icons/AddChannel';
-import { SIZES, SKINS, PRIORITY } from '../constants';
+import { SIZES, SKINS } from '../constants';
+import { visualize, story, snap } from 'storybook-snapper';
+
+import {
+  getSkinBackground,
+  renderButtonBlock,
+} from '../../utils/ButtonHelpers';
 
 const defaultProps = {
   children: 'Button',
 };
 
-const skins = Object.values(SKINS).filter(skin => skin !== SKINS.premiumLight);
+const skins = Object.values(SKINS).reduce((output, skin) => {
+  return [...output, { skin, background: getSkinBackground(skin) }];
+}, []);
 
 const sizes = Object.values(SIZES);
 
-const test = (it, props) => ({ it, props });
-
 const tests = [
   {
-    describe: 'Primary Skins',
-    its: skins.map(skin => test(skin, { skin, priority: PRIORITY.primary })),
-  },
-  {
-    describe: 'Secondary Skins',
-    its: skins
-      // box background for these skins (tests below)
-      .filter(skin => skin !== SKINS.transparent)
-      .map(skin => test(skin, { skin, priority: PRIORITY.secondary })),
-  },
-  {
     describe: 'Sizes',
-    its: sizes.map(size => test(size, { size })),
+    its: sizes.map(size => ({ it: size, props: { size } })),
   },
   {
     describe: 'Affixes',
-    its: sizes.map(size =>
-      test(size, {
+    its: sizes.map(size => ({
+      it: size,
+      props: {
         size,
         prefixIcon: <AddChannel />,
         suffixIcon: <AddChannel />,
-      }),
-    ),
+      },
+    })),
+  },
+];
+
+const blockOfTests = [
+  {
+    it: 'Primary Skins',
+    render: () => renderButtonBlock({ Component: Button, skins }),
   },
   {
-    describe: 'Render As',
-    its: [
-      {
-        it: 'as anchor',
-        props: { as: 'a' },
-      },
-    ],
+    it: 'Secondary Skins',
+    render: () =>
+      renderButtonBlock({
+        Component: Button,
+        props: { priority: 'secondary' },
+        skins,
+      }),
   },
 ];
 
-tests.forEach(({ describe, its }) => {
-  its.forEach(({ it, props }) => {
-    storiesOf(`Button/${describe}`, module).add(it, () => (
-      <Button {...defaultProps} {...props} />
-    ));
+visualize('Button', () => {
+  blockOfTests.forEach(({ it, render }) => {
+    snap(it, render);
   });
-});
 
-const testWithBoxWrapper = [
-  { boxBackground: 'B20', skin: SKINS.transparent },
-  { boxBackground: 'D10', skin: SKINS.premiumLight },
-];
-
-testWithBoxWrapper.forEach(({ skin, boxBackground }) => {
-  storiesOf(`Button/Secondary Skins`, module).add(skin, () => (
-    <Box backgroundColor={boxBackground} width={'100px'} padding="3px">
-      <Button {...defaultProps} priority={PRIORITY.secondary} skin={skin} />
-    </Box>
-  ));
+  tests.forEach(({ describe, its }) => {
+    story(describe, () => {
+      its.map(({ it, props }) =>
+        snap(it, () => <Button {...defaultProps} {...props} />),
+      );
+    });
+  });
 });

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import ChevronLeftLarge from 'wix-ui-icons-common/ChevronLeftLarge';
+import ChevronRightLarge from 'wix-ui-icons-common/ChevronRightLarge';
 // This is here and not in the test setup because we don't want consumers to need to run it as well
 import '../common/match-media-register';
 import Slider from 'react-slick';
 
 import './Carousel.global.scss';
 import styles from './Carousel.scss';
-import ChevronLeftLarge from '../new-icons/ChevronLeftLarge';
-import ChevronRightLarge from '../new-icons/ChevronRightLarge';
 import Pagination from './Pagination';
 import SliderArrow from './SliderArrow';
 import Loader from '../Loader';
@@ -37,7 +37,7 @@ class Carousel extends React.Component {
     dataHook: PropTypes.string,
     /** A single CSS class name to be appended to the Carousel's wrapper element. */
     className: PropTypes.string,
-    /** Array of strings where each string is a src of an image (in \<img src="your_src" /\>) */
+    /** Array of objects where each contains the `src` of an image (in \<img src="your_src" /\>) */
     images: PropTypes.array,
     /** Any element to render inside */
     children: PropTypes.node,

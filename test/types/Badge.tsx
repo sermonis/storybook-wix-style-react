@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Badge from '../../src/Badge';
+import Badge, { SIZE, TYPE, SKIN } from '../../src/Badge';
 import {badgeTestkitFactory} from '../../testkit';
 import {badgeTestkitFactory as badgeEnzymeTestkitFactory} from '../../testkit/enzyme';
 import {mount} from 'enzyme';
@@ -26,9 +26,9 @@ function BadgeWithMandatoryProps() {
 function BadgeWithAllProps() {
   return (
     <Badge
-      type="outlined"
-      skin="danger"
-      size="medium"
+      type={TYPE.outlined}
+      skin={SKIN.danger}
+      size={SIZE.medium}
       prefixIcon={<div />}
       suffixIcon={<div />}
       onBlur={() => undefined}

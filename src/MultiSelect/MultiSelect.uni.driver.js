@@ -53,7 +53,7 @@ export const multiselectUniDriverFactory = (base, body) => {
         tags.filter(async tag => (await tag._prop('id')) === tagId).get(0),
       ),
     customSuffixExists: async () =>
-      (await getInputWrapper()).querySelector('[data-hook="custom-suffix"]'),
+      !!(await getInputWrapper()).querySelector('[data-hook="custom-suffix"]'),
   };
 
   return { driver: multiSelectDriver, inputDriver, dropdownLayoutDriver };

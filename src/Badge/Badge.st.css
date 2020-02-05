@@ -1,15 +1,15 @@
 :import {
-    -st-from: "../Foundation/stylable/typography.st.css";
-    -st-named: fontMedium;
+    -st-from: '../Foundation/stylable/typography.st.css';
+    -st-named: text-medium-bold;
 }
 
 :import {
-  -st-from: "wix-ui-core/dist/src/hocs/Focusable/Focusable.st.css";
-  -st-default: Focusable;
+  -st-from: 'wix-ui-core/hocs.st.css';
+  -st-named: Focusable;
 }
 
 :import {
-  -st-from: "../Foundation/stylable/colors.st.css";
+  -st-from: '../Foundation/stylable/colors.st.css';
   -st-named:
     B10, B20, B30,
     D20, D40, D70, D80,
@@ -78,7 +78,7 @@
 }
 
 .root .text {
-  font-family: value(fontMedium);
+  -st-mixin: text-medium-bold;
   font-size: 10px;
   line-height: 12px;
   letter-spacing: 1px;

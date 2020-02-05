@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import StatusAlertSmall from 'wix-ui-icons-common/StatusAlertSmall';
+import classNames from 'classnames';
 
 import Input from '../Input';
 import LabelledElement from '../LabelledElement';
@@ -10,7 +12,6 @@ import styles from './AutoCompleteWithLabel.scss';
 
 import dataHooks from './dataHooks';
 import { optionValidator } from '../DropdownLayout/DropdownLayout';
-import classNames from 'classnames';
 
 class AutoCompleteWithLabel extends React.PureComponent {
   constructor(props) {
@@ -18,10 +19,12 @@ class AutoCompleteWithLabel extends React.PureComponent {
 
     this.state = {
       value: props.value || '',
+      isEditing: false,
     };
   }
 
   static propTypes = {
+    /** Applied as data-hook HTML attribute that can be used to create driver in testing */
     dataHook: PropTypes.string,
     /** label to appear in input */
     label: PropTypes.string.isRequired,
@@ -56,6 +59,8 @@ class AutoCompleteWithLabel extends React.PureComponent {
     placeholder: PropTypes.string,
     /** Callback function called whenever the user selects a different option in the list */
     onSelect: PropTypes.func,
+    /** Indicates whether to render using the native select element */
+    native: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -70,11 +75,12 @@ class AutoCompleteWithLabel extends React.PureComponent {
       value,
     });
     this.props.onSelect(option);
+    this.setState({ isEditing: false });
   };
 
   onChange = event => {
     const { value } = event.target;
-    this.setState({ value });
+    this.setState({ value, isEditing: true });
     this.props.onChange && this.props.onChange(event);
   };
 
@@ -89,7 +95,6 @@ class AutoCompleteWithLabel extends React.PureComponent {
       suffix,
       statusMessage,
       onFocus,
-      onBlur,
       name,
       type,
       ariaLabel,
@@ -99,13 +104,14 @@ class AutoCompleteWithLabel extends React.PureComponent {
       className,
       maxLength,
       placeholder,
+      native,
+      onBlur,
     } = this.props;
     const { value } = this._isInputControlled() ? this.props : this.state;
-    const filteredOptions = value
-      ? options.filter(option =>
-          option.value.toLowerCase().includes(value.toLowerCase()),
-        )
-      : options;
+    const predicate = this.state.isEditing
+      ? option => option.value.toLowerCase().includes(value.toLowerCase())
+      : () => true;
+    const filteredOptions = options.filter(predicate);
 
     const suffixContainer = suffix
       ? suffix.map((item, index) => {
@@ -131,6 +137,7 @@ class AutoCompleteWithLabel extends React.PureComponent {
             hideStatusSuffix
             onFocus={onFocus}
             onBlur={onBlur}
+            size={'large'}
             inputElement={
               <Input
                 name={name}
@@ -149,17 +156,20 @@ class AutoCompleteWithLabel extends React.PureComponent {
               />
             }
             options={filteredOptions}
+            native={native}
           />
         </LabelledElement>
         {status === Input.StatusError && statusMessage && (
           <Text
-            dataHook={dataHooks.errorMessage}
             skin="error"
             weight="normal"
             size="small"
             className={styles.statusMessage}
           >
-            {statusMessage}
+            <span className={styles.statusMessageIcon}>
+              <StatusAlertSmall />
+            </span>
+            <span data-hook={dataHooks.errorMessage}>{statusMessage}</span>
           </Text>
         )}
       </div>

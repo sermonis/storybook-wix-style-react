@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import isUndefined from 'lodash/isUndefined';
 import classNames from 'classnames';
 import moment from 'moment';
+import Text from '../Text';
 
 import Input from '../Input';
 import styles from './TimeInput.scss';
+import { dataHooks } from './constants';
 
 /**
  * An uncontrolled time input component with a stepper and am/pm support
@@ -216,20 +218,22 @@ export default class TimePicker extends Component {
     const suffix = (
       <Input.Group>
         {this.state.ampmMode && (
-          <span
+          <Text
+            weight="normal"
+            skin={this.props.disabled ? 'disabled' : 'standard'}
             className={styles.ampm}
             onClick={this.handleAmPmClick}
-            data-hook="am-pm-indicator"
+            dataHook={dataHooks.amPmIndicator}
           >
             {this.state.am ? 'am' : 'pm'}
-          </span>
+          </Text>
         )}
         <Input.Ticker
           upDisabled={this.props.disabled}
           downDisabled={this.props.disabled}
           onUp={this.handlePlus}
           onDown={this.handleMinus}
-          dataHook="ticker"
+          dataHook={dataHooks.ticker}
         />
       </Input.Group>
     );
@@ -243,7 +247,7 @@ export default class TimePicker extends Component {
           onChange={this.handleInputChange}
           onBlur={this.handleInputBlur}
           suffix={suffix}
-          dataHook="time-input"
+          dataHook={dataHooks.input}
           disabled={this.props.disabled}
         />
       </div>

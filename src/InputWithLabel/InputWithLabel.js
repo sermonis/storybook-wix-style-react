@@ -1,4 +1,5 @@
 import React from 'react';
+import StatusAlertSmall from 'wix-ui-icons-common/StatusAlertSmall';
 
 import LabelledElement from '../LabelledElement';
 import Input from '../Input';
@@ -7,6 +8,19 @@ import { PropTypes } from 'prop-types';
 import styles from './InputWithLabel.st.css';
 import dataHooks from './dataHooks';
 import classNames from 'classnames';
+
+const getSuffixContainer = suffix =>
+  suffix.map((item, index) => {
+    return (
+      <div
+        data-hook={`suffix-container`}
+        key={`suffix-container-${index}`}
+        className={styles.groupIcon}
+      >
+        {item}
+      </div>
+    );
+  });
 
 class InputWithLabel extends React.Component {
   static propTypes = {
@@ -83,15 +97,7 @@ class InputWithLabel extends React.Component {
       placeholder,
       customInput,
     } = this.props;
-    const suffixContainer = suffix
-      ? suffix.map((item, index) => {
-          return (
-            <div key={`${dataHook}-${index}`} className={styles.groupIcon}>
-              {item}
-            </div>
-          );
-        })
-      : [];
+
     return (
       <div
         data-hook={dataHook}
@@ -116,9 +122,9 @@ class InputWithLabel extends React.Component {
             onBlur={onBlur}
             dataHook={dataHooks.input}
             className={classNames(className, styles.inputContainer)}
-            size="large"
+            size="medium"
             value={value}
-            suffix={suffixContainer}
+            suffix={suffix ? getSuffixContainer(suffix) : []}
             status={status}
             customInput={customInput}
             hideStatusSuffix
@@ -126,12 +132,15 @@ class InputWithLabel extends React.Component {
         </LabelledElement>
         {status === Input.StatusError && statusMessage && (
           <Text
-            dataHook={dataHooks.errorMessage}
             skin="error"
             size="small"
+            weight="normal"
             className={styles.statusMessage}
           >
-            {statusMessage}
+            <span className={styles.statusMessageIcon}>
+              <StatusAlertSmall />
+            </span>
+            <span data-hook={dataHooks.errorMessage}>{statusMessage}</span>
           </Text>
         )}
       </div>

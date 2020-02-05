@@ -51,10 +51,13 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`FillButton/${describe}`, module).add(it, () => (
-      <Box height="24px" padding="20px">
-        <FillButton {...commonProps} {...props} />
-      </Box>
-    ));
+    storiesOf(`FillButton${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <Box height="24px" padding="20px">
+          <FillButton {...commonProps} {...props} />
+        </Box>
+      ),
+    );
   });
 });

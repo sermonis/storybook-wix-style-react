@@ -30,7 +30,10 @@ class SidebarDivider extends React.PureComponent {
           return (
             <div
               data-hook={dataHook}
-              className={classNames(styles.root, fullWidth && styles.fullWidth)}
+              data-full-width={fullWidth}
+              className={classNames(styles.root, {
+                [styles.fullWidth]: fullWidth,
+              })}
             >
               <Divider
                 skin={

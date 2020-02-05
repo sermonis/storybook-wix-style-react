@@ -35,7 +35,10 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`GenericModalLayout/${describe}`, module).add(it, () => (
+    storiesOf(
+      `GenericModalLayout${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => (
       <Modal isOpen="true" contentLabel="Generic Modal Layout">
         <GenericModalLayout {...defaultProps} {...props} />
       </Modal>

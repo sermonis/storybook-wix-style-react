@@ -181,6 +181,8 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Box/${describe}`, module).add(it, () => <Box {...props} />);
+    storiesOf(`Box${describe ? '/' + describe : ''}`, module).add(it, () => (
+      <Box {...props} />
+    ));
   });
 });

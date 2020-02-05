@@ -1,12 +1,12 @@
-import styles from './DropdownLayout.scss';
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 import WixComponent from '../BaseComponents/WixComponent';
-import scrollIntoView from '../utils/scrollIntoView';
-import InfiniteScroll from '../utils/InfiniteScroll';
 import Loader from '../Loader/Loader';
+import InfiniteScroll from '../utils/InfiniteScroll';
+import scrollIntoView from '../utils/scrollIntoView';
 import * as DataAttr from './DataAttr';
+import styles from './DropdownLayout.scss';
 
 const modulu = (n, m) => {
   const remain = n % m;
@@ -99,7 +99,6 @@ class DropdownLayout extends WixComponent {
     if (!this._isControlled()) {
       this.setState({ selectedId: chosenOption && chosenOption.id });
     }
-    this._markOption(NOT_HOVERED_INDEX);
     return !!onSelect && chosenOption;
   }
 
@@ -168,11 +167,13 @@ class DropdownLayout extends WixComponent {
     switch (event.key) {
       case 'ArrowDown': {
         this._markNextStep(1);
+        event.preventDefault();
         break;
       }
 
       case 'ArrowUp': {
         this._markNextStep(-1);
+        event.preventDefault();
         break;
       }
 
@@ -523,6 +524,11 @@ DropdownLayout.propTypes = {
   infiniteScroll: PropTypes.bool,
   loadMore: PropTypes.func,
   hasMore: PropTypes.bool,
+  /** Sets the default hover behavior when:
+   *  1. `false` means no default
+   *  2. `true` means to hover the first selectable option
+   *  3. Any number/string represents the id of option to hover
+   */
   markedOption: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,

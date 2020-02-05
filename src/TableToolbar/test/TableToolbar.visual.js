@@ -26,6 +26,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, component }) => {
-    storiesOf(`TableToolbar/${describe}`, module).add(it, component);
+    storiesOf(`TableToolbar${describe ? '/' + describe : ''}`, module).add(
+      it,
+      component,
+    );
   });
 });

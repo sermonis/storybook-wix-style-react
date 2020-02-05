@@ -1,5 +1,4 @@
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
-import style from './Badge.st.css';
 
 export const badgeUniDriverFactory = base => ({
   ...baseUniDriverFactory(base),
@@ -12,6 +11,6 @@ export const badgeUniDriverFactory = base => ({
   getSize: () => base.attr('data-size'),
   isUppercase: async () => (await base.attr('data-uppercase')) === 'true',
   hasClickCursor: async () => (await base.attr('data-clickable')) === 'true',
-  getPrefixIcon: () => base.$(`.${style.prefix}`),
-  getSuffixIcon: () => base.$(`.${style.suffix}`),
+  getPrefixIcon: () => base.$(`[data-prefix-icon]`),
+  getSuffixIcon: () => base.$(`[data-suffix-icon]`),
 });

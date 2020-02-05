@@ -14,33 +14,28 @@ import {
   testkit,
 } from 'wix-storybook-utils/Sections';
 
-import Box from 'wix-style-react/Box';
 import Text from 'wix-style-react/Text';
 import { storySettings } from '../test/storySettings';
 import allComponents from '../../../stories/utils/allComponents';
 
 import PreviewWidget from '..';
+/* eslint-disable no-unused-vars */
 import { Layout, Cell } from 'wix-style-react/Layout';
+import Box from 'wix-style-react/Box';
 
-import { borderType, contentAreaType, backgroundColor } from '../constants';
+import { skins, contentOutlines } from '../constants';
 
 const code = config => baseCode({ components: allComponents, ...config });
 
 const childNode = (
-  <Box
-    align="center"
-    verticalAlign="middle"
-    height="50px"
-    width="150px"
-    backgroundColor="D80"
-  >
+  <Box padding="20px" backgroundColor="Y30">
     <Text>Content goes here</Text>
   </Box>
 );
 
-const childNodeString = `<Box align=\'center\' verticalAlign=\'middle\' height=\'50px\' width=\'150px\' backgroundColor=\'D80\'>\n
-<Text>Content  goes here</Text>\n 
-</Box>\n`;
+const childNodeString = `<Box padding="20px" backgroundColor="Y30">
+        <Text>Content goes here</Text>
+      </Box>`;
 
 export default {
   category: storySettings.category,
@@ -51,9 +46,11 @@ export default {
 
   componentProps: {
     dataHook: 'preview-story',
-    type: contentAreaType.blank,
-    backgroundColor: backgroundColor.grey,
-    borderType: borderType.shadow,
+    skin: skins.neutral,
+    contentOutline: contentOutlines.shadow,
+    backgroundColor: '',
+    height: '100%',
+    width: '100%',
     children: childNode,
   },
 
@@ -66,7 +63,11 @@ export default {
     header({
       sourceUrl:
         'https://github.com/wix/wix-style-react/tree/master/src/PreviewWidget/',
-      component: <PreviewWidget>{childNode}</PreviewWidget>,
+      component: (
+        <PreviewWidget height="100px" width="250px">
+          {childNode}
+        </PreviewWidget>
+      ),
     }),
 
     tabs([
@@ -92,31 +93,63 @@ export default {
 
           columns([
             description({
-              title: 'Type',
-              text: 'Preview widget supports `blank` type.',
+              title: 'Skin',
+              text:
+                'PreviewWidget supports `neutral` (default), `gradient` and `custom` skins. To use `custom` skin, set it to `custom` and use the `backgroundColor` prop with the desired color',
             }),
 
             code({
               compact: true,
-              source: `<PreviewWidget type="blank" >\n ${childNodeString} </PreviewWidget>`,
+              source: `<Layout>
+                <Cell>
+                    <PreviewWidget>${childNodeString}</PreviewWidget>
+                </Cell>
+                <Cell>
+                    <PreviewWidget skin='gradient'>${childNodeString}</PreviewWidget>
+                </Cell>
+                <Cell>
+                    <PreviewWidget skin='custom' backgroundColor='B10'>${childNodeString}</PreviewWidget>
+                </Cell>
+              </Layout>`,
             }),
           ]),
 
           columns([
             description({
-              title: 'Color background',
-              text: 'PreviewWidget supports `grey` and `gradient` colors.',
+              title: 'Content Outline',
+              text:
+                'PreviewWidget supports `shadow` (default) and `border` content outline.',
             }),
 
             code({
               compact: true,
-              source: `<Layout>\n
-                <Cell>\n
-                    <PreviewWidget>\n ${childNodeString} </PreviewWidget>\n
+              source: `<Layout>
+                <Cell>
+                    <PreviewWidget skin="custom" backgroundColor="D80">${childNodeString}</PreviewWidget>
                 </Cell>
                 <Cell>
-                    <PreviewWidget backgroundColor=\'gradient\' >\n ${childNodeString} </PreviewWidget>\n
-                </Cell>\n 
+                    <PreviewWidget skin="custom" backgroundColor="D80" contentOutline='border'>${childNodeString}</PreviewWidget>
+                </Cell>
+              </Layout>`,
+            }),
+          ]),
+
+          columns([
+            description({
+              title: 'Custome Size',
+              text:
+                'PreviewWidget supports customizing the `height` and `width` of the component. The content area is centered. Default `height` and `width` are `100%` ',
+            }),
+
+            code({
+              compact: true,
+              source: `<Layout>
+                <Cell>
+                    <PreviewWidget height="200px">${childNodeString}</PreviewWidget>
+                </Cell>
+                <Cell>
+                    <PreviewWidget width="250px">${childNodeString}</PreviewWidget>
+                </Cell>
               </Layout>`,
             }),
           ]),

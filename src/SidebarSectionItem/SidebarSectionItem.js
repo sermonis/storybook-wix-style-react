@@ -45,15 +45,22 @@ class SidebarSectionItem extends React.PureComponent {
       prefix,
       suffix,
       onClick,
+      focusableOnFocus,
+      focusableOnBlur,
     } = this.props;
     return (
       <SidebarContext.Consumer>
         {context => {
           const skin = (context && context.getSkin()) || sidebarSkins.dark;
           return (
-            <div
+            <button
               data-hook={dataHook}
               onClick={!disabled ? onClick : undefined}
+              onFocus={focusableOnFocus}
+              onBlur={focusableOnBlur}
+              disabled={disabled}
+              type="button"
+              tabIndex="0"
               {...styles(
                 'root',
                 {
@@ -83,13 +90,17 @@ class SidebarSectionItem extends React.PureComponent {
               >
                 {children}
               </Text>
-              {!disabled && !suffix && drillable && (
-                <ChevronRight className={styles.chevron} />
+              {!disabled && (suffix || drillable) && (
+                <span data-hook={dataHooks.suffix} className={styles.suffix}>
+                  {suffix || (
+                    <ChevronRight
+                      data-hook="chevron"
+                      className={styles.chevron}
+                    />
+                  )}
+                </span>
               )}
-              {!disabled && suffix && (
-                <span data-hook={dataHooks.suffix}>{suffix}</span>
-              )}
-            </div>
+            </button>
           );
         }}
       </SidebarContext.Consumer>

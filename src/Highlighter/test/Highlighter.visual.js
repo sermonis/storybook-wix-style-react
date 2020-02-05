@@ -21,10 +21,13 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it }) => {
-    storiesOf(`Highlighter/${describe}`, module).add(it, () => (
-      <div>
-        <Highlighter {...defaultProps} />
-      </div>
-    ));
+    storiesOf(`Highlighter${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div>
+          <Highlighter {...defaultProps} />
+        </div>
+      ),
+    );
   });
 });

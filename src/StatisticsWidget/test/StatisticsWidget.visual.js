@@ -303,10 +303,13 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`StatisticsWidget/${describe}`, module).add(it, () => (
-      <div style={{ marginLeft: 100, marginTop: 100 }}>
-        <StatisticsWidget {...props} />
-      </div>
-    ));
+    storiesOf(`StatisticsWidget${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div style={{ marginLeft: 100, marginTop: 100 }}>
+          <StatisticsWidget {...props} />
+        </div>
+      ),
+    );
   });
 });

@@ -25,12 +25,17 @@ export interface MenuItemProps {
   onClick?: () => any;
   skin?: 'dark' | 'destructive';
   prefixIcon?: React.ReactNode;
+  dataHook?: string;
   disabled?: boolean;
+}
+
+export interface DividerProps {
+  dataHook?: string;
 }
 
 export default class PopoverMenu<
   T extends PopoverMenuProps
 > extends React.PureComponent<T> {
   static MenuItem: (props?: MenuItemProps) => React.ReactElement;
-  static Divider: () => React.ReactElement;
+  static Divider: (props?: DividerProps) => React.ReactElement;
 }

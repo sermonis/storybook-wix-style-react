@@ -3,6 +3,16 @@
   -st-default: Text;
 }
 
+:import {
+  -st-from: "../beta/PopoverMenu/PopoverMenu.st.css";
+  -st-default: PopoverMenu;
+}
+
+:import {
+  -st-from: "wix-ui-core/index.st.css";
+  -st-named: Popover;
+}
+
 .root {
   display: flex;
   align-items: center;
@@ -15,7 +25,8 @@
   white-space: nowrap;
 }
 
-.hoverSlot > button {
+.hoverSlot > button,
+.hoverSlot > PopoverMenu > Popover::popoverElement > button {
   margin: 0 6px;
   transition-property: background, border;
 }

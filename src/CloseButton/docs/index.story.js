@@ -12,11 +12,11 @@ import {
   title,
   code as baseLiveCode,
 } from 'wix-storybook-utils/Sections';
+import Help from 'wix-ui-icons-common/Help';
 
 import CloseButton from '..';
 import { Layout } from '../../Layout';
 import { storySettings } from './storySettings';
-import Help from '../../new-icons/Help';
 import allComponents from '../../../stories/utils/allComponents';
 import testkit from '!raw-loader!./testkit.md';
 
@@ -91,7 +91,8 @@ export default {
             },
             {
               title: 'Size',
-              text: 'Close button has two sizes – `small` and `medium`.',
+              text:
+                'Close button has three sizes – `small`, `medium`, and `large`.',
               source: examples.sizesExamples,
             },
             {

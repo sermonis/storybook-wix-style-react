@@ -1,15 +1,17 @@
 import React, { Component, memo } from 'react';
 import PropTypes from 'prop-types';
-import styles from './DataTable.scss';
+import SortByArrowUp from 'wix-ui-icons-common/system/SortByArrowUp';
+import SortByArrowDown from 'wix-ui-icons-common/system/SortByArrowDown';
+import { Animator } from 'wix-animations';
 import classNames from 'classnames';
 import defaultTo from 'lodash/defaultTo';
-import InfiniteScroll from '../utils/InfiniteScroll';
-import SortByArrowUp from '../new-icons/system/SortByArrowUp';
-import SortByArrowDown from '../new-icons/system/SortByArrowDown';
-import { Animator } from 'wix-animations';
-import Tooltip from '../Tooltip/Tooltip';
-import InfoIcon from '../common/InfoIcon';
 import { VariableSizeList as List } from 'react-window';
+
+import styles from './DataTable.scss';
+import InfiniteScroll from '../utils/InfiniteScroll';
+import Tooltip from '../Tooltip/Tooltip';
+import InfoIcon from '../InfoIcon';
+
 import { virtualRowsAreEqual } from './DataTable.utils';
 
 export const DataTableHeader = props => {
@@ -57,12 +59,6 @@ class DataTable extends React.Component {
         this.setState(this.createInitialScrollingState(nextProps));
       }
     }
-  }
-
-  shouldComponentUpdate() {
-    // DataTable extends WixComponent which is a PureComponent, but DataTable is not pure.
-    // returning true, disables the PureComponent optimization.
-    return true;
   }
 
   createInitialScrollingState(props) {
@@ -277,7 +273,21 @@ class DataTable extends React.Component {
         : undefined;
 
     return (
-      <td style={column.style} width={width} className={classes} key={colNum}>
+      <td
+        style={
+          typeof column.style === 'function'
+            ? column.style(column, rowData, rowNum)
+            : column.style
+        }
+        width={width}
+        className={classes}
+        onClick={
+          column.onCellClick
+            ? event => column.onCellClick(column, rowData, rowNum, event)
+            : undefined
+        }
+        key={colNum}
+      >
         {column.render && column.render(rowData, rowNum)}
       </td>
     );
@@ -309,15 +319,12 @@ class DataTable extends React.Component {
   };
 
   renderVirtualizedRow = ({ data, index, style }) =>
-    this.renderRow(data[index], index, style)[0];
+    this.renderRow(data.data[index], index, style)[0];
 
-  renderVirtualizedMemoizedRow = virtualListProps =>
-    React.createElement(this.memoizedRow, {
-      ...this.props,
-      ...virtualListProps,
-    });
-
-  memoizedRow = memo(this.renderVirtualizedRow, virtualRowsAreEqual);
+  renderVirtualizedMemoizedRow = memo(
+    this.renderVirtualizedRow,
+    virtualRowsAreEqual,
+  );
 
   getVirtualRowHeight = () => this.props.virtualizedLineHeight;
 
@@ -335,14 +342,20 @@ class DataTable extends React.Component {
   };
 
   renderVirtualizedTable = () => {
-    const { dataHook, data, virtualizedTableHeight } = this.props;
+    const {
+      dataHook,
+      data,
+      virtualizedTableHeight,
+      virtualizedListRef,
+    } = this.props;
     return (
       <div data-hook={dataHook}>
         <List
+          ref={virtualizedListRef}
           className={classNames(this.style.table, this.style.virtualized)}
           height={virtualizedTableHeight}
           itemCount={data.length}
-          itemData={data}
+          itemData={this.props}
           width={'100%'}
           itemSize={this.getVirtualRowHeight}
           outerElementType={this.virtualizedTableElementWithRefForward}
@@ -396,9 +409,11 @@ class TableHeader extends Component {
       return null;
     }
 
+    const { content, ...otherTooltipProps } = tooltipProps;
     return (
       <InfoIcon
-        tooltipProps={tooltipProps}
+        content={content}
+        tooltipProps={otherTooltipProps}
         dataHook={`${colNum}_info_tooltip`}
         className={this.style.infoTooltipWrapper}
       />
@@ -416,7 +431,7 @@ class TableHeader extends Component {
       color: this.props.thColor,
       opacity: this.props.thOpacity,
       letterSpacing: this.props.thLetterSpacing,
-      cursor: column.sortable === undefined ? 'arrow' : 'pointer',
+      cursor: column.sortable === undefined ? 'auto' : 'pointer',
     };
 
     const optionalHeaderCellProps = {};
@@ -600,10 +615,14 @@ DataTable.propTypes = {
   virtualizedTableHeight: PropTypes.number,
   /** ++EXPERIMENTAL++ Set virtualized table row height */
   virtualizedLineHeight: PropTypes.number,
+  /** ++EXPERIMENTAL++ Set ref on virtualized List containing table rows */
+  virtualizedListRef: PropTypes.any,
   /** array of selected ids in the table. Note that `isRowSelected` prop provides greater selection logic flexibility and is recommended to use instead. */
   selectedRowsIds: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   ),
+  /** A callback function called on each column title click. Signature `onSortClick(colData, colNum)` */
+  onSortClick: PropTypes.func,
 };
 DataTable.displayName = 'DataTable';
 

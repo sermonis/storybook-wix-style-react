@@ -1,11 +1,10 @@
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 import { sideMenuUniDriverFactory } from '../core/SideMenu.uni.driver';
-import styles from './DrillView.scss';
 
 export const drillViewUniDriverFactory = (base, body) => {
   const createMenuDriver = menuElement =>
     sideMenuUniDriverFactory(menuElement, body);
-  const getMenu = () => base.$('.' + styles.drillViewContainer);
+  const getMenu = () => base.$('.drillViewContainer');
 
   return {
     ...baseUniDriverFactory(base),

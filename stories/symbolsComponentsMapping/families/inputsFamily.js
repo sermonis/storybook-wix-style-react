@@ -4,6 +4,9 @@ import {
   sharedComponentsNames,
 } from '../components';
 
+/**
+ * Symbol => Component 2
+ */
 export const inputsSymbolsToComponents = {
   [inputsSymbols.textInput]: [
     sharedComponentsNames.FormField,
@@ -61,5 +64,10 @@ export const inputsSymbolsToComponents = {
   [inputsSymbols.mediaInput]: [
     sharedComponentsNames.FormField,
     componentsNames.ImageViewer,
+  ],
+  [inputsSymbols.variableInput]: [
+    sharedComponentsNames.FormField,
+    componentsNames.VariableInput,
+    sharedComponentsNames.Tag,
   ],
 };

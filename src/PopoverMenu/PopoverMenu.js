@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import styles from './PopoverMenu.scss';
-import Tooltip from '../Tooltip';
-import Button from '../Deprecated/Button';
-import More from '../new-icons/More';
-import PopoverMenuItem from '../PopoverMenuItem';
+import More from 'wix-ui-icons-common/More';
 import classnames from 'classnames';
 import {
   oneOf,
   oneOfType,
   bool,
   element,
-  instanceOf,
   number,
   string,
   func,
   shape,
+  object,
 } from 'prop-types';
+
+import styles from './PopoverMenu.scss';
+import Tooltip from '../Tooltip';
+import Button from '../Deprecated/Button';
+import PopoverMenuItem from '../PopoverMenuItem';
 import deprecationLog from '../utils/deprecationLog';
 
 class PopoverMenu extends Component {
@@ -47,7 +48,7 @@ class PopoverMenu extends Component {
     /** An element which will contain the popover  */
     appendTo: oneOfType([
       element,
-      instanceOf(Element),
+      object,
       func,
       oneOf(['window', 'scrollParent', 'viewPort', 'parent']),
     ]),
@@ -64,6 +65,9 @@ class PopoverMenu extends Component {
       x: number,
       y: number,
     }),
+
+    /** Applied as data-hook HTML attribute that can be used in the tests*/
+    dataHook: string,
   };
 
   static defaultProps = {

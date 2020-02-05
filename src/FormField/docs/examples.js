@@ -10,6 +10,29 @@ export const withTooltip = `
 </FormField>
 `;
 
+export const alignment = `
+<Layout>
+  <Cell>
+    <FormField
+        label="Middle"
+        labelPlacement="right"
+        labelAlignment="middle"
+    >
+      <InputArea/>
+    </FormField>
+  </Cell>
+  <Cell>
+    <FormField
+      label="Top"
+      labelPlacement="left"
+      labelAlignment="top"
+     >
+    <InputArea/>
+    </FormField>
+  </Cell>
+</Layout>
+`;
+
 export const withLength = `
 <FormField label="Label">
   {({setCharactersLeft}) =>
@@ -59,4 +82,10 @@ export const ExampleWithinGrid = `
     </Row>
   </Container>
 </MessageBoxFunctionalLayout>;
+`;
+
+export const customSuffix = `
+<FormField label="Your name" suffix={<TextButton>Action</TextButton>}>
+  <Input/>
+</FormField>
 `;

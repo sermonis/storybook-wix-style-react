@@ -1,68 +1,88 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { borderType, contentAreaType, backgroundColor } from '../constants';
+import { skins, contentOutlines } from '../constants';
 
 import PreviewWidget from '../PreviewWidget';
 
 import Box from 'wix-style-react/Box';
 import Text from 'wix-style-react/Text';
 
+const defaultProps = {
+  skin: 'neutral',
+  contentOutline: 'shadow',
+  height: '100%',
+  width: '100%',
+  children: <div />,
+};
+
 const childNode = (
-  <Box
-    align="center"
-    verticalAlign="middle"
-    height={'50px'}
-    width={'150px'}
-    backgroundColor={'D80'}
-  >
+  <Box padding="20px" backgroundColor="Y30">
     <Text>Content goes here</Text>
   </Box>
 );
 
 const tests = [
   {
-    describe: 'type',
+    describe: 'Skins',
     its: [
       {
-        it: 'blank',
-        props: { type: contentAreaType.blank },
+        it: skins.neutral,
+        props: { skin: skins.neutral },
+      },
+      {
+        it: skins.gradient,
+        props: { skin: skins.gradient },
+      },
+      {
+        it: skins.custom,
+        props: {
+          skin: skins.custom,
+          backgroundColor: 'linear-gradient(#e66465, #9198e5)',
+        },
       },
     ],
   },
   {
-    describe: 'backgroundColor',
+    describe: 'Content Outline',
     its: [
       {
-        it: 'grey',
-        props: { backgroundColor: backgroundColor.grey },
+        it: contentOutlines.shadow,
+        props: { contentOutline: contentOutlines.shadow },
       },
-
       {
-        it: 'gradient',
-        props: { backgroundColor: backgroundColor.gradient },
+        it: contentOutlines.border,
+        props: {
+          contentOutline: contentOutlines.border,
+          skin: skins.custom,
+          backgroundColor: 'D80',
+        },
       },
     ],
   },
   {
-    describe: 'borderType',
+    describe: 'Custom size',
     its: [
       {
-        it: 'shadow',
-        props: { borderType: borderType.shadow },
+        it: 'height',
+        props: { height: '200px' },
       },
-      //TODO: Should be tested when custom background is implemented.
-      // {
-      //   it: 'solid',
-      //   props: { borderType: borderType.solid },
-      // },
+      {
+        it: 'width',
+        props: { width: '400px' },
+      },
     ],
   },
 ];
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`PreviewWidget/${describe}`, module).add(it, () => (
-      <PreviewWidget {...props}>{childNode}</PreviewWidget>
-    ));
+    storiesOf(`PreviewWidget${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <PreviewWidget {...defaultProps} {...props}>
+          {childNode}
+        </PreviewWidget>
+      ),
+    );
   });
 });

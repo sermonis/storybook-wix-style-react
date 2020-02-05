@@ -7,6 +7,11 @@ module.exports = [
   {
     codemod: 'index-file.js',
     dist: 'src/index.js',
-    description: 'Add component export to the index file',
+    description: 'Add component export to the index.js file',
+  },
+  {
+    codemod: 'index-ts-file.js',
+    dist: 'src/index.d.ts',
+    description: 'Add component export to the index.d.ts file',
   },
 ];

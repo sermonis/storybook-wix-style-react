@@ -1,22 +1,25 @@
 import React from 'react';
-import { func, object } from 'prop-types';
 import color from 'color';
 import clamp from 'lodash/clamp';
-
-import WixComponent from '../BaseComponents/WixComponent';
-
+import PropTypes from 'prop-types';
 import css from './ColorPickerHue.scss';
 
-export default class ColorPickerHue extends WixComponent {
+export default class ColorPickerHue extends React.PureComponent {
   static propTypes = {
-    current: object.isRequired,
-    onChange: func.isRequired,
+    /** Applied as data-hook HTML attribute that can be used to create driver in testing */
+    dataHook: PropTypes.string,
+
+    /** The current Hue value */
+    current: PropTypes.object.isRequired,
+
+    /** A callback function that will be triggered when the value is changed */
+    onChange: PropTypes.func.isRequired,
   };
 
   onMarkerDragStart = e => {
     e.preventDefault();
-    window.addEventListener('mousemove', this.onMarkerDrag);
-    window.addEventListener('touchmove', this.onMarkerDrag);
+    window.addEventListener('mousemove', this.setNewColorByMouseEvent);
+    window.addEventListener('touchmove', this.setNewColorByMouseEvent);
     window.addEventListener('mouseup', this.onMarkerDragEnd);
     window.addEventListener('touchcancel', this.onMarkerDragEnd);
     window.addEventListener('touchend', this.onMarkerDragEnd);
@@ -25,15 +28,11 @@ export default class ColorPickerHue extends WixComponent {
     this.setNewColorByMouseEvent(e);
   };
 
-  onMarkerDrag = e => {
-    this.setNewColorByMouseEvent(e);
-  };
-
   onMarkerDragEnd = () => {
-    window.removeEventListener('touchmove', this.onMarkerDrag);
-    window.removeEventListener('mousemove', this.onMarkerDrag);
+    window.removeEventListener('touchmove', this.setNewColorByMouseEvent);
+    window.removeEventListener('mousemove', this.setNewColorByMouseEvent);
     window.removeEventListener('touchcancel', this.onMarkerDragEnd);
-    window.addEventListener('touchend', this.onMarkerDragEnd);
+    window.removeEventListener('touchend', this.onMarkerDragEnd);
     window.removeEventListener('mouseup', this.onMarkerDragEnd);
   };
 
@@ -59,11 +58,13 @@ export default class ColorPickerHue extends WixComponent {
   }
 
   render() {
+    const { dataHook, current } = this.props;
     // HUE is an integer value from 0 to 360.
-    const percentage = (this.props.current.hue() / 360) * 100;
+    const percentage = (current.hue() / 360) * 100;
     return (
       <div
         className={css.root}
+        data-hook={dataHook}
         ref={e => (this.slider = e)}
         onMouseDown={this.onMarkerDragStart}
         onTouchStart={this.onMarkerDragStart}

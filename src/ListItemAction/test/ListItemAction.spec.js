@@ -17,27 +17,27 @@ describe('ListItemAction', () => {
   it('should render', async () => {
     const { driver } = render(<ListItemAction title={'aaa'} />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should show title', async () => {
     const title = 'some title';
     const { driver } = render(<ListItemAction title={title} />);
 
-    expect(await driver.isTitleExists()).toBeTruthy();
+    expect(await driver.isTitleExists()).toBe(true);
     expect(await driver.getTitleText()).toBe(title);
   });
 
   it('should not show icon prefix when not given', async () => {
     const { driver } = render(<ListItemAction title={'title'} />);
-    expect(await driver.isPrefixIconExists()).toBeFalsy();
+    expect(await driver.isPrefixIconExists()).toBe(false);
   });
 
   it('should show icon prefix when given', async () => {
     const { driver } = render(
       <ListItemAction title={'title'} prefixIcon={<Edit />} />,
     );
-    expect(await driver.isPrefixIconExists()).toBeTruthy();
+    expect(await driver.isPrefixIconExists()).toBe(true);
   });
 
   describe('skin prop', () => {
@@ -72,14 +72,14 @@ describe('ListItemAction', () => {
       const { driver } = render(
         <ListItemAction title={'title'} prefixIcon={<Edit />} />,
       );
-      expect(await driver.isDisabled()).toBeFalsy();
+      expect(await driver.isDisabled()).toBe(false);
     });
 
     it('should be disabled', async () => {
       const { driver } = render(
         <ListItemAction disabled title={'title'} prefixIcon={<Edit />} />,
       );
-      expect(await driver.isDisabled()).toBeTruthy();
+      expect(await driver.isDisabled()).toBe(true);
     });
   });
 

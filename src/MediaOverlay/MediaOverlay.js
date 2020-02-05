@@ -219,7 +219,7 @@ class MediaOverlay extends React.PureComponent {
     }
 
     return (
-      <div {...styles('contentArea', { placement })}>
+      <div {...styles('contentArea', { placement })} data-hook="content-area">
         {contentElements.map(({ props }, index) => (
           <React.Fragment key={index}>{props.children}</React.Fragment>
         ))}

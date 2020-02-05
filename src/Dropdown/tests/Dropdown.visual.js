@@ -173,8 +173,11 @@ const interactiveTests = [
 
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`Dropdown/${describe}`, module).add(it, () => (
-      <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
-    ));
+    storiesOf(`Dropdown${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
+      ),
+    );
   });
 });

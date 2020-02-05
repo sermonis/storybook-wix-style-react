@@ -1,8 +1,7 @@
 import React from 'react';
 import color from 'color';
-import { object, string, func, bool, oneOfType, node } from 'prop-types';
+import PropTypes from 'prop-types';
 
-import WixComponent from '../BaseComponents/WixComponent';
 import ColorPickerHsb from './ColorPickerHsb';
 import ColorPickerHue from './ColorPickerHue';
 import ColorPickerHistory from './ColorPickerHistory';
@@ -11,6 +10,7 @@ import ColorPickerActions from './ColorPickerActions';
 
 import css from './ColorPicker.scss';
 import { safeColor, isTransparent } from './utils';
+import { DataHooks } from './constants';
 
 const FALLBACK_COLOR = color('#86c6e5');
 
@@ -21,60 +21,9 @@ const FALLBACK_COLOR = color('#86c6e5');
  * Value for this component can be given in `string` or `object` format.
  * The callbacks always respond with color `object` format.
  */
-export default class ColorPicker extends React.PureComponent {
-  static displayName = 'ColorPicker';
-
-  static propTypes = {
-    /** Current color, can be given in `string` or `object` format [https://github.com/Qix-/color](https://github.com/Qix-/color) */
-    value: oneOfType([string, object]).isRequired,
-
-    /** Should current/previous color be displayed */
-    showHistory: bool,
-
-    /** Should `HEX`/`RGB`/`HSB` converter tabs be displayed */
-    showConverter: bool,
-
-    /** Should color input (in `HEX` mode) be displayed. This is relevant only if `showConverter` is `true` */
-    showInput: bool,
-
-    /** Handle color change event. */
-    onChange: func.isRequired,
-
-    /** Handle cancel button click */
-    onCancel: func.isRequired,
-
-    /** Handle confirm button click */
-    onConfirm: func.isRequired,
-
-    /** Handle color add button click. If not passed plus icon is not visible. */
-    onAdd: func,
-
-    /** Children would be rendered above action buttons */
-    children: oneOfType([node, func]),
-
-    /** Content to show in add button tooltip. does not appear if `onAdd` is not passed. */
-    addTooltipContent: node,
-
-    /** Allow to confirm when color is not selected. Returns color object with alpha equal to 0. */
-    allowEmpty: bool,
-
-    /** Placeholder to show in HEX input when `allowEmpty` is true */
-    emptyPlaceholder: string,
-  };
-
-  static defaultProps = {
-    showHistory: false,
-    showConverter: true,
-    showInput: true,
-    allowEmpty: false,
-  };
-
+class ColorPicker extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    this.change = this.change.bind(this);
-    this.confirm = this.confirm.bind(this);
-    this.cancel = this.cancel.bind(this);
 
     const _color = safeColor(props.value, props.allowEmpty) || FALLBACK_COLOR;
     this.state = { current: _color, previous: _color };
@@ -97,8 +46,16 @@ export default class ColorPicker extends React.PureComponent {
 
     return (
       <div className={css.root} data-hook={dataHook}>
-        <ColorPickerHsb current={current} onChange={this.change} />
-        <ColorPickerHue current={current} onChange={this.change} />
+        <ColorPickerHsb
+          dataHook={DataHooks.hsb}
+          current={current}
+          onChange={this.change}
+        />
+        <ColorPickerHue
+          dataHook={DataHooks.hue}
+          current={current}
+          onChange={this.change}
+        />
         <ColorPickerHistory
           show={showHistory}
           current={current}
@@ -106,7 +63,7 @@ export default class ColorPicker extends React.PureComponent {
           onClick={this.change}
         />
         <ColorPickerConverter
-          dataHook="color-picker-converter"
+          dataHook={DataHooks.converter}
           showConverter={showConverter}
           showInput={showInput}
           current={current}
@@ -118,7 +75,7 @@ export default class ColorPicker extends React.PureComponent {
           hexPlaceholder={emptyPlaceholder}
         />
         {children && (
-          <div className={css.children} data-hook="color-picker-children">
+          <div className={css.children} data-hook={DataHooks.children}>
             {this._renderChildren()}
           </div>
         )}
@@ -136,8 +93,10 @@ export default class ColorPicker extends React.PureComponent {
     const childrenInterface = {
       changeColor: _color => {
         try {
-          const colorObject =
-            typeof _color === 'object' ? _color : color(_color);
+          let colorObject = _color;
+          if (typeof _color !== 'object') {
+            colorObject = _color === '' ? color().fade(1) : color(_color);
+          }
           this.change(colorObject);
         } catch (err) {}
       },
@@ -150,31 +109,80 @@ export default class ColorPicker extends React.PureComponent {
 
   UNSAFE_componentWillReceiveProps(props) {
     const _color = safeColor(props.value, props.allowEmpty);
+    if (!_color) return;
+
     if (
-      _color &&
-      (!equal(_color, this.state.current) ||
-        isTransparent(_color) !== isTransparent(this.state.current))
+      _color.hex() !== this.state.current.hex() ||
+      isTransparent(_color) !== isTransparent(this.state.current)
     ) {
       this.setState({ current: _color });
     }
   }
 
-  change(_color) {
+  change = _color => {
     this.setState({ current: _color }, () => {
       this.props.onChange(_color);
     });
-  }
+  };
 
-  confirm() {
+  confirm = () => {
     this.setState({ previous: this.state.current });
     this.props.onConfirm(this.state.current);
-  }
+  };
 
-  cancel() {
+  cancel = () => {
     this.props.onCancel(this.state.previous);
-  }
+  };
 }
 
-function equal(color1, color2) {
-  return color1.hex() === color2.hex();
-}
+ColorPicker.displayName = 'ColorPicker';
+
+ColorPicker.propTypes = {
+  /** Applied as data-hook HTML attribute that can be used to create driver in testing */
+  dataHook: PropTypes.string,
+
+  /** Current color, can be given in `string` or `object` format [https://github.com/Qix-/color](https://github.com/Qix-/color) */
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+
+  /** Should current/previous color be displayed */
+  showHistory: PropTypes.bool,
+
+  /** Should `HEX`/`RGB`/`HSB` converter tabs be displayed */
+  showConverter: PropTypes.bool,
+
+  /** Should color input (in `HEX` mode) be displayed. This is relevant only if `showConverter` is `true` */
+  showInput: PropTypes.bool,
+
+  /** Handle color change event. */
+  onChange: PropTypes.func.isRequired,
+
+  /** Handle cancel button click */
+  onCancel: PropTypes.func.isRequired,
+
+  /** Handle confirm button click */
+  onConfirm: PropTypes.func.isRequired,
+
+  /** Handle color add button click. If not passed plus icon is not visible. */
+  onAdd: PropTypes.func,
+
+  /** Children would be rendered above action buttons */
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+
+  /** Content to show in add button tooltip. does not appear if `onAdd` is not passed. */
+  addTooltipContent: PropTypes.node,
+
+  /** Allow to confirm when color is not selected. Returns color object with alpha equal to 0. */
+  allowEmpty: PropTypes.bool,
+
+  /** Placeholder to show in HEX input when `allowEmpty` is true */
+  emptyPlaceholder: PropTypes.string,
+};
+
+ColorPicker.defaultProps = {
+  showHistory: false,
+  showConverter: true,
+  showInput: true,
+  allowEmpty: false,
+};
+
+export default ColorPicker;

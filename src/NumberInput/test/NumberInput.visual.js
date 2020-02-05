@@ -69,8 +69,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`NumberInput/${describe}`, module).add(it, () => (
-      <NumberInput {...defaultProps} {...props} />
-    ));
+    storiesOf(`NumberInput${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => <NumberInput {...defaultProps} {...props} />,
+    );
   });
 });

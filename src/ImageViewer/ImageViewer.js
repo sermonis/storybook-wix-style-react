@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Delete from '../new-icons/Delete';
+import Delete from 'wix-ui-icons-common/Delete';
 import Replace from 'wix-ui-icons-common/Replace';
 import FormFieldError from 'wix-ui-icons-common/system/FormFieldError';
 import Loader from '../Loader';
@@ -85,6 +85,16 @@ class ImageViewer extends Component {
     });
   };
 
+  _onImageLoad = e => {
+    const { onImageLoad } = this.props;
+    this.setState(
+      {
+        imageLoading: false,
+      },
+      () => onImageLoad(e),
+    );
+  };
+
   _getCurrentAndPreviousImages = () => {
     const { imageUrl: currentImageUrl } = this.props;
     const { previousImageUrl } = this.state;
@@ -97,7 +107,10 @@ class ImageViewer extends Component {
 
   _renderImage = () => {
     const { imageLoading } = this.state;
-    const { onImageLoad } = this.props;
+
+    if (!this.props.imageUrl) {
+      return;
+    }
 
     const {
       currentImageUrl,
@@ -108,7 +121,6 @@ class ImageViewer extends Component {
     const previousImageName = 'image-viewer-previous-image';
     const shouldDisplayContainer = !!(currentImageUrl || previousImageUrl);
     const generateKey = (imageName, imageUrl) => `${imageName}-${imageUrl}`;
-
     return (
       <div
         {...styles('imageContainer', {
@@ -122,10 +134,7 @@ class ImageViewer extends Component {
         {this._renderImageElement({
           imageUrl: currentImageUrl,
           shouldDisplay: !!currentImageUrl && !imageLoading,
-          onLoad: e => {
-            this._resetImageLoading();
-            onImageLoad && onImageLoad(e);
-          },
+          onLoad: this._onImageLoad,
           onError: () => {
             this._resetImageLoading();
           },
@@ -318,6 +327,7 @@ ImageViewer.defaultProps = {
   addImageInfo: 'Add Image',
   updateImageInfo: 'Update',
   removeImageInfo: 'Remove',
+  onImageLoad: () => ({}),
 };
 
 ImageViewer.propTypes = {

@@ -9,10 +9,18 @@ import last from 'lodash/last';
 import difference from 'difference';
 
 import styles from './MultiSelect.scss';
+import deprecationLog from '../utils/deprecationLog';
 
 class MultiSelect extends InputWithOptions {
   constructor(props) {
     super(props);
+
+    if (props.error || props.errorMessage) {
+      deprecationLog(
+        'Multiselect error and errorMessage props are deprecated. Please use status and statusMessage',
+      );
+    }
+
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onPaste = this.onPaste.bind(this);
     this.state = { ...this.state, pasteDetected: false };
@@ -20,7 +28,9 @@ class MultiSelect extends InputWithOptions {
 
   hideOptions() {
     super.hideOptions();
-    this.clearInput();
+    if (this.props.clearOnBlur) {
+      this.clearInput();
+    }
   }
 
   onClickOutside() {
@@ -216,8 +226,23 @@ MultiSelect.propTypes = {
   /** passing `'select'`  will render a readOnly input with menuArrow suffix */
   mode: PropTypes.string,
 
+  /** Is input has errors
+   * @deprecated
+   * @see status
+   */
   error: PropTypes.bool,
+
+  /** Error message to display
+   * @deprecated
+   * @see statusMessage
+   */
   errorMessage: PropTypes.string,
+
+  /** The status of the Multiselect */
+  status: PropTypes.oneOf(['loading', 'success', 'error']),
+
+  /** Text to be shown in the status icon tooltip */
+  statusMessage: PropTypes.string,
 
   /** When this callback function is set, tags can be reordered.
    * The expected callback signature is `onReorder({addedIndex: number, removedIndex: number}) => void`
@@ -243,6 +268,9 @@ MultiSelect.propTypes = {
   /** When set to true this component is disabled */
   disabled: PropTypes.bool,
 
+  /** When set to false, the input will not be cleared on blur */
+  clearOnBlur: PropTypes.bool,
+
   /** A callback function to be called when a tag should be removed.
    * The expected callback signature is `onRemoveTag(tagId: number | string) => void`.
    */
@@ -256,6 +284,7 @@ MultiSelect.defaultProps = {
   predicate: () => true,
   tags: [],
   delimiters: [','],
+  clearOnBlur: true,
   customInput: MultiSelect.autoSizeInputWithRef(),
 };
 

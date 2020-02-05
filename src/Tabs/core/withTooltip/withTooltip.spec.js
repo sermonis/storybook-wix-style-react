@@ -44,19 +44,19 @@ describe('withTooltip hoc', () => {
   it('does not add a tooltip for non compactSide types', () => {
     stubSizes({ elementSize: 10, parentSize: 100 });
     const comp = aComponent({ type: '' });
-    expect(comp.find(Tooltip).exists()).toBeFalsy();
+    expect(comp.find(Tooltip).exists()).toBe(false);
   });
 
   it('adds a tooltip if element exceeds it` parent', () => {
     stubSizes({ elementSize: 20, parentSize: 30 });
     const comp = aComponent();
-    expect(comp.find(Tooltip).exists()).toBeTruthy();
+    expect(comp.find(Tooltip).exists()).toBe(true);
   });
 
   it('does not add a tooltip if element does not exceed it`s parent', () => {
     stubSizes({ elementSize: 100, parentSize: 100 });
     const comp = aComponent();
-    expect(comp.find(Tooltip).exists()).toBeFalsy();
+    expect(comp.find(Tooltip).exists()).toBe(false);
   });
 
   it('passes props to the wrapped component', () => {

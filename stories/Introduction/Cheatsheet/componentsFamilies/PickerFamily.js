@@ -29,7 +29,7 @@ import CalendarPanelFooter from 'wix-style-react/CalendarPanelFooter';
 import Swatches from 'wix-style-react/Swatches';
 
 //Assets
-import { Layout, Cell } from 'wix-style-react/Layout';
+import { Layout } from 'wix-style-react/Layout';
 import singleComponentSizes from '../sharedComponents/constants';
 
 const groupSymbol = symbolsGroup.pickers;
@@ -118,7 +118,7 @@ class EditableSelectorExample extends PureComponent {
     const { options } = this.state;
 
     return (
-      <Preview wrapWithCard>
+      <Preview wrapWithCardContent>
         <EditableSelector
           onOptionAdded={this.onOptionAdded}
           onOptionEdit={this.onOptionEdit}

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { storiesOf } from '@storybook/react';
-import Popover from '../Popover';
-
-import IconButton from '../../IconButton';
-import More from '../../new-icons/More';
-
+import More from 'wix-ui-icons-common/More';
 import { uniTestkitFactoryCreator } from 'wix-ui-test-utils/vanilla';
+
+import Popover from '../Popover';
+import IconButton from '../../IconButton';
 import popoverUniDriverFactory from '../Popover.uni.driver';
 
 const dataHook = 'storybook-popover';
@@ -78,12 +77,15 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`Popover/${describe}`, module).add(it, () => (
-      <InteractivePopover
-        {...defaultProps}
-        {...props}
-        componentDidMount={componentDidMount}
-      />
-    ));
+    storiesOf(`Popover${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InteractivePopover
+          {...defaultProps}
+          {...props}
+          componentDidMount={componentDidMount}
+        />
+      ),
+    );
   });
 });

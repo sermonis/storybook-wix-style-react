@@ -24,5 +24,9 @@ export const PopoverMenuPrivateDriver = (base, body) => {
       await (await getOption('', dataHook)).getNative(),
     getMenuItem: async (option, dataHook) =>
       await (await getOption(option, dataHook)).getNative(),
+    getZIndex: async () => {
+      const style = await (await getContent())._prop('style');
+      return style['z-index'];
+    },
   };
 };

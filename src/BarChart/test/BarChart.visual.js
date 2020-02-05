@@ -206,10 +206,13 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`BarChart/${describe}`, module).add(it, () => (
-      <div style={{ width: '800px' }}>
-        <BarChart {...props} />
-      </div>
-    ));
+    storiesOf(`BarChart${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div style={{ width: '800px' }}>
+          <BarChart {...props} />
+        </div>
+      ),
+    );
   });
 });

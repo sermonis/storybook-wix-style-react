@@ -23,7 +23,7 @@ describe('Page Deprecated', () => {
 
   it('should initialize component', () => {
     const driver = createDriver(renderPageWithProps());
-    expect(driver.exists()).toBeTruthy();
+    expect(driver.exists()).toBe(true);
   });
 
   describe('backgroundImage', () => {
@@ -31,12 +31,12 @@ describe('Page Deprecated', () => {
       const driver = createDriver(
         renderPageWithProps({ backgroundImageUrl: '/some/image' }),
       );
-      expect(driver.backgroundImageExists()).toBeTruthy();
+      expect(driver.backgroundImageExists()).toBe(true);
     });
 
     it('should not initialize component with background image', () => {
       const driver = createDriver(renderPageWithProps());
-      expect(driver.backgroundImageExists()).toBeFalsy();
+      expect(driver.backgroundImageExists()).toBe(false);
     });
   });
 
@@ -45,7 +45,7 @@ describe('Page Deprecated', () => {
       const driver = createDriver(
         renderPageWithProps({ className: 'myClass' }),
       );
-      expect(driver.hasClass('myClass')).toBeTruthy();
+      expect(driver.hasClass('myClass')).toBe(true);
     });
   });
 
@@ -54,12 +54,12 @@ describe('Page Deprecated', () => {
       const driver = createDriver(
         renderPageWithProps({ gradientClassName: 'class' }),
       );
-      expect(driver.gradientClassNameExists()).toBeTruthy();
+      expect(driver.gradientClassNameExists()).toBe(true);
     });
 
     it('should not initialize component with gradient class name by default', () => {
       const driver = createDriver(renderPageWithProps());
-      expect(driver.gradientClassNameExists()).toBeFalsy();
+      expect(driver.gradientClassNameExists()).toBe(false);
     });
   });
 
@@ -107,12 +107,12 @@ describe('Page Deprecated', () => {
         </Page>,
       );
 
-      expect(driver.tailExists()).toBeTruthy();
+      expect(driver.tailExists()).toBe(true);
     });
 
     it('should not attach a tail component', () => {
       const driver = createDriver(renderPageWithProps());
-      expect(driver.tailExists()).toBeFalsy();
+      expect(driver.tailExists()).toBe(false);
     });
   });
 

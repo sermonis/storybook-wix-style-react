@@ -9,9 +9,9 @@ const messageBoxMarketerialLayoutPrivateDriverFactory = ({ element }) => {
     ...messageBoxMarketerialLayoutDriverFactory({ element }),
     isClassPresentInPrimaryButton: className =>
       primaryButton().classList.contains(className),
-    isPrimaryButtonDisabled: () => primaryButton().attributes.disabled,
-    isClassPresentInHeaderCloseButton: className =>
-      closeButton().classList.contains(className),
+    isPrimaryButtonDisabled: () => !!primaryButton().attributes.disabled,
+    closeButtonHasSkin: skin =>
+      closeButton().getAttribute('data-skin') === skin,
   };
 };
 

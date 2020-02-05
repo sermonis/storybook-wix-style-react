@@ -28,7 +28,7 @@ describe('SectionHelper', () => {
 
     it('should render', async () => {
       const { driver } = render(createSectionHelper());
-      expect(await driver.exists()).toBeTruthy();
+      expect(await driver.exists()).toBe(true);
     });
 
     it('should render children', async () => {
@@ -72,7 +72,7 @@ describe('SectionHelper', () => {
         const onClose = jest.fn();
         const { driver } = render(createSectionHelper({ onClose }));
         await driver.clickClose();
-        expect(await driver.isCloseButtonDisplayed()).toBeTruthy();
+        expect(await driver.isCloseButtonDisplayed()).toBe(true);
         expect(onClose).toBeCalled();
       });
 
@@ -80,7 +80,7 @@ describe('SectionHelper', () => {
         const { driver } = render(
           createSectionHelper({ showCloseButton: false }),
         );
-        expect(await driver.isCloseButtonDisplayed()).toBeFalsy();
+        expect(await driver.isCloseButtonDisplayed()).toBe(false);
       });
     });
 

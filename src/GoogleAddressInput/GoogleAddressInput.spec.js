@@ -1,20 +1,15 @@
 import 'react';
 import { componentFactory } from './GoogleAddressInput.driver';
-import _ from 'lodash/fp';
+
 import eventually from 'wix-eventually';
 import sinon from 'sinon';
 import { GoogleAddressInputHandler } from './GoogleAddressInput';
 import InputWithOptions from '../InputWithOptions';
-
-const GEOCODE_RESULT = JSON.parse(
-  '{"formatted_address":"_formatted_address_","address_components":[{"types":["street_number"],"long_name":123}]}',
-);
-GEOCODE_RESULT.geometry = {
-  location: {
-    lat: () => 31.12,
-    lng: () => 33.34,
-  },
-};
+import {
+  GmapsTestClient,
+  GEOCODE_RESULT,
+  GmapsTestClientWithFields,
+} from './gmapsTestClient';
 
 const buildResult = originValue => {
   return {
@@ -32,51 +27,6 @@ const buildResult = originValue => {
   };
 };
 
-export class GmapsTestClient {
-  autocomplete({ request }) {
-    if (request.input === 'dontfind') {
-      return Promise.resolve([]);
-    }
-
-    return Promise.resolve([
-      { description: JSON.stringify(request) + ' - 1', id: 0 },
-      { description: JSON.stringify(request) + ' - 2', id: 1 },
-    ]);
-  }
-
-  geocode({ request }) {
-    const { address, placeId } = request;
-    if (address || placeId) {
-      return Promise.resolve([
-        _.extend({}, GEOCODE_RESULT, { __called__: JSON.stringify(request) }),
-      ]);
-    }
-    throw new Error('geocode() request params are malformed');
-  }
-
-  placeDetails({ request }) {
-    const { placeId } = request;
-    if (placeId) {
-      return Promise.resolve([
-        _.extend({}, GEOCODE_RESULT, { __called__: JSON.stringify(request) }),
-      ]);
-    }
-    throw new Error('placeDetails() request params are malformed');
-  }
-}
-
-class GmapsTestClientWithFields extends GmapsTestClient {
-  placeDetails({ request }) {
-    const { fields } = request;
-    if (fields) {
-      return Promise.resolve([
-        _.extend({}, GEOCODE_RESULT, { __called__: JSON.stringify(request) }),
-      ]);
-    }
-    throw new Error('placeDetails() request params are malformed');
-  }
-}
-
 describe('GoogleAddressInput', () => {
   const { createShallow, createMount } = componentFactory();
 
@@ -91,7 +41,7 @@ describe('GoogleAddressInput', () => {
         Client: GmapsTestClient,
         magnifyingGlass: false,
       }).getDOMNode();
-      expect(component.querySelector('[data-hook="search-icon"]')).toBeFalsy();
+      expect(component.querySelector('[data-hook="search-icon"]')).toBe(null);
     });
 
     it('should allow setting theme for the nested input', () => {
@@ -333,7 +283,7 @@ describe('GoogleAddressInput', () => {
         .onManuallyInput('my addr');
 
       await eventually(() => {
-        expect(onSet.called).toBeFalsy();
+        expect(onSet.called).toBe(false);
       });
     });
 
@@ -351,7 +301,7 @@ describe('GoogleAddressInput', () => {
         .onManuallyInput('dontfind');
 
       await eventually(() => {
-        expect(onSet.called).toBeFalsy();
+        expect(onSet.called).toBe(false);
       });
     });
 

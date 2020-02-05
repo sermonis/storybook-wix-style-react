@@ -1,4 +1,5 @@
 import React from 'react';
+import { fireEvent } from '@testing-library/react';
 import ImageViewer from './ImageViewer';
 import ImageViewerDriver from './ImageViewer.driver';
 import { imageViewerUniDriverFactory } from './ImageViewer.uni.driver';
@@ -51,8 +52,10 @@ describe('ImageViewer', () => {
           const { driver, rerender } = render(buildComponent({ imageUrl }));
 
           const setProps = props => rerender(buildComponent(props));
+          // TODO: Merge the drivers into one, instead of using them separately with different render methods
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -72,6 +75,7 @@ describe('ImageViewer', () => {
           const setProps = props => rerender(buildComponent(props));
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -99,6 +103,7 @@ describe('ImageViewer', () => {
           const { driver } = render(buildComponent({ imageUrl }));
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -110,6 +115,7 @@ describe('ImageViewer', () => {
           const setProps = props => rerender(buildComponent(props));
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -156,6 +162,7 @@ describe('ImageViewer', () => {
           const { driver } = render(buildComponent({ imageUrl }));
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -205,6 +212,7 @@ describe('ImageViewer', () => {
           );
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -225,6 +233,7 @@ describe('ImageViewer', () => {
           const { driver } = render(buildComponent(props));
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -243,6 +252,7 @@ describe('ImageViewer', () => {
           );
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -257,6 +267,7 @@ describe('ImageViewer', () => {
           const { driver } = render(buildComponent(props));
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -269,6 +280,7 @@ describe('ImageViewer', () => {
           const { driver } = render(buildComponent(props));
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -281,6 +293,7 @@ describe('ImageViewer', () => {
           const { driver } = render(buildComponent(props));
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();
@@ -297,6 +310,7 @@ describe('ImageViewer', () => {
           );
           const privateDriver = imageViewerPrivateDriver({
             element: await driver.element(),
+            eventTrigger: fireEvent,
           });
 
           await privateDriver.simulateImageLoad();

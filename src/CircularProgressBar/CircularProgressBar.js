@@ -72,6 +72,7 @@ class CircularProgressBar extends React.PureComponent {
         {...otherProps}
         data-hook={dataHooks.circularProgressBar}
         size={sizesMap[size]}
+        data-size={size}
         successIcon={sizeToSuccessIcon[size]}
         errorIcon={sizeToErrorIcon[size]}
       />

@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Loadable } from 'wix-ui-core/dist/src/components/loadable';
-import WixComponent from '../BaseComponents/WixComponent';
+import FormFieldError from 'wix-ui-icons-common/system/FormFieldError';
+import FormFieldErrorSmall from 'wix-ui-icons-common/system/FormFieldErrorSmall';
+import ToggleOn from 'wix-ui-icons-common/system/ToggleOn';
+import CircleLoaderCheck from 'wix-ui-icons-common/system/CircleLoaderCheck';
+import CircleLoaderCheckSmall from 'wix-ui-icons-common/system/CircleLoaderCheckSmall';
 import Arc from './Arc';
 import css from './Loader.scss';
-import FormFieldError from '../new-icons/system/FormFieldError';
-import FormFieldErrorSmall from '../new-icons/system/FormFieldErrorSmall';
-import ToggleOn from '../new-icons/system/ToggleOn';
-import CircleLoaderCheck from '../new-icons/system/CircleLoaderCheck';
-import CircleLoaderCheckSmall from '../new-icons/system/CircleLoaderCheckSmall';
 import Heading from '../Heading';
 
 const arcsAngles = {
@@ -59,10 +58,13 @@ const sizeToErrorIcon = {
   large: <FormFieldError />,
 };
 
-export default class Loader extends WixComponent {
+class Loader extends React.PureComponent {
   static displayName = 'Loader';
 
   static propTypes = {
+    /** Applied as data-hook HTML attribute that can be used in the tests */
+    dataHook: PropTypes.string,
+
     /** The size of the loader */
     size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large']),
 
@@ -90,7 +92,7 @@ export default class Loader extends WixComponent {
   };
 
   render() {
-    const { size, color, text, status, statusMessage } = this.props;
+    const { dataHook, size, color, text, status, statusMessage } = this.props;
     const sizeInPx = sizesInPx[size];
     const shouldShowFullCircle = status !== 'loading';
     const lightArcAngle = !shouldShowFullCircle
@@ -135,6 +137,7 @@ export default class Loader extends WixComponent {
 
     return (
       <div
+        data-hook={dataHook}
         className={classNames(
           css.loaderContainer,
           css[size],
@@ -180,3 +183,5 @@ export default class Loader extends WixComponent {
     );
   }
 }
+
+export default Loader;

@@ -23,9 +23,40 @@ import { ModalWrapperExample } from './examples/ModalWrapper';
 import SimpleExample from '!raw-loader!./examples/Simple';
 import FullWidthContentExample from '!raw-loader!./examples/FullWidthContent';
 import ScrollableContentExample from '!raw-loader!./examples/ScrollableContent';
+import MultipleContentExample from '!raw-loader!./examples/MultipleContent';
 import allComponents from '../../../stories/utils/allComponents';
+import { Category } from '../../../stories/storiesHierarchy';
 
 const code = config => baseCode({ components: allComponents, ...config });
+
+const childrenNodesExamples = [
+  {
+    label: 'Single child node',
+    value: (
+      <Box
+        width="90vw"
+        height="100%"
+        align="center"
+        verticalAlign="middle"
+        backgroundColor="D80"
+        children="This is the content!"
+      />
+    ),
+  },
+  {
+    label: 'Multiple child nodes',
+    value: ['first', 'second', 'third'].map(ordinalNum => (
+      <Box
+        width="90vw"
+        height="100%"
+        align="center"
+        verticalAlign="middle"
+        backgroundColor="D80"
+        children={`This is the ${ordinalNum} content page`}
+      />
+    )),
+  },
+];
 
 export default {
   category: storySettings.category,
@@ -40,18 +71,13 @@ export default {
   ),
   componentProps: {
     title: 'Basic Website Design',
-    children: (
-      <Box
-        width="95vw"
-        height="95vh"
-        align="center"
-        verticalAlign="middle"
-        backgroundColor="D80"
-      >
-        This is the content!
-      </Box>
-    ),
+    children: childrenNodesExamples[0].value,
     shouldCloseOnOverlayClick: true,
+    onClose: () => null,
+  },
+
+  exampleProps: {
+    children: childrenNodesExamples,
   },
 
   sections: [
@@ -69,7 +95,10 @@ export default {
               title: 'Description',
               text: [
                 'Use this component together with ',
-                <LinkTo kind="Components" story="Modal">{`<Modal />`}</LinkTo>,
+                <LinkTo
+                  kind={Category.COMPONENTS}
+                  story="Modal"
+                >{`<Modal />`}</LinkTo>,
                 ' to display content in preview mode. In the header strip you may place a title and/or a button strip with actions relevant to the displayed content.',
               ],
             }),
@@ -121,6 +150,19 @@ export default {
             code({
               compact: true,
               source: ScrollableContentExample,
+            }),
+          ]),
+
+          columns([
+            description({
+              title: 'Example with Multiple Content',
+              text:
+                'An example for preview layout modal with title, actions and multiple content',
+            }),
+
+            code({
+              compact: true,
+              source: MultipleContentExample,
             }),
           ]),
         ],

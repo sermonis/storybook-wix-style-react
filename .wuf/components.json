@@ -412,5 +412,50 @@
   },
   "MediaOverlay": {
     "path": "src/MediaOverlay"
+  },
+  "InfoIcon": {
+    "path": "src/InfoIcon"
+  },
+  "SocialButton": {
+    "path": "src/SocialButton"
+  },
+  "VerticalTabs": {
+    "path": "src/VerticalTabs"
+  },
+  "VerticalTabsItem": {
+    "path": "src/VerticalTabsItem"
+  },
+  "MobilePreviewWidget": {
+    "path": "src/MobilePreviewWidget"
+  },
+  "ListItemSection": {
+    "path": "src/ListItemSection"
+  },
+  "BrowserPreviewWidget": {
+    "path": "src/BrowserPreviewWidget"
+  },
+  "ListItemSelect": {
+    "path": "src/ListItemSelect"
+  },
+  "TimeTable": {
+    "path": "src/TimeTable"
+  },
+  "MarketingLayout": {
+    "path": "src/MarketingLayout"
+  },
+  "Palette": {
+    "path": "src/Palette"
+  },
+  "WarningIndicator": {
+    "path": "src/WarningIndicator",
+    "missingFiles": [
+      "docs"
+    ]
+  },
+  "VariableInput": {
+    "path": "src/VariableInput"
+  },
+  "Image": {
+    "path": "src/Image"
   }
 }

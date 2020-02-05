@@ -18,8 +18,13 @@
 }
 
 :import {
-  -st-from: "wix-ui-core/dist/src/hocs/Focusable/Focusable.st.css";
-  -st-default: Focusable;
+  -st-from: "wix-ui-core/hocs.st.css";
+  -st-named: Focusable;
+}
+
+:import {
+  -st-from: "../Text/Text.st.css";
+  -st-default: Text;
 }
 
 .root {
@@ -212,4 +217,12 @@
 .text:size(large) {
   width: 100%;
   padding-top: 12px;
+}
+
+.text Text {
+  color: value(B10);
+}
+
+.root:disabled .text Text {
+  color: value(D10-30);
 }

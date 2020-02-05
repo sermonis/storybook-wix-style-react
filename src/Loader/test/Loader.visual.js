@@ -71,7 +71,7 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Loader/${describe}`, module).add(it, () => (
+    storiesOf(`Loader${describe ? '/' + describe : ''}`, module).add(it, () => (
       <Loader {...props} />
     ));
   });

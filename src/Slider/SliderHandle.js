@@ -62,7 +62,15 @@ class SliderHandle extends Component {
   }
 
   render() {
-    const { disabled, rtl, focusableOnFocus, focusableOnBlur } = this.props;
+    const {
+      value,
+      offset,
+      disabled,
+      focusableOnFocus,
+      focusableOnBlur,
+    } = this.props;
+    const { showTooltip } = this.state;
+
     return (
       <div
         {...styles('root', { disabled }, this.props)}
@@ -74,14 +82,13 @@ class SliderHandle extends Component {
         onMouseDown={this.handleMouseDown}
         onMouseUp={this.handleMouseUp}
         data-hook="slider-handle"
-        style={{ left: `${this.props.offset}%` }}
+        style={{ left: `${offset}%` }}
       >
-        {this.state.showTooltip && (
+        {showTooltip && (
           <div data-hook="slider-tooltip" className={styles.tooltip}>
-            {this.props.value}
+            {value}
           </div>
         )}
-        <div {...styles('dot', { disabled, rtl }, this.props)} />
       </div>
     );
   }

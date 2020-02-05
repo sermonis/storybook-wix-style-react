@@ -91,8 +91,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`ComposerHeader/${describe}`, module).add(it, () => (
-      <ComposerHeader {...commonProps} {...props} />
-    ));
+    storiesOf(`ComposerHeader${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => <ComposerHeader {...commonProps} {...props} />,
+    );
   });
 });

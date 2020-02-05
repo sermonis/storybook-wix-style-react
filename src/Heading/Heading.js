@@ -20,6 +20,8 @@ const Heading = ({ light, appearance, children, ...rest }) => {
       ...headingProps,
       'data-hook': dataHook,
       ...style('root', { light, appearance }, rest),
+      'data-appearance': appearance,
+      'data-light': light,
     },
     children,
   );

@@ -4,13 +4,7 @@ import {
   circularProgressBarUniDriverFactory as coreCircularProgressBarUniDriverFactory,
 } from 'wix-ui-core/drivers/unidriver';
 
-import style from './CircularProgressBar.st.css';
-
-import { StylableUnidriverUtil } from '../../test/utils/unidriver';
-
 export const circularProgressBarDriverFactory = (base, body) => {
-  const stylableUtil = new StylableUnidriverUtil(style);
-
   const tooltip = base.$(`[data-hook="${dataHooks.tooltip}"]`);
 
   const createTooltipDriver = () => tooltipUniDriverFactory(tooltip, body);
@@ -39,7 +33,7 @@ export const circularProgressBarDriverFactory = (base, body) => {
     isSuccessIconShown: () => successIcon(base).exists(),
 
     /** Get size */
-    getSize: () => stylableUtil.getStyleState(progressBar(base), 'size'),
+    getSize: () => progressBar(base).attr('data-size'),
 
     /** Returns the tooltip error message */
     getTooltipErrorMessage: () => getTooltip().getTooltipText(),

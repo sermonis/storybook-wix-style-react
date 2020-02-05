@@ -23,7 +23,7 @@ describe('item picker option builder', () => {
 
     it('should display item', async () => {
       const driver = createDriver(<ContactItem title={title} />);
-      expect(await driver.exists()).toBeTruthy();
+      expect(await driver.exists()).toBe(true);
     });
 
     it('should display item with Title', async () => {
@@ -45,7 +45,7 @@ describe('item picker option builder', () => {
         subtitle,
         disabled: true,
       });
-      expect(contactItem.disabled).toBeTruthy();
+      expect(contactItem.disabled).toBe(true);
     });
 
     it('should return item without disabled prop when prop is not passed', async () => {

@@ -78,23 +78,26 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, rtl }) => {
-    storiesOf(`CardGalleryItem/${describe}`, module).add(it, () => (
-      <div
-        style={{
-          width: '60%',
-          height: '500px',
-          backgroundColor: '#dfe6ef',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <div style={{ width: '40%' }}>
-          <RTLWrapper rtl={rtl}>
-            <CardGalleryItem {...props} dataHook={dataHook} />
-          </RTLWrapper>
+    storiesOf(`CardGalleryItem${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div
+          style={{
+            width: '60%',
+            height: '500px',
+            backgroundColor: '#dfe6ef',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <div style={{ width: '40%' }}>
+            <RTLWrapper rtl={rtl}>
+              <CardGalleryItem {...props} dataHook={dataHook} />
+            </RTLWrapper>
+          </div>
         </div>
-      </div>
-    ));
+      ),
+    );
   });
 });

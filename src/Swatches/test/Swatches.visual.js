@@ -85,10 +85,13 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Swatches/${describe}`, module).add(it, () => (
-      <Box width="204px">
-        <Swatches {...commonProps} {...props} />
-      </Box>
-    ));
+    storiesOf(`Swatches${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <Box width="204px">
+          <Swatches {...commonProps} {...props} />
+        </Box>
+      ),
+    );
   });
 });

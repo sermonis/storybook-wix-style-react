@@ -123,7 +123,10 @@ const interactiveTests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`CircularProgressBar/${describe}`, module).add(it, () => (
+    storiesOf(
+      `CircularProgressBar${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => (
       <div style={{ width: '40%' }}>
         <CircularProgressBar dataHook={dataHook} {...props} />
       </div>
@@ -133,7 +136,10 @@ tests.forEach(({ describe, its }) => {
 
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`CircularProgressBar/${describe}`, module).add(it, () => (
+    storiesOf(
+      `CircularProgressBar${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => (
       <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
     ));
   });

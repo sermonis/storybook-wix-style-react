@@ -16,7 +16,7 @@ describe('ModalMobileLayout', () => {
   it('should render', async () => {
     const { driver } = render(<ModalMobileLayout />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should render title', async () => {
@@ -58,7 +58,7 @@ describe('ModalMobileLayout', () => {
     it('should not render close button by default', async () => {
       const { driver } = render(<ModalMobileLayout />);
 
-      expect(await driver.closeButtonExists()).toBeFalsy();
+      expect(await driver.closeButtonExists()).toBe(false);
     });
 
     it('should render close button', async () => {
@@ -66,7 +66,7 @@ describe('ModalMobileLayout', () => {
         <ModalMobileLayout onCloseButtonClick={jest.fn()} />,
       );
 
-      expect(await driver.closeButtonExists()).toBeTruthy();
+      expect(await driver.closeButtonExists()).toBe(true);
     });
 
     it('should call clickCloseButton when clicking on close button', async () => {
@@ -89,7 +89,7 @@ describe('ModalMobileLayout', () => {
         <ModalMobileLayout title={'this is a title'} />,
       );
 
-      expect(await driver.isTitleSticky()).toBeFalsy();
+      expect(await driver.isTitleSticky()).toBe(false);
     });
 
     it('should render sticky title layout', async () => {
@@ -97,7 +97,7 @@ describe('ModalMobileLayout', () => {
         <ModalMobileLayout stickyTitle title={'this is a title'} />,
       );
 
-      expect(await driver.isTitleSticky()).toBeTruthy();
+      expect(await driver.isTitleSticky()).toBe(true);
     });
   });
 
@@ -105,7 +105,7 @@ describe('ModalMobileLayout', () => {
     it('should render a non-sticky footer as default', async () => {
       const { driver } = render(<ModalMobileLayout footer={'Footer'} />);
 
-      expect(await driver.isFooterSticky()).toBeFalsy();
+      expect(await driver.isFooterSticky()).toBe(false);
     });
 
     it('should render sticky footer layout', async () => {
@@ -113,7 +113,7 @@ describe('ModalMobileLayout', () => {
         <ModalMobileLayout stickyFooter footer={'Footer'} />,
       );
 
-      expect(await driver.isFooterSticky()).toBeTruthy();
+      expect(await driver.isFooterSticky()).toBe(true);
     });
   });
 });

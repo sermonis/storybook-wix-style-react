@@ -1,16 +1,16 @@
 import React from 'react';
 import { createUniDriverFactory } from 'wix-ui-test-utils/uni-driver-factory';
+import LockLocked from 'wix-ui-icons-common/LockLocked';
 
 import ToggleIcon from '../ToggleIcon';
 import { toggleIconPrivateDriverFactory } from '../ToggleIcon.private.uni.driver';
-import LockLocked from '../../../new-icons/LockLocked';
 
 describe('ToggleIcon', () => {
   const createDriver = createUniDriverFactory(toggleIconPrivateDriverFactory);
 
   it('should render', async () => {
     const driver = createDriver(<ToggleIcon />);
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should be controlled', async () => {

@@ -91,22 +91,20 @@ const tests = [
 ];
 
 tests.forEach(({ describe, its }) => {
-  let _describe = '';
-  if (describe) {
-    _describe += `/${describe}`;
-  }
-
   its.forEach(({ it, props }) => {
-    storiesOf(`RadioGroup${_describe}`, module).add(it, () => (
-      <Box direction="vertical">
-        <RadioGroup {...defaultProps} {...props}>
-          {[1, 2, 3, 4].map(index => (
-            <RadioGroup.Radio value={index}>
-              {props.children || `Option ${index}`}
-            </RadioGroup.Radio>
-          ))}
-        </RadioGroup>
-      </Box>
-    ));
+    storiesOf(`RadioGroup${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <Box direction="vertical">
+          <RadioGroup {...defaultProps} {...props}>
+            {[1, 2, 3, 4].map(index => (
+              <RadioGroup.Radio value={index}>
+                {props.children || `Option ${index}`}
+              </RadioGroup.Radio>
+            ))}
+          </RadioGroup>
+        </Box>
+      ),
+    );
   });
 });

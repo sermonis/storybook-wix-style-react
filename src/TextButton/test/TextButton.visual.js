@@ -1,136 +1,80 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
+import AddChannel from 'wix-ui-icons-common/AddChannel';
 import TextButton from '../TextButton';
-import { Layout, Cell } from '../../Layout/index';
-import AddChannel from '../../new-icons/AddChannel';
+import { visualize, story, snap } from 'storybook-snapper';
 
-const skins = ['standard', 'light', 'premium', 'dark'];
-const TestContainer = ({ children }) => (
-  <div
-    style={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundColor: '#f0f4f7',
-    }}
-  >
-    {children}
-  </div>
-);
+import {
+  getSkinBackground,
+  renderButtonBlock,
+} from '../../utils/ButtonHelpers';
+import { SKINS, SIZES, WEIGHT } from '../constants';
 
-const ButtonBlock = props => {
-  const { title, ...rest } = props;
-  return (
-    <Layout>
-      <Cell>
-        <h1 style={{ fontSize: '30px', margin: '15px 5px' }}>{title}</h1>
-      </Cell>
-      <Cell span={6}>
-        {skins.map((skin, index) => (
-          <div key={index} style={{ margin: '5px 0' }}>
-            <TextButton {...rest} skin={skin}>
-              Click me
-            </TextButton>
-          </div>
-        ))}
-      </Cell>
-      <Cell span={6}>
-        {skins.map((skin, index) => (
-          <div key={index} style={{ margin: '5px 0' }}>
-            <TextButton {...rest} skin={skin} disabled>
-              Click me
-            </TextButton>
-          </div>
-        ))}
-      </Cell>
-    </Layout>
-  );
-};
+const skins = Object.values(SKINS).reduce((output, skin) => {
+  return [...output, { skin, background: getSkinBackground(skin) }];
+}, []);
 
 const tests = [
   {
-    describe: 'TextButton',
-    its: [
-      {
-        it: 'Underline and Weight',
-        story: () => (
-          <TestContainer>
-            <div style={{ marginLeft: '10px' }}>
-              <Layout>
-                <ButtonBlock title="Underline: none" />
-                <ButtonBlock underline="onHover" title="Underline: onHover" />
-              </Layout>
-              <Layout>
-                <ButtonBlock underline="always" title="Underline: always" />
-                <ButtonBlock weight="normal" title="Weight: normal" />
-              </Layout>
-            </div>
-          </TestContainer>
-        ),
+    describe: 'Sizes',
+    its: Object.values(SIZES).map(size => ({
+      it: size,
+      props: { size, children: size },
+    })),
+  },
+  {
+    describe: 'Weight',
+    its: Object.values(WEIGHT).map(wg => ({
+      it: wg,
+      props: { wg, children: wg },
+    })),
+  },
+  {
+    describe: 'Affixes',
+    its: Object.values(SIZES).map(size => ({
+      it: size,
+      props: {
+        children: size,
+        size,
+        prefixIcon: <AddChannel />,
+        suffixIcon: <AddChannel />,
       },
-      {
-        it: 'Affixes and Size',
-        story: () => (
-          <TestContainer>
-            <div style={{ marginLeft: '10px' }}>
-              <Layout>
-                <ButtonBlock
-                  size="medium"
-                  title="Medium"
-                  suffixIcon={<AddChannel />}
-                  prefixIcon={<AddChannel />}
-                />
-                <ButtonBlock
-                  size="small"
-                  title="Small"
-                  suffixIcon={<AddChannel />}
-                  prefixIcon={<AddChannel />}
-                />
-              </Layout>
-              <Layout>
-                <ButtonBlock
-                  size="tiny"
-                  title="Tiny"
-                  suffixIcon={<AddChannel />}
-                  prefixIcon={<AddChannel />}
-                />
-              </Layout>
-            </div>
-          </TestContainer>
-        ),
-      },
-      {
-        it: 'as Anchor',
-        story: () => (
-          <TestContainer>
-            <div style={{ marginLeft: '10px' }}>
-              <Layout>
-                <ButtonBlock as="a" title="as Anchor (underline: none)" />
-                <ButtonBlock
-                  as="a"
-                  underline="always"
-                  title="as Anchor (underline: always)"
-                />
-              </Layout>
-              <Layout>
-                <ButtonBlock
-                  as="a"
-                  underline="onHover"
-                  title="as Anchor (underline: onHover)"
-                />
-              </Layout>
-            </div>
-          </TestContainer>
-        ),
-      },
-    ],
+    })),
   },
 ];
 
-tests.forEach(({ describe, its }) => {
-  its.forEach(({ it, story }) => {
-    storiesOf(describe, module).add(it, story);
+const blockOfTests = [
+  {
+    it: 'Underline: none',
+    render: () => renderButtonBlock({ Component: TextButton, skins }),
+  },
+  {
+    it: 'Underline: onHover',
+    render: () =>
+      renderButtonBlock({
+        Component: TextButton,
+        props: { underline: 'onHover' },
+        skins,
+      }),
+  },
+  {
+    it: 'Underline: always',
+    render: () =>
+      renderButtonBlock({
+        Component: TextButton,
+        props: { underline: 'always' },
+        skins,
+      }),
+  },
+];
+
+visualize('TextButton', () => {
+  blockOfTests.forEach(({ it, render }) => {
+    snap(it, render);
+  });
+
+  tests.forEach(({ describe, its }) => {
+    story(describe, () => {
+      its.map(({ it, props }) => snap(it, () => <TextButton {...props} />));
+    });
   });
 });

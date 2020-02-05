@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import Card from '.';
 import Button from '../Button';
+import CloseButton from '../CloseButton';
 import Text from '../Text';
 import { Col, Container, Row } from '../Grid';
 
@@ -68,23 +69,63 @@ const tests = [
       },
     ],
   },
+  {
+    describe: 'controls',
+    its: [
+      {
+        it: 'close button',
+        props: {
+          controls: <CloseButton />,
+        },
+      },
+      {
+        it: 'none',
+        props: {
+          controls: undefined,
+        },
+      },
+    ],
+  },
+  {
+    describe: 'content size',
+    its: [
+      {
+        it: 'none',
+        props: {
+          contentSize: undefined,
+        },
+      },
+      {
+        it: 'medium',
+        props: {
+          contentSize: 'medium',
+        },
+      },
+      {
+        it: 'large',
+        props: {
+          contentSize: 'large',
+        },
+      },
+    ],
+  },
 ];
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Card/${describe}`, module).add(it, () => (
+    storiesOf(`Card${describe ? '/' + describe : ''}`, module).add(it, () => (
       <div style={{ background: '#F0F4F7', padding: 30 }}>
         <Container>
           <Row>
             <Col span={6}>
-              <Card>
+              <Card controls={props.controls}>
                 <Card.Header
                   title="Card header"
                   subtitle={props.subtitle}
                   suffix={props.suffix}
                 />
 
-                <Card.Content>sdf</Card.Content>
+                <Card.Content size={props.contentSize}>sdf</Card.Content>
               </Card>
             </Col>
           </Row>

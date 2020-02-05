@@ -19,7 +19,7 @@ describe('SidebarSectionTitle', () => {
       <SidebarSectionTitle>{text}</SidebarSectionTitle>,
     );
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
     expect(await driver.getText()).toBe(text);
   });
 });

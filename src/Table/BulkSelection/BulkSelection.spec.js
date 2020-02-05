@@ -63,13 +63,13 @@ describe('BulkSelection', () => {
         </BulkSelectionConsumer>
       </BulkSelection>,
     );
-    expect(_isSelected(1)).toBeFalsy();
-    expect(_isSelected(2)).toBeFalsy();
-    expect(_isSelected(3)).toBeFalsy();
+    expect(_isSelected(1)).toBe(false);
+    expect(_isSelected(2)).toBe(false);
+    expect(_isSelected(3)).toBe(false);
     _setSelectedIds([1, 2]);
-    expect(_isSelected(1)).toBeTruthy();
-    expect(_isSelected(2)).toBeTruthy();
-    expect(_isSelected(3)).toBeFalsy();
+    expect(_isSelected(1)).toBe(true);
+    expect(_isSelected(2)).toBe(true);
+    expect(_isSelected(3)).toBe(false);
   });
 
   describe('hasMoreInBulkSelection (infinite bulk selection mode)', () => {

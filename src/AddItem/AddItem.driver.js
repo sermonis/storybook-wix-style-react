@@ -1,15 +1,15 @@
-/* eslint-disable */
 import textDriverFactory from '../Text/Text.driver';
 import { tooltipTestkitFactory } from 'wix-ui-core/dist/src/testkit';
+import { dataHooks } from './constants';
 
 const addItemDriverFactory = ({ element, eventTrigger }) => {
   const byHook = hook => element.querySelector(`[data-hook*="${hook}"]`);
   const tooltipTestkit = tooltipTestkitFactory({
     wrapper: element,
-    dataHook: `additem-tooltip`,
+    dataHook: dataHooks.itemTooltip,
   });
   const textDriver = () =>
-    textDriverFactory({ element: byHook('additem-text') });
+    textDriverFactory({ element: byHook(dataHooks.itemText) });
   const deprecationMessage =
     'WARNING[AddItem]: Testkit method getTooltipDriver() is deprecated. Make sure to review AddItem Testkit for other available methods.';
 
@@ -27,6 +27,7 @@ const addItemDriverFactory = ({ element, eventTrigger }) => {
     textExists: () => textDriver().exists(),
 
     /** returns driver of tooltip */
+    // eslint-disable-next-line no-console
     getTooltipDriver: () => console.warn(deprecationMessage),
 
     /** returns value of tooltip content */

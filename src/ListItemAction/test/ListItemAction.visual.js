@@ -110,9 +110,10 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`ListItemAction/${describe}`, module).add(it, () => (
-      <ListItemAction {...commonProps} {...props} />
-    ));
+    storiesOf(`ListItemAction${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => <ListItemAction {...commonProps} {...props} />,
+    );
   });
 });
 
@@ -133,10 +134,13 @@ const rtl = [
 
 rtl.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`ListItemAction/${describe}`, module).add(it, () => (
-      <div dir="rtl">
-        <ListItemAction {...commonProps} {...props} />
-      </div>
-    ));
+    storiesOf(`ListItemAction${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div dir="rtl">
+          <ListItemAction {...commonProps} {...props} />
+        </div>
+      ),
+    );
   });
 });

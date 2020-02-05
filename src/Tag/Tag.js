@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styles from './Tag.scss';
 import CloseButton from '../CloseButton';
-import WixComponent from '../BaseComponents/WixComponent';
 import Text from '../Text';
 import noop from 'lodash/noop';
 import { dataHooks } from './Tag.helpers';
@@ -19,7 +18,7 @@ const tagToTextSize = {
 /**
  * A Tag component
  */
-class Tag extends WixComponent {
+class Tag extends React.PureComponent {
   static displayName = 'Tag';
 
   constructor(props) {
@@ -105,13 +104,14 @@ class Tag extends WixComponent {
   }
 
   render() {
-    const { id, onClick, maxWidth } = this.props;
+    const { id, onClick, maxWidth, dataHook } = this.props;
 
     return (
       <span
         className={this._getClassName()}
+        data-hook={dataHook}
         id={id}
-        onClick={() => onClick(id)}
+        onClick={event => onClick(id, event)}
         style={{ maxWidth: `${maxWidth}px` }}
       >
         {this._renderThumb()}
@@ -123,8 +123,11 @@ class Tag extends WixComponent {
 }
 
 Tag.propTypes = {
+  /** Applied as data-hook HTML attribute that can be used in the tests */
+  dataHook: PropTypes.string,
+
   /** The text of the tag */
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 
   /** when set to true this component is disabled */
   disabled: PropTypes.bool,
@@ -132,7 +135,8 @@ Tag.propTypes = {
   /** The id of the Tag  */
   id: PropTypes.string.isRequired,
 
-  /** Callback function that pass `id` property as parameter when clicking on Tag */
+  /** Callback function that pass `id` property as first parameter
+   * and mouse event as second parameter when clicking on Tag */
   onClick: PropTypes.func,
 
   /** Callback function that pass `id` property as parameter when removing the Tag  */

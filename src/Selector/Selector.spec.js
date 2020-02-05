@@ -30,7 +30,7 @@ describe('Selector', () => {
 
     it('should be unchecked by default', async () => {
       const { driver } = render(<Selector {...defaultProps} />);
-      expect(await driver.isChecked()).toBeFalsy();
+      expect(await driver.isChecked()).toBe(false);
     });
 
     it('should not render the subtitle by default', async () => {

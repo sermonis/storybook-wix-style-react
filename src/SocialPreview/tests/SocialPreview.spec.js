@@ -17,7 +17,7 @@ describe('SocialPreview', () => {
     };
     const driver = createDriver(<SocialPreview {...props} />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
     expect(await driver.getTitle()).toEqual('social-preview');
     expect(await driver.getPreviewUrl()).toEqual('SOCIAL-PREVIEW.COM');
     expect(await driver.getDescription()).toEqual('a social preview test');

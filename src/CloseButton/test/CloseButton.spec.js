@@ -25,6 +25,10 @@ describe('CloseButton', () => {
 
     it('when given medium should have size <CloseLarge />', async () => {
       const { driver } = render(<CloseButton size="medium" />);
+      expect(await driver.mediumCloseIconExists()).toBe(true);
+    });
+    it('when given large should have size <CloseLarge size="12"/>', async () => {
+      const { driver } = render(<CloseButton size="large" />);
       expect(await driver.largeCloseIconExists()).toBe(true);
     });
   });
@@ -44,6 +48,14 @@ describe('CloseButton', () => {
     it('when given medium should have 18px icon', async () => {
       const { driver } = render(
         <CloseButton size="medium">
+          <Add data-hook={dataHook} />
+        </CloseButton>,
+      );
+      expect(await driver.customIconSize()).toEqual('18px');
+    });
+    it('when given large should have 18px icon', async () => {
+      const { driver } = render(
+        <CloseButton size="large">
           <Add data-hook={dataHook} />
         </CloseButton>,
       );

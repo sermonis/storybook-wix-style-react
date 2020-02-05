@@ -3,10 +3,7 @@ import React, { Component } from 'react';
 import { SingleComponentStacked } from '../../../sharedComponents';
 import { layoutSymbolsToComponents } from '../../../../../symbolsComponentsMapping/families/layoutFamily';
 
-import {
-  layoutSymbols,
-  symbolsGroup,
-} from '../../../../../symbolsComponentsMapping/symbols';
+import { layoutSymbols } from '../../../../../symbolsComponentsMapping/symbols';
 
 import {
   createLinkedSymbolName,
@@ -19,13 +16,12 @@ import Box from 'wix-style-react/Box';
 import { Row, Col, Container } from 'wix-style-react/Grid';
 import Button from 'wix-style-react/Button';
 import TextButton from 'wix-style-react/TextButton';
-import Add from 'wix-style-react/new-icons/Add';
+import Add from 'wix-ui-icons-common/Add';
 import Breadcrumbs from 'wix-style-react/Breadcrumbs';
 import PopoverMenu from 'wix-style-react/PopoverMenu';
 import PopoverMenuItem from 'wix-style-react/PopoverMenuItem';
 import EmptyState from 'wix-style-react/EmptyState';
-
-const groupSymbol = symbolsGroup.layout;
+import { Category } from '../../../../../storiesHierarchy';
 
 class ExamplePageWithCard extends Component {
   renderHeader() {
@@ -157,7 +153,7 @@ const PageExamples = () => {
   const components = layoutSymbolsToComponents[symbol];
 
   const singleComponentProps = {
-    name: createLinkedSymbolName({ groupSymbol, symbol }),
+    name: createLinkedSymbolName({ groupSymbol: Category.LAYOUT, symbol }),
     componentsNames: createLinkedComponentsNames(components),
   };
 

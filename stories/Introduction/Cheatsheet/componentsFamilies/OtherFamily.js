@@ -23,6 +23,7 @@ import Tag from 'wix-style-react/Tag';
 import Loader from 'wix-style-react/Loader';
 import LinearProgressBar from 'wix-style-react/LinearProgressBar';
 import CircularProgressBar from 'wix-style-react/CircularProgressBar';
+import Image from 'wix-style-react/Image';
 
 //Assets
 import { Layout, Cell } from 'wix-style-react/Layout';
@@ -326,15 +327,27 @@ const LinearProgressBarExample = () => {
 
   return (
     <SingleComponentSideBySide {...singleComponentProps}>
-      <Layout>
-        <Cell>
-          <LinearProgressBar value={25} />
-        </Cell>
-        <Cell>
-          <Box backgroundColor="D10">
-            <LinearProgressBar light value={25} />
-          </Box>
-        </Cell>
+      <Layout cols={2}>
+        <Layout>
+          <Cell>
+            <LinearProgressBar value={25} />
+          </Cell>
+          <Cell>
+            <Box backgroundColor="D10">
+              <LinearProgressBar light value={25} />
+            </Box>
+          </Cell>
+        </Layout>
+        <Layout>
+          <Cell>
+            <LinearProgressBar skin="success" value={25} />
+          </Cell>
+          <Cell>
+            <Box backgroundColor="D10">
+              <LinearProgressBar skin="success" light value={25} />
+            </Box>
+          </Cell>
+        </Layout>
       </Layout>
     </SingleComponentSideBySide>
   );
@@ -362,6 +375,23 @@ const CircularProgressBarExample = () => {
   );
 };
 
+const ImageExample = () => {
+  const symbol = otherSymbols.image;
+  const components = otherSymbolsToComponents[symbol];
+
+  const singleComponentProps = {
+    name: symbol,
+    componentsNames: createLinkedComponentsNames(components),
+    size: singleComponentSizes.compact,
+  };
+
+  return (
+    <SingleComponentSideBySide {...singleComponentProps}>
+      <Image width="150" height="100" />
+    </SingleComponentSideBySide>
+  );
+};
+
 const OtherFamily = () => (
   <FamilyStructure title={groupSymbol} showPreview>
     <AvatarExample />
@@ -372,6 +402,7 @@ const OtherFamily = () => (
     <LoaderExample />
     <LinearProgressBarExample />
     <CircularProgressBarExample />
+    <ImageExample />
   </FamilyStructure>
 );
 

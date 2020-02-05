@@ -17,7 +17,7 @@ describe('StatisticsWidget', () => {
   it('should render', async () => {
     const { driver } = render(<StatisticsWidget />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   describe('With one item', () => {
@@ -91,7 +91,7 @@ describe('StatisticsWidget', () => {
         const { driver } = render(<StatisticsWidget {...data} />);
         const info = await driver.isInfoExists(0);
 
-        expect(info).toBeFalsy();
+        expect(info).toBe(false);
       });
 
       it('should exist when descriptionInfo is set', async () => {
@@ -100,7 +100,7 @@ describe('StatisticsWidget', () => {
         const { driver } = render(<StatisticsWidget {...data} />);
         const info = await driver.isInfoExists(0);
 
-        expect(info).toBeTruthy();
+        expect(info).toBe(true);
       });
 
       it('should contain passed text', async () => {

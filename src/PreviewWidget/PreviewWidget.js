@@ -1,7 +1,10 @@
 import React from 'react';
 import { node, string, oneOf } from 'prop-types';
+import { skins, dataHooks } from './constants';
+import colors from '../Foundation/stylable/colors.st.css';
 
-import { dataHooks } from './constants';
+import Box from '../Box';
+
 import style from './PreviewWidget.st.css';
 
 /** Preview content widget*/
@@ -9,46 +12,61 @@ class PreviewWidget extends React.PureComponent {
   static displayName = 'PreviewWidget';
 
   static propTypes = {
-    /** Preview data hook*/
+    /** Preview widget data hook*/
     dataHook: string,
 
-    /** Preview type */
-    type: oneOf(['blank', 'browserBar', 'mobile']),
+    /** Background skin. To use `custom` skin, set it to custom and use the backgroundColor prop*/
+    skin: oneOf(['neutral', 'gradient', 'custom']),
 
-    /** Preview background color*/
-    backgroundColor: oneOf(['grey', 'gradient', 'custom']),
+    /** Preview widget background color. Can be set with `design system` colors*/
+    backgroundColor: string,
 
-    /** Content area contour*/
-    borderType: oneOf(['shadow', 'solid']),
+    /** Content area outline*/
+    contentOutline: oneOf(['shadow', 'border']),
+
+    /** Sets the height of the component */
+    height: string,
+
+    /** Sets the width of the component */
+    width: string,
 
     /** Node to preview */
     children: node.isRequired,
   };
 
   static defaultProps = {
-    type: 'blank',
-    backgroundColor: 'grey',
-    borderType: 'shadow',
+    skin: 'neutral',
+    contentOutline: 'shadow',
+    height: 'auto',
+    width: '100%',
+    children: <Box height="50px" width="50px" />,
   };
 
   render() {
     const {
       dataHook,
-      type,
+      skin,
+      contentOutline,
       backgroundColor,
-      borderType,
+      height,
+      width,
       children,
     } = this.props;
 
+    const rootStyles = {
+      height: `${height}`,
+      width: `${width}`,
+      background:
+        skin === skins.custom && (colors[backgroundColor] || backgroundColor),
+    };
+
     return (
       <div
-        {...style('root', { backgroundColor }, this.props)}
+        {...style('root', { skin, contentOutline }, this.props)}
         data-hook={dataHook}
+        style={rootStyles}
       >
-        <div
-          {...style('contentArea', { borderType })}
-          data-hook={dataHooks.contentArea}
-        >
+        <div data-hook={dataHooks.contentArea} className={style.contentArea}>
           {children}
         </div>
       </div>

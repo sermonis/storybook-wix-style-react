@@ -70,7 +70,7 @@ describe('Tabs component', () => {
 
     it('should have default type when not specified', async () => {
       const driver = createComponent({ items });
-      expect(await driver.isDefaultType()).toBeTruthy();
+      expect(await driver.isDefaultType()).toBe(true);
     });
 
     it('should get custom style', async () => {
@@ -78,14 +78,14 @@ describe('Tabs component', () => {
       const driver = createComponent({ items, type });
       expect(
         (await driver.getItemsContainerClassList()).contains('compact'),
-      ).toBeTruthy();
+      ).toBe(true);
     });
 
     it('should set tab width, when selected type is Uniform Side', async () => {
       const width = '100px';
       const driver = createComponent({ items, width, type: 'uniformSide' });
       expect((await driver.getItemsWidth()).size).toBe(1);
-      expect((await driver.getItemsWidth()).has(width)).toBeTruthy();
+      expect((await driver.getItemsWidth()).has(width)).toBe(true);
     });
 
     it('should show side content if defined via props', async () => {
@@ -100,25 +100,25 @@ describe('Tabs component', () => {
 
     it('does not show side content if it is not passed via props', async () => {
       const driver = createComponent({ items });
-      expect(await driver.getSideContent()).toBeFalsy();
+      expect(await driver.getSideContent()).toBe(null);
     });
 
     it('should have divider by default', async () => {
       const driver = createComponent({ items });
 
-      expect(await driver.hasDivider()).toBeTruthy();
+      expect(await driver.hasDivider()).toBe(true);
     });
 
     it('should not have divider if props.divider is falsy', async () => {
       const driver = createComponent({ items, hasDivider: false });
 
-      expect(await driver.hasDivider()).toBeFalsy();
+      expect(await driver.hasDivider()).toBe(false);
     });
 
     it('should have divider if props.divider is truthy', async () => {
       const driver = createComponent({ items, hasDivider: true });
 
-      expect(await driver.hasDivider()).toBeTruthy();
+      expect(await driver.hasDivider()).toBe(true);
     });
   }
 });

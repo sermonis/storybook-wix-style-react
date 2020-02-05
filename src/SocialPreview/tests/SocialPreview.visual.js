@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
+import { visualize, story, snap } from 'storybook-snapper';
 import SocialPreview from '..';
 import ImageViewer from '../../ImageViewer';
 
@@ -18,40 +18,31 @@ const defaultProps = {
 
 const tests = [
   {
-    describe: 'basic',
-    its: [
-      {
-        it: 'default render',
-        props: {},
-        componentWrapper: ({ children }) => (
-          <div style={{ width: '340px' }}>{children}</div>
-        ),
-      },
-      {
-        it: 'long texts',
-        props: {
-          title: 'Click me!'.repeat(27),
-          description: 'a short description for a site'.repeat(8),
-          previewUrl: 'www.site-name.com'.repeat(28),
-        },
-        componentWrapper: ({ children }) => (
-          <div style={{ width: '340px' }}>{children}</div>
-        ),
-      },
-    ],
+    it: 'basic',
+    props: {},
+  },
+  {
+    it: 'long texts',
+    props: {
+      title: 'Click me!'.repeat(27),
+      description: 'a short description for a site'.repeat(8),
+      previewUrl: 'www.site-name.com'.repeat(28),
+    },
   },
 ];
 
-tests.forEach(({ describe, its }) => {
-  its.forEach(({ it, props, componentWrapper }) => {
-    storiesOf(`SocialPreview/${describe}`, module).add(it, () => {
-      const component = <SocialPreview {...defaultProps} {...props} />;
-      const ComponentWrapper = componentWrapper;
-      return ComponentWrapper ? (
-        <ComponentWrapper>{component}</ComponentWrapper>
-      ) : (
-        component
-      );
+const AsyncStoryWrapper = ({ onDone, ...rest }) => (
+  <div style={{ width: '340px' }}>
+    <SocialPreview onImageLoad={onDone} {...rest} />
+  </div>
+);
+
+visualize('SocialPreview', () => {
+  story('should render', () => {
+    tests.forEach(({ it, props }) => {
+      snap(it, done => (
+        <AsyncStoryWrapper {...defaultProps} {...props} onDone={done} />
+      ));
     });
   });
 });

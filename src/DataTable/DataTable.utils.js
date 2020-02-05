@@ -14,10 +14,14 @@ export function virtualRowsAreEqual(prevProps, nextProps) {
     ...nextRest
   } = nextProps;
 
+  const { data: nextItemData, ...restNextItemData } = nextData;
+  const { data: prevItemData, ...restPrevItemData } = prevData;
+
   return (
     nextIndex === prevIndex &&
     shallowEqual(prevStyle, nextStyle) &&
-    shallowEqual(prevData[prevIndex], nextData[nextIndex]) &&
+    shallowEqual(prevItemData[prevIndex], nextItemData[nextIndex]) &&
+    shallowEqual(restPrevItemData, restNextItemData) &&
     shallowEqual(prevRest, nextRest)
   );
 }

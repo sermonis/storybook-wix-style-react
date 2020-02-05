@@ -1,5 +1,4 @@
 import { baseUniDriverFactory } from '../../../../test/utils/unidriver';
-import navigationStyles from './navigation/styles.scss';
 
 export const sideMenuUniDriverFactory = base => {
   const getHeader = () => base.$('[data-hook=menu-header]');
@@ -30,9 +29,7 @@ export const sideMenuUniDriverFactory = base => {
       getNavigationLinkWrappers().map(wrapper => wrapper),
     isLinkActiveByIndex: async index => {
       const activeLinkWrapper = getNavigationLinkWrappers().get(index);
-      const classExists = await activeLinkWrapper.hasClass(
-        navigationStyles.linkActive,
-      );
+      const classExists = await activeLinkWrapper.hasClass('linkActive');
       const dataAttributeExists =
         (await activeLinkWrapper.attr('data-link-active')) === 'true';
       return classExists && dataAttributeExists;
@@ -40,7 +37,7 @@ export const sideMenuUniDriverFactory = base => {
     isLinkDisabledByIndex: index =>
       getNavigationLinkWrappers()
         .get(index)
-        .hasClass(navigationStyles.linkDisabled),
+        .hasClass('linkDisabled'),
     isLinkBadgeVisibleByIndex: index =>
       getBadge(getNavigationLinkWrappers().get(index)).exists(),
     navigationSeparators: () =>

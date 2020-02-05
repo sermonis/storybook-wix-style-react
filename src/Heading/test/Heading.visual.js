@@ -48,10 +48,13 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, container }) => {
-    storiesOf(`Heading/${describe}`, module).add(it, () => (
-      <div {...container}>
-        <Heading {...defaultProps} {...props} />
-      </div>
-    ));
+    storiesOf(`Heading${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div {...container}>
+          <Heading {...defaultProps} {...props} />
+        </div>
+      ),
+    );
   });
 });

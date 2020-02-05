@@ -1,13 +1,12 @@
-import { fireEvent } from '@testing-library/react';
-import { dataHooks } from './ImageViewer.constants';
+import { dataHooks } from './constants';
 
-const imageViewerPrivateDriver = ({ element }) => {
+const imageViewerPrivateDriver = ({ element, eventTrigger }) => {
   const byHook = dataHook => element.querySelector(`[data-hook="${dataHook}"]`);
 
   return {
     simulateImageLoad: () => {
       const imageElement = byHook(dataHooks.image);
-      fireEvent.load(imageElement);
+      eventTrigger.load(imageElement);
     },
   };
 };

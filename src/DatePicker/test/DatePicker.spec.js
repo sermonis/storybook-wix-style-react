@@ -45,7 +45,7 @@ describe('DatePicker', () => {
         const { inputDriver } = createDriver(
           <DatePicker onChange={noop} disabled />,
         );
-        expect(inputDriver.isDisabled()).toBeTruthy();
+        expect(inputDriver.isDisabled()).toBe(true);
       });
 
       it('should not open calendar on click', () => {
@@ -404,7 +404,7 @@ describe('DatePicker', () => {
           <DatePicker onChange={noop} />,
         );
         driver.open();
-        expect(calendarDriver.isFocusedDayVisuallyUnfocused()).toBeTruthy();
+        expect(calendarDriver.isFocusedDayVisuallyUnfocused()).toBe(true);
       });
 
       it('should close calendar using ref', () => {
@@ -492,10 +492,10 @@ describe('DatePicker', () => {
         );
 
         driver.open();
-        expect(calendarDriver.isFocusedDayVisuallyUnfocused()).toBeTruthy();
+        expect(calendarDriver.isFocusedDayVisuallyUnfocused()).toBe(true);
 
         calendarDriver.pressLeftArrow();
-        expect(calendarDriver.containsVisuallyUnfocusedDay()).toBeFalsy();
+        expect(calendarDriver.containsVisuallyUnfocusedDay()).toBe(false);
       });
     });
   });
@@ -744,8 +744,8 @@ describe('DatePicker', () => {
   describe('borderRadius', () => {
     it('should have both borderRadius by default', () => {
       const { inputDriver } = createDriver(<DatePicker onChange={noop} />);
-      expect(inputDriver.hasRightBorderRadius()).toBeTruthy();
-      expect(inputDriver.hasLeftBorderRadius()).toBeTruthy();
+      expect(inputDriver.hasRightBorderRadius()).toBe(true);
+      expect(inputDriver.hasLeftBorderRadius()).toBe(true);
     });
   });
 
@@ -757,8 +757,8 @@ describe('DatePicker', () => {
           onChange={noop}
         />,
       );
-      expect(inputDriver.hasRightBorderRadius()).toBeFalsy();
-      expect(inputDriver.hasLeftBorderRadius()).toBeFalsy();
+      expect(inputDriver.hasRightBorderRadius()).toBe(false);
+      expect(inputDriver.hasLeftBorderRadius()).toBe(false);
     });
   });
 
@@ -806,7 +806,7 @@ describe('DatePicker', () => {
         <DatePicker twoMonths onChange={noop} />,
       );
       inputDriver.trigger('click');
-      expect(calendarDriver.isTwoMonthsLayout()).toBeTruthy();
+      expect(calendarDriver.isTwoMonthsLayout()).toBe(true);
     });
   });
 });

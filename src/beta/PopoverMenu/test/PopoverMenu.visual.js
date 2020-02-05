@@ -1,13 +1,14 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import More from 'wix-ui-icons-common/More';
+import Add from 'wix-ui-icons-common/Add';
+import Edit from 'wix-ui-icons-common/Edit';
+import Delete from 'wix-ui-icons-common/Delete';
+
 import PopoverMenu from '../PopoverMenu';
 import IconButton from '../../../IconButton';
 import TextButton from '../../../TextButton';
-import More from '../../../new-icons/More';
-import Add from '../../../new-icons/Add';
-import Edit from '../../../new-icons/Edit';
-import Delete from '../../../new-icons/Delete';
 import { PopoverMenuTestkit } from '../../../../testkit/beta';
 
 const interactiveDataHook = 'interactive-popover-menu';
@@ -542,18 +543,24 @@ const interactiveTests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`PopoverMenu/${describe}`, module).add(it, () => (
-      <div style={{ marginLeft: '300px', marginTop: '200px' }}>
-        <PopoverMenu {...props} />
-      </div>
-    ));
+    storiesOf(`PopoverMenu${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div style={{ marginLeft: '300px', marginTop: '200px' }}>
+          <PopoverMenu {...props} />
+        </div>
+      ),
+    );
   });
 });
 
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`PopoverMenu/${describe}`, module).add(it, () => (
-      <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
-    ));
+    storiesOf(`PopoverMenu${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
+      ),
+    );
   });
 });

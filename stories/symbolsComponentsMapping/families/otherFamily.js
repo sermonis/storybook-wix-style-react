@@ -4,6 +4,9 @@ import {
   sharedComponentsNames,
 } from '../components';
 
+/**
+ * Symbol => Component 11
+ */
 export const otherSymbolsToComponents = {
   [otherSymbols.avatar]: [componentsNames.Avatar],
 
@@ -23,4 +26,6 @@ export const otherSymbolsToComponents = {
   [otherSymbols.linearProgressBar]: [componentsNames.LinearProgressBar],
 
   [otherSymbols.circularProgressBar]: [componentsNames.CircularProgressBar],
+
+  [otherSymbols.image]: [componentsNames.Image],
 };

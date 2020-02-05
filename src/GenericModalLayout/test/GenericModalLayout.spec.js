@@ -60,7 +60,7 @@ describe('GenericModalLayout', () => {
       it('should render not fullscreen as default', async () => {
         const driver = createPrivateDriver(renderWithProps());
 
-        expect(await driver.isFullscreen()).toBeFalsy();
+        expect(await driver.isFullscreen()).toBe(false);
       });
 
       it('should render fullscreen layout', async () => {
@@ -70,7 +70,7 @@ describe('GenericModalLayout', () => {
           }),
         );
 
-        expect(await driver.isFullscreen()).toBeTruthy();
+        expect(await driver.isFullscreen()).toBe(true);
       });
 
       it('should render not fullscreen layout', async () => {
@@ -80,7 +80,7 @@ describe('GenericModalLayout', () => {
           }),
         );
 
-        expect(await driver.isFullscreen()).toBeFalsy();
+        expect(await driver.isFullscreen()).toBe(false);
       });
     });
   }

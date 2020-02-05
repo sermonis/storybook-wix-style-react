@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormFieldError from '../new-icons/system/FormFieldError';
+import FormFieldError from 'wix-ui-icons-common/system/FormFieldError';
 import Tooltip from '../Tooltip';
 import styles from './ErrorIndicator.st.css';
 
@@ -31,9 +31,9 @@ ErrorIndicator.defaultProps = {
 };
 
 ErrorIndicator.propTypes = {
-  errorMessage: PropTypes.string,
+  dataHook: PropTypes.string,
+  errorMessage: PropTypes.node,
   tooltipPlacement: PropTypes.oneOf(['right', 'left', 'top', 'bottom']),
-  onTooltipShow: PropTypes.func,
 };
 
 export default ErrorIndicator;

@@ -52,6 +52,7 @@ class InputWithTags extends React.Component {
       placeholder,
       error,
       errorMessage,
+      status,
       disabled,
       delimiters,
       mode,
@@ -64,7 +65,8 @@ class InputWithTags extends React.Component {
     const className = classNames({
       [styles.inputWithTagsContainer]: true,
       [styles.disabled]: disabled,
-      [styles.error]: error,
+      [styles.error]: status === 'error' || error,
+      [styles.warning]: status === 'warning',
       [styles.readOnly]: isSelectMode,
       [styles.hasFocus]: hasFocus && !disabled,
       [styles.hasMaxHeight]:
@@ -87,6 +89,7 @@ class InputWithTags extends React.Component {
       onBlur,
       menuArrow,
       errorMessage: _,
+      statusMessage,
       onInputClicked,
       ...desiredProps
     } = inputProps;
@@ -169,12 +172,12 @@ class InputWithTags extends React.Component {
           />
         </span>
 
-        {(isSelectMode || error) && (
+        {(isSelectMode || status || error) && (
           <div className={styles.inputSuffix}>
             <InputSuffix
               disabled={disabled}
-              status={error && 'error'}
-              statusMessage={errorMessage}
+              status={status || (error && 'error')}
+              statusMessage={statusMessage || errorMessage}
               menuArrow={isSelectMode}
             />
           </div>
@@ -246,8 +249,23 @@ InputWithTags.propTypes = {
   onInputClicked: PropTypes.func,
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
+  /** Is input has errors
+   * @deprecated
+   * @see status
+   */
   error: PropTypes.bool,
+
+  /** Error message to display
+   * @deprecated
+   * @see statusMessage
+   */
   errorMessage: PropTypes.string,
+
+  /** The status of the input */
+  status: PropTypes.oneOf(['loading', 'success', 'error', 'warning']),
+
+  /** Text to be shown in the status icon tooltip */
+  statusMessage: PropTypes.string,
   mode: PropTypes.oneOf(['select']),
   delimiters: PropTypes.array,
   width: PropTypes.string,

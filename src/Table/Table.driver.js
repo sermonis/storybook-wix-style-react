@@ -8,11 +8,11 @@ const tableDriverFactory = ({ element, eventTrigger }) => {
   });
   const getTitlebar = () =>
     element.querySelector('[data-hook="table-title-bar"]');
+  const getRowCheckbox = index =>
+    dataTableDriver.getCell(index, 0).querySelector('[data-hook="row-select"]');
   const getRowCheckboxDriver = index =>
     checkboxDriverFactory({
-      element: dataTableDriver
-        .getCell(index, 0)
-        .querySelector('[data-hook="row-select"]'),
+      element: getRowCheckbox(index),
       eventTrigger,
     });
   const getBulkSelectionCheckboxDriver = () =>
@@ -62,10 +62,10 @@ const tableDriverFactory = ({ element, eventTrigger }) => {
       deprecationLog(
         '"clickRowChecbox" method is deprecated (because of typo) and will be removed in next major release, please use "clickRowCheckbox" driver method',
       );
-      return getRowCheckboxDriver(index).click();
+      return eventTrigger.click(getRowCheckbox(index));
     },
     /** Click the row selection checkbox */
-    clickRowCheckbox: index => getRowCheckboxDriver(index).click(),
+    clickRowCheckbox: index => eventTrigger.click(getRowCheckbox(index)),
     /** Click the bulk-selection checkbox */
     clickBulkSelectionCheckbox: () => getBulkSelectionCheckboxDriver().click(),
     /** Is row selected by index */

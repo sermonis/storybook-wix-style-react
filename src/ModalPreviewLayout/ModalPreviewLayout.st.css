@@ -3,21 +3,26 @@
   -st-named: G30, R30, D10, D80;
 }
 
+:import{
+  -st-from: "../Tooltip/TooltipNext/Tooltip.st.css";
+  -st-default: Tooltip;
+}
+
 :vars {
   headerHeight: 66px;
   titleWidth: 20%;
   actionsWidth: 60%;
-  verticalMargins: 24px;
 }
 
-.overlay {
+.root {
+  -st-states: hasLeft, hasRight;
   width: 100vw;
   height: 100vh;
   justify-content: center;
 }
 
 .header {
-  position: fixed;
+  position: sticky;
   background: value(D10);
   height: value(headerHeight);
   width: 100%;
@@ -51,18 +56,52 @@
 .innerOverlay {
   display: flex;
   justify-content: center;
-  top: value(headerHeight);
   height: calc(100vh - value(headerHeight));
-  position: relative;
   overflow-y: auto;
+  padding: 24px 24px 0 24px;
 }
 
 .content {
-  margin-top: value(verticalMargins);
+  max-width: 100%;
+  max-height: calc(100% - 24px);
+  position: relative;
 }
 
 .content::after {
-  height: value(verticalMargins);
+  height: 24px;
   content: ' ';
   display: block;
+}
+
+.navigationButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+}
+
+.root:hasLeft .navigationButton.left-arrow{
+  display: block;
+  left: 36px;
+}
+
+.root:hasRight .navigationButton.right-arrow{
+  display: block;
+  right: 36px;
+}
+
+.modalTooltip {
+  -st-extends: Tooltip;
+}
+
+.modalTooltip::popoverContent{
+  background: value(D80);
+}
+
+.modalTooltip::popover::arrow{
+  border-color: transparent value(D80) value(D80) transparent;
+}
+
+.modalTooltip::popover[data-placement]::arrow {
+  border-color: transparent value(D80) value(D80) transparent;
 }

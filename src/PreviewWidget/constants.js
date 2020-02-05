@@ -1,20 +1,14 @@
-export const contentAreaType = {
-  blank: 'blank',
-  browserBar: 'browserBar',
-  mobile: 'mobile',
-};
-
-export const borderType = {
+export const contentOutlines = {
   shadow: 'shadow',
-  solid: 'solid',
+  border: 'border',
 };
 
-export const backgroundColor = {
-  grey: 'grey',
+export const skins = {
+  neutral: 'neutral',
   gradient: 'gradient',
   custom: 'custom',
 };
 
 export const dataHooks = {
-  contentArea: 'contentArea',
+  contentArea: 'preview-widget-content-area',
 };

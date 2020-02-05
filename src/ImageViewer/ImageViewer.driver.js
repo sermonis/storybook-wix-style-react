@@ -1,6 +1,6 @@
 import addItemDriverFactory from '../AddItem/AddItem.driver';
 import { tooltipTestkitFactory } from 'wix-ui-core/dist/src/testkit';
-import { dataAttributes, dataHooks } from './ImageViewer.constants';
+import { dataAttributes, dataHooks } from './constants';
 
 const imageViewerDriverFactory = ({ element, eventTrigger }) => {
   const byHook = dataHook => element.querySelector(`[data-hook="${dataHook}"]`);
@@ -75,20 +75,27 @@ const imageViewerDriverFactory = ({ element, eventTrigger }) => {
     isImageLoaded: () => hasDataAttribute(dataAttributes.imageLoaded, element),
     isImageVisible: () => {
       const image = getImageElement();
-      return isImageElementVisible(image) && isImagesContainerElementVisible();
+      return (
+        !!image &&
+        isImageElementVisible(image) &&
+        isImagesContainerElementVisible()
+      );
     },
     isPreviousImageVisible: () => {
       const previousImage = getPreviousImageElement();
       return (
+        !!previousImage &&
         isImageElementVisible(previousImage) &&
         isImagesContainerElementVisible()
       );
     },
-    getImageUrl: () =>
-      getImageElement() && getImageElement().getAttribute('src'),
+    getImageUrl: () => {
+      const imageUrl = getImageElement();
+      return imageUrl && imageUrl.getAttribute('src');
+    },
     getPreviousImageUrl: () => {
       const previousImage = getPreviousImageElement();
-      return previousImage.getAttribute('src');
+      return previousImage && previousImage.getAttribute('src');
     },
     hover: () => hoverElement(),
   };

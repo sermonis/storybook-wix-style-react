@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ErrorIndicator from '../ErrorIndicator';
-import WixComponent from '../BaseComponents/WixComponent';
+import WarningIndicator from '../WarningIndicator';
 import debounce from 'lodash/debounce';
 import isNaN from 'lodash/isNaN';
+import deprecationLog from '../utils/deprecationLog';
 
 import styles from './InputArea.scss';
 
@@ -13,9 +14,17 @@ import { dataHooks } from './constants';
 /**
  * General inputArea container
  */
-class InputArea extends WixComponent {
+class InputArea extends React.PureComponent {
+  static StatusError = 'error';
+  static StatusWarning = 'warning';
+
   constructor(props) {
     super(props);
+    if (this.props.error || this.props.errorMessage) {
+      deprecationLog(
+        'InputArea error and errorMessage props are deprecated. Please use status and statusMessage',
+      );
+    }
     this._onKeyDown = this._onKeyDown.bind(this);
     this._onChange = this._onChange.bind(this);
     this._onInput = this._onInput.bind(this);
@@ -37,7 +46,6 @@ class InputArea extends WixComponent {
   static MIN_ROWS = 2;
 
   componentDidMount() {
-    super.componentDidMount();
     this.props.autoFocus && this._onFocus();
   }
 
@@ -52,6 +60,7 @@ class InputArea extends WixComponent {
 
   render() {
     const {
+      dataHook,
       autoFocus,
       defaultValue,
       disabled,
@@ -76,8 +85,19 @@ class InputArea extends WixComponent {
       errorMessage,
       size,
       tooltipPlacement,
-      onTooltipShow,
+      status,
+      statusMessage,
     } = this.props;
+
+    let hasError = status === InputArea.StatusError;
+    const hasWarning = status === InputArea.StatusWarning;
+    let statusTooltipMessage = statusMessage;
+
+    // Check for deprecated fields and use them if provided
+    if (error) {
+      hasError = error;
+      statusTooltipMessage = errorMessage;
+    }
 
     const inlineStyle = {};
     const rowsAttr = rows
@@ -98,7 +118,8 @@ class InputArea extends WixComponent {
     const classes = classNames({
       [styles.root]: true,
       [styles[`theme-${theme}`]]: true,
-      [styles.hasError]: !!error,
+      [styles.hasError]: hasError,
+      [styles.hasWarning]: hasWarning,
       [styles.hasHover]: forceHover,
       [styles.hasFocus]: forceFocus || this.state.focus,
       [styles.resizable]: !!resizable,
@@ -121,7 +142,7 @@ class InputArea extends WixComponent {
     });
 
     return (
-      <div className={styles.wrapper}>
+      <div data-hook={dataHook} className={styles.wrapper}>
         <div className={classes}>
           <textarea
             rows={rowsAttr}
@@ -154,13 +175,19 @@ class InputArea extends WixComponent {
             </span>
           )}
         </div>
-        <div className={styles.error}>
-          {error && !disabled && (
+        <div className={styles.status}>
+          {hasError && !disabled && (
             <ErrorIndicator
               dataHook={dataHooks.tooltip}
-              errorMessage={errorMessage}
+              errorMessage={statusTooltipMessage}
               tooltipPlacement={tooltipPlacement}
-              onTooltipShow={onTooltipShow}
+            />
+          )}
+          {hasWarning && !disabled && (
+            <WarningIndicator
+              dataHook={dataHooks.tooltip}
+              warningMessage={statusTooltipMessage}
+              tooltipPlacement={tooltipPlacement}
             />
           )}
         </div>
@@ -285,6 +312,9 @@ InputArea.defaultProps = {
 };
 
 InputArea.propTypes = {
+  /** Applied as data-hook HTML attribute that can be used in the tests */
+  dataHook: PropTypes.string,
+
   ariaControls: PropTypes.string,
   ariaDescribedby: PropTypes.string,
   ariaLabel: PropTypes.string,
@@ -294,7 +324,6 @@ InputArea.propTypes = {
 
   /** Standard React Input autoSelect (select the entire text of the element on focus) */
   autoSelect: PropTypes.bool,
-  dataHook: PropTypes.string,
 
   /** Specifies the size of the input */
   size: PropTypes.oneOf(['small', 'normal']),
@@ -305,13 +334,26 @@ InputArea.propTypes = {
   /** Disables the input */
   disabled: PropTypes.bool,
 
-  /** Sets UI to erroneous */
+  /** Sets UI to erroneous *
+   * @deprecated
+   * @see status
+   */
   error: PropTypes.bool,
 
-  /** The error message to display when hovering the error icon, if not given or empty there will be no tooltip */
+  /** Sets UI to indicate input status. for example: 'error' or 'warning' */
+  status: PropTypes.oneOf([InputArea.StatusError, InputArea.StatusWarning]),
+
+  /** The error message to display when hovering the error icon, if not given or empty there will be no tooltip *
+   * @deprecated
+   * @see statusMessage
+   */
   errorMessage: PropTypes.string,
+
   forceFocus: PropTypes.bool,
   forceHover: PropTypes.bool,
+
+  /** The status message to display when hovering the status icon, if not given or empty there will be no tooltip */
+  statusMessage: PropTypes.string,
 
   /** When true a letters counter will appear */
   hasCounter: PropTypes.bool,

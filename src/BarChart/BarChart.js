@@ -79,6 +79,7 @@ class BarChart extends React.PureComponent {
 
     return descriptionInfo ? (
       <Tooltip
+        textAlign="start"
         dataHook={dataHooks.tooltip}
         content={descriptionInfo}
         onShow={onDescriptionInfoShown}
@@ -135,7 +136,7 @@ class BarChart extends React.PureComponent {
   };
 
   render() {
-    const { dataHook, items, deprecatedColors, total } = this.props;
+    const { dataHook, items, total } = this.props;
     const calculatedTotal = this._getCalculatedTotal();
     const width = total ? (calculatedTotal / total) * 100 : 100;
 

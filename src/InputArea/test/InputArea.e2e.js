@@ -105,5 +105,17 @@ describe('InputArea', () => {
       const rowCount = await inputAreaTestkit.getRowCount();
       expect(rowCount).toBe(1);
     });
+    eyes.it('should grow when long text is provided', async () => {
+      await inputAreaTestkit.click();
+      const previousOffsetHeight = parseInt(
+        await inputAreaTestkit.getOffsetHeight(),
+      );
+      const longValue = LONG_INPUT.repeat(10);
+      inputAreaTestkit.sendKeys(longValue);
+      const currentOffsetHeight = parseInt(
+        await inputAreaTestkit.getOffsetHeight(),
+      );
+      expect(currentOffsetHeight).toBeGreaterThan(previousOffsetHeight);
+    });
   });
 });

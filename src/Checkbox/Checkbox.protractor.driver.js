@@ -2,13 +2,15 @@ import styles from './Checkbox.scss';
 import focusableDriverFactory from '../common/Focusable/Focusable.protractor.driver';
 import { mergeDrivers } from '../../test/utils/private-drivers';
 import { hasAttribute, hasClass } from '../../test/utils/protractor-helpers';
+import { dataHooks } from './constants';
 
 /**
  * @return <T extends InternalFocusableDriver>
  */
 export const internalDriverFactory = element => {
-  const getBox = () => element.$(`[data-hook="checkbox-box"]`);
-  const getTextChildren = () => element.$(`[data-hook="checkbox-children"]`);
+  const getBox = () => element.$(`[data-hook="${dataHooks.box}"]`);
+  const getTextChildren = () =>
+    element.$(`[data-hook="${dataHooks.children}"]`);
 
   return {
     // Implements: InternalFocusableDriver
@@ -18,8 +20,8 @@ export const internalDriverFactory = element => {
 };
 
 const checkboxDriverFactory = element => {
-  const checkboxElement = element.$(`[data-hook="checkbox-box"]`);
-  const childrenElement = element.$(`[data-hook="checkbox-children"]`);
+  const checkboxElement = element.$(`[data-hook="${dataHooks.box}"]`);
+  const childrenElement = element.$(`[data-hook="${dataHooks.children}"]`);
 
   const focusableDriver = focusableDriverFactory({
     rootElement: element,
@@ -30,11 +32,11 @@ const checkboxDriverFactory = element => {
   const publicDriver = {
     element: () => element,
     click: () => checkboxElement.click(),
-    getLabel: () => element.$('[data-hook="checkbox-label"]'),
-    getInput: () => element.$('[data-hook="checkbox-input"]'),
-    isChecked: () => element.$('[data-hook="checkbox-input"]').isSelected(),
+    getLabel: () => element.$(`[data-hook="${dataHooks.label}"]`),
+    getInput: () => element.$(`[data-hook="${dataHooks.input}"]`),
+    isChecked: () => element.$(`[data-hook="${dataHooks.input}"]`).isSelected(),
     isDisabled: () =>
-      hasAttribute(element.$('[data-hook="checkbox-input"]'), 'disabled'),
+      hasAttribute(element.$(`[data-hook="${dataHooks.input}"]`), 'disabled'),
     hasError: () => hasClass(element, styles.hasError),
   };
 

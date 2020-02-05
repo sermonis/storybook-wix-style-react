@@ -39,18 +39,32 @@ const tests = [
       },
     ],
   },
+  {
+    describe: 'url',
+    its: [
+      {
+        it: 'ellipsed url',
+        props: {
+          previewUrl: 'long url should be ellipsed '.repeat(20),
+        },
+      },
+    ],
+  },
 ];
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentWrapper }) => {
-    storiesOf(`GooglePreview/${describe}`, module).add(it, () => {
-      const component = <GooglePreview {...defaultProps} {...props} />;
-      const ComponentWrapper = componentWrapper;
-      return ComponentWrapper ? (
-        <ComponentWrapper>{component}</ComponentWrapper>
-      ) : (
-        component
-      );
-    });
+    storiesOf(`GooglePreview${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => {
+        const component = <GooglePreview {...defaultProps} {...props} />;
+        const ComponentWrapper = componentWrapper;
+        return ComponentWrapper ? (
+          <ComponentWrapper>{component}</ComponentWrapper>
+        ) : (
+          component
+        );
+      },
+    );
   });
 });

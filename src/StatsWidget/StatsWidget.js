@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SortByArrowUp from 'wix-ui-icons-common/system/SortByArrowUp';
+import SortByArrowDown from 'wix-ui-icons-common/system/SortByArrowDown';
+import ChevronDown from 'wix-ui-icons-common/ChevronDown';
+
 import Card from '../Card';
-import WixComponent from '../BaseComponents/WixComponent';
 import styles from './StatsWidget.scss';
 import Heading from '../Heading';
-import SortByArrowUp from '../new-icons/system/SortByArrowUp';
-import SortByArrowDown from '../new-icons/system/SortByArrowDown';
 import Badge from '../Badge';
 import DropdownBase from '../DropdownBase';
 import TextButton from '../TextButton';
-import ChevronDown from '../new-icons/ChevronDown';
 import deprecationLog from '../utils/deprecationLog';
 
 function renderTrend(percent, invertPercentColor) {
@@ -42,7 +42,7 @@ function renderTrend(percent, invertPercentColor) {
 /**
  * Component for app widget in Business Manager
  */
-class StatsWidget extends WixComponent {
+class StatsWidget extends React.PureComponent {
   static propTypes = {
     /** A component to be displayed on the right side of Stats Widget */
     suffix: PropTypes.node,
@@ -59,6 +59,8 @@ class StatsWidget extends WixComponent {
           .isRequired,
         percent: PropTypes.number,
         invertPercentColor: PropTypes.bool,
+        /** Applied as data-hook HTML attribute that can be used to create driver in testing */
+        dataHook: PropTypes.string,
       }),
     ),
 
@@ -127,11 +129,18 @@ class StatsWidget extends WixComponent {
   }
 
   render() {
-    const { title, statistics, children, emptyState, suffix } = this.props;
+    const {
+      title,
+      statistics,
+      children,
+      emptyState,
+      suffix,
+      dataHook,
+    } = this.props;
     const suffixElements = [].concat(suffix).concat(children);
 
     return (
-      <Card>
+      <Card dataHook={dataHook}>
         <Card.Header
           dataHook="stats-widget-title"
           title={title}

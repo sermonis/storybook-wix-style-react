@@ -2,17 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import classnames from 'classnames';
+import X from 'wix-ui-icons-common/X';
+import defaultTo from 'lodash/defaultTo';
+
 import styles from './Modal.scss';
 import { flexPositions } from './constants';
-import WixComponent from '../BaseComponents/WixComponent';
-import X from '../new-icons/X';
 import { ZIndex } from '../ZIndex';
-import defaultTo from 'lodash/defaultTo';
 
 const CHILDREN_WRAPPER_DIV_ID = 'modal-children-container';
 
-class Modal extends WixComponent {
+class Modal extends React.PureComponent {
   static propTypes = {
+    /** Applied as data-hook HTML attribute that can be used to create driver in testing */
+    dataHook: PropTypes.string,
     /** Is modal open or not*/
     isOpen: PropTypes.bool.isRequired,
     /** Border radius of modal*/
@@ -27,7 +29,6 @@ class Modal extends WixComponent {
     /** Displays a close button on the top right corner of the overlay  */
     shouldDisplayCloseButton: PropTypes.bool,
     onRequestClose: PropTypes.func,
-    onOk: PropTypes.func,
     onAfterOpen: PropTypes.func,
     /** horizontal position of the modal*/
     horizontalPosition: PropTypes.oneOf(['start', 'center', 'end']),
@@ -57,7 +58,6 @@ class Modal extends WixComponent {
   };
 
   static defaultProps = {
-    onOk: () => {},
     borderRadius: 0,
     theme: 'blue',
     shouldCloseOnOverlayClick: false,
@@ -74,6 +74,7 @@ class Modal extends WixComponent {
 
   render() {
     const {
+      dataHook,
       horizontalPosition,
       verticalPosition,
       height,
@@ -148,7 +149,7 @@ class Modal extends WixComponent {
     }
 
     return (
-      <div>
+      <div data-hook={dataHook}>
         <ReactModal
           portalClassName={portalClassName}
           isOpen={isOpen}

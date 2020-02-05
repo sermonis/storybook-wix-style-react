@@ -1,6 +1,6 @@
 :import {
   -st-from: "../Foundation/stylable/colors.st.css";
-  -st-named: G10, B20, R10, D20, R30, G30, B30, D40, O10, Y10;
+  -st-named: G10, B20, R10, D20, R30, G30, B30, D40, O10, Y10, D70, Y30, P10;
 }
 
 :import {
@@ -81,4 +81,16 @@
 .root:skin(neutralDanger) .marker,
 .root:skin(dangerMutedHover) .marker {
   background-color: value(R30)
+}
+
+.root:skin(neutralLight) .marker {
+  background-color: value(D70)
+}
+ 
+.root:skin(warningLight) .marker {
+  background-color: value(Y30)
+}
+
+.root:skin(premium) .marker {
+  background-color: value(P10)
 }

@@ -14,7 +14,7 @@ describe('Subheader', () => {
   it('should render', async () => {
     const { driver } = render(<Subheader title="title" />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   describe('`title` prop', () => {

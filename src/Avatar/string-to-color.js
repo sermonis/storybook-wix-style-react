@@ -1,4 +1,4 @@
-import { avatarColorList } from './Avatar.const';
+import { avatarColorList } from './constants';
 
 /* stringToColor returns a different color for each string.
  ** Each string will ALWAYS receives the same color, so the color will always be consistent per string

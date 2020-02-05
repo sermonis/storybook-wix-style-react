@@ -73,9 +73,7 @@ describe('Swatches', () => {
     it('should be selected if selected prop is not passed', async () => {
       const { driver } = render(<Swatches showClear colors={['#000000']} />);
 
-      const emptySwatch = await driver.getEmptySwatch();
-
-      expect(await emptySwatch.isSelected()).toBe(true);
+      expect(await driver.isEmptySwatchSelected()).toBe(true);
     });
 
     it('should not add tooltip if showClearMessage is not given', async () => {

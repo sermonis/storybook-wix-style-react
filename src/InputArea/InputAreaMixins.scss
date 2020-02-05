@@ -18,7 +18,7 @@
 @mixin ThemeFocus {
     &.hasFocus {
         @include FocusBox;
-        background-color: transparent;
+        background-color: $D80;
 
         &.hasError {
             @include FocusBoxError
@@ -35,6 +35,13 @@
 
 @mixin ThemeError($borderColor, $boxShadow: none) {
     &.hasError {
+        border-color: $borderColor;
+        box-shadow: $boxShadow;
+    }
+}
+
+@mixin ThemeWarning($borderColor, $boxShadow: none) {
+    &.hasWarning {
         border-color: $borderColor;
         box-shadow: $boxShadow;
     }

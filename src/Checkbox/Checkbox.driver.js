@@ -4,6 +4,7 @@ import { testkitFactoryCreator } from 'wix-ui-test-utils/vanilla';
 //TODO - add tooltip classic driver in the correct place
 import { tooltipDriverFactory } from 'wix-ui-core/dist/src/components/tooltip/Tooltip.driver';
 import styles from './Checkbox.scss';
+import { dataHooks } from './constants';
 
 const labelTestkitFactory = testkitFactoryCreator(labelDriverFactory);
 
@@ -12,12 +13,12 @@ const checkboxDriverFactory = ({ element, eventTrigger }) => {
   const input = () => element.querySelector('input');
   const checkbox = () => element.querySelector(styles.checkbox);
   const labelDriver = () =>
-    labelTestkitFactory({ wrapper: element, dataHook: 'checkbox-label' });
+    labelTestkitFactory({ wrapper: element, dataHook: dataHooks.label });
   const isChecked = () => input().checked;
 
   const getErrorMessage = async () => {
     const tooltipTestkit = tooltipDriverFactory({
-      element: byHook('checkbox-box'),
+      element: byHook(dataHooks.box),
       eventTrigger,
     });
 

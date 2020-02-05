@@ -1,5 +1,6 @@
 import React from 'react';
 import MessageBoxMarketerialLayout from './MessageBoxMarketerialLayout';
+import Button from '../../Button';
 import MessageBoxMarketerialLayoutPrivateDriverFactory from './MessageBoxMarketerialLayout.private.driver';
 import { messageBoxMarketerialLayoutPrivateUniDriverFactory } from './MessageBoxMarketerialLayout.private.uni.driver';
 import sinon from 'sinon';
@@ -13,7 +14,6 @@ import { mount } from 'enzyme';
 
 import { createRendererWithDriver, cleanup } from '../../../test/utils/react';
 import { createRendererWithUniDriver } from '../../../test/utils/unit';
-import styles from '../../Button/Button.st.css';
 
 describe('MessageBoxMarketerialLayout', () => {
   describe('[sync]', () => {
@@ -56,13 +56,39 @@ describe('MessageBoxMarketerialLayout', () => {
           primaryButtonTheme: 'purple',
         });
         const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
-        expect(
-          await driver.isClassPresentInPrimaryButton('fullpurple'),
-        ).toBeTruthy();
+        expect(await driver.isClassPresentInPrimaryButton('fullpurple')).toBe(
+          true,
+        );
       });
 
       it('should not display the primary button if primary button label was not passed', async () => {
         const props = Object.assign({}, requiredProps, {});
+        const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
+        expect(await driver.getPrimaryButton()).toBeNull();
+      });
+
+      it('should display primary button node if passed', async () => {
+        const props = Object.assign(
+          {},
+          requiredProps,
+          {
+            primaryButtonNode: <Button>Hi</Button>,
+          },
+          {},
+        );
+        const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
+        expect(await driver.getPrimaryButtonNode()).not.toBe(null);
+      });
+
+      it('should not display the primary button if primary button node was passed', async () => {
+        const props = Object.assign(
+          {},
+          requiredProps,
+          {
+            primaryButtonNode: <Button>Hi</Button>,
+          },
+          {},
+        );
         const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
         expect(await driver.getPrimaryButton()).toBeNull();
       });
@@ -73,7 +99,7 @@ describe('MessageBoxMarketerialLayout', () => {
           primaryButtonDisabled: true,
         });
         const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
-        expect(await driver.isPrimaryButtonDisabled()).toBeTruthy();
+        expect(await driver.isPrimaryButtonDisabled()).toBe(true);
       });
 
       it('should display enabled primary button if primaryButtonDisabled is false', async () => {
@@ -82,7 +108,7 @@ describe('MessageBoxMarketerialLayout', () => {
           primaryButtonDisabled: false,
         });
         const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
-        expect(await driver.isPrimaryButtonDisabled()).toBeFalsy();
+        expect(await driver.isPrimaryButtonDisabled()).toBe(false);
       });
 
       it('should display the secondary button label text on top the secondary button', async () => {
@@ -108,7 +134,7 @@ describe('MessageBoxMarketerialLayout', () => {
         });
         const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
         await driver.clickOnPrimaryButton();
-        expect(props.onPrimaryButtonClick.calledOnce).toBeTruthy();
+        expect(props.onPrimaryButtonClick.calledOnce).toBe(true);
       });
 
       it(`should trigger the secondary button action upon clicking the secondary button`, async () => {
@@ -118,7 +144,7 @@ describe('MessageBoxMarketerialLayout', () => {
         });
         const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
         await driver.clickOnSecondaryButton();
-        expect(props.onSecondaryButtonClick.calledOnce).toBeTruthy();
+        expect(props.onSecondaryButtonClick.calledOnce).toBe(true);
       });
 
       it(`should close the message dialog upon clicking the close button`, async () => {
@@ -127,7 +153,7 @@ describe('MessageBoxMarketerialLayout', () => {
         });
         const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
         await driver.closeMessageBox();
-        expect(props.onClose.calledOnce).toBeTruthy();
+        expect(props.onClose.calledOnce).toBe(true);
       });
 
       it(`should theme the close button as dark when general theme is white`, async () => {
@@ -136,9 +162,7 @@ describe('MessageBoxMarketerialLayout', () => {
         });
         const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
 
-        expect(
-          await driver.isClassPresentInHeaderCloseButton(styles.dark),
-        ).toBeTruthy();
+        expect(await driver.closeButtonHasSkin('dark')).toBeTruthy();
       });
     });
 
@@ -187,9 +211,9 @@ describe('MessageBoxMarketerialLayout', () => {
           primaryButtonLabel: 'primaryButtonLabel',
         });
         const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
-        expect(
-          await driver.isClassPresentInPrimaryButton('fullblue'),
-        ).toBeTruthy();
+        expect(await driver.isClassPresentInPrimaryButton('fullblue')).toBe(
+          true,
+        );
       });
 
       it(`should use color theme`, async () => {
@@ -198,9 +222,9 @@ describe('MessageBoxMarketerialLayout', () => {
           theme: 'purple',
         });
         const driver = createDriver(<MessageBoxMarketerialLayout {...props} />);
-        expect(
-          await driver.isClassPresentInPrimaryButton('fullpurple'),
-        ).toBeTruthy();
+        expect(await driver.isClassPresentInPrimaryButton('fullpurple')).toBe(
+          true,
+        );
       });
     });
 

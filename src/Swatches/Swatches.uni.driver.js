@@ -5,6 +5,8 @@ export const swatchesDriverFactory = base => {
   const getSwatch = async index =>
     base.$$('[data-hook="color-swatches-swatch"]').get(index);
 
+  const getEmptySwatch = async () => base.$(`[data-hook="${dataHooks.empty}"]`);
+
   return {
     exists: async () => base.exists(),
 
@@ -17,13 +19,16 @@ export const swatchesDriverFactory = base => {
 
     /** Click empty swatch */
     clickEmptySwatch: async () =>
-      fillPreviewDriverFactory(
-        base.$(`[data-hook="${dataHooks.empty}"]`),
-      ).click(),
+      fillPreviewDriverFactory(await getEmptySwatch()).click(),
 
     /** Test if swatch is selected at given index */
     isSwatchSelectedAt: async index => {
       return fillPreviewDriverFactory(await getSwatch(index)).isSelected();
+    },
+
+    /** Test if empty swatch is selected */
+    isEmptySwatchSelected: async () => {
+      return fillPreviewDriverFactory(await getEmptySwatch()).isSelected();
     },
 
     addButtonExists: async () =>

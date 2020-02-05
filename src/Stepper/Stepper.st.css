@@ -1,26 +1,14 @@
-:import {
-    -st-from: "../Foundation/stylable/colors.st.css";
-    -st-named: D55;
-}
-
 .root {
-    display: flex;
+  -st-states: fit(enum(compact, stretched));
+  display: flex;
+  min-width: 0;
 }
 
-.stepSplitter {
-    display: flex;
-    align-items: center;
-    padding-right: 6px;
-    cursor: default;
-    color: value(D55);
-    flex-shrink: 0;
+.root:fit(stretched) {
+  flex-grow: 1;
+  justify-content: space-between;
 }
 
-.stepContainer {
-    -st-states: selected;
-    min-width: 0;
-}
-
-.stepContainer:selected {
-    flex-shrink: 0;
+.root:fit(stretched)::after {
+  content: '';
 }

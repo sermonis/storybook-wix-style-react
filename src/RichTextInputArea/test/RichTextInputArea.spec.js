@@ -65,7 +65,9 @@ describe('RichTextInputArea', () => {
 
       await driver.enterText(text);
 
-      expect(callback).toHaveBeenCalledWith(expectedHtmlValue);
+      expect(callback).toHaveBeenCalledWith(expectedHtmlValue, {
+        plainText: text,
+      });
     });
 
     it('should render a placeholder', async () => {

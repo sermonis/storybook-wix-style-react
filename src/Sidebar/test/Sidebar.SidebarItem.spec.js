@@ -43,13 +43,13 @@ describe('Sidebar', () => {
       expect(el1.text()).toEqual('123');
 
       let el = sidebar.find(`[data-hook="simple2"]`);
-      expect(el.exists()).toBeFalsy();
+      expect(el.exists()).toBe(false);
 
       el = sidebar.find(`[data-hook="simple3"]`);
-      expect(el.exists()).toBeFalsy();
+      expect(el.exists()).toBe(false);
 
       el = sidebar.find(`[data-hook="simple4"]`);
-      expect(el.exists()).toBeFalsy();
+      expect(el.exists()).toBe(false);
     });
 
     it('should render second level items once navigate', () => {
@@ -138,13 +138,13 @@ describe('Sidebar', () => {
       );
 
       let subMenuChildren = sidebar.find(`[data-hook="driven-in-children"]`);
-      expect(subMenuChildren.exists()).toBeFalsy();
+      expect(subMenuChildren.exists()).toBe(false);
 
       const itemEl = sidebar.find(`[data-hook="simple1"]`);
       itemEl.simulate('click');
 
       subMenuChildren = sidebar.find(`[data-hook="driven-in-children"]`);
-      expect(subMenuChildren.exists()).toBeTruthy();
+      expect(subMenuChildren.exists()).toBe(true);
 
       let subItemEl = sidebar.find(`[data-hook="simple2"]`);
       expect(subItemEl.text()).toEqual('456');
@@ -177,7 +177,7 @@ describe('Sidebar', () => {
       itemEl.simulate('click');
 
       const subMenuChildren = sidebar.find(`[data-hook="driven-in-children"]`);
-      expect(subMenuChildren.exists()).toBeFalsy();
+      expect(subMenuChildren.exists()).toBe(false);
     });
   });
 });

@@ -9,6 +9,7 @@ class Accordion extends React.Component {
   static displayName = 'Accordion';
 
   static propTypes = {
+    /** Applied as data-hook HTML attribute that can be used to create driver in testing */
     dataHook: PropTypes.string,
 
     /** allow multiple rows to be opened simultaneously */

@@ -6,15 +6,15 @@ import { withFocusable } from 'wix-ui-core/dist/src/hocs/Focusable/FocusableHOC'
 import AddItemLarge from 'wix-ui-icons-common/system/AddItemLarge';
 import AddItemMedium from 'wix-ui-icons-common/system/AddItemMedium';
 import AddItemSmall from 'wix-ui-icons-common/system/AddItemSmall';
-import Add from '../new-icons/Add';
+import Add from 'wix-ui-icons-common/Add';
 
 import Tooltip from '../Tooltip';
 import Text from '../Text';
 import TooltipHOC from './components/TooltipHOC';
 import AddMedia from 'wix-ui-icons-common/system/AddMedia';
+import { dataHooks } from './constants';
 
 import style from './AddItem.st.css';
-import colors from '../Foundation/stylable/colors.st.css';
 
 const ICONS = {
   large: <AddItemLarge />,
@@ -45,7 +45,7 @@ class AddItem extends Component {
     /** click event handler  */
     onClick: PropTypes.func,
 
-    /** used for testing */
+    /** Applied as data-hook HTML attribute that can be used to create driver in testing */
     dataHook: PropTypes.string,
 
     /** @deprecated do not use this prop. Check for other available props. */
@@ -86,16 +86,13 @@ class AddItem extends Component {
     removePadding: false,
   };
 
-  _getTextColor = () => (this.props.disabled ? colors['D10-30'] : colors.B10);
-
   _renderIcon = () => {
     const { size, theme } = this.props;
 
     const image = theme === 'image';
-    const color = this._getTextColor();
     const iconElement = ICONS[image ? 'custom' : size];
 
-    return React.cloneElement(iconElement, { style: { color } });
+    return iconElement;
   };
 
   _renderText = () => {
@@ -108,12 +105,11 @@ class AddItem extends Component {
     const textSize = size === 'tiny' ? 'small' : 'medium';
 
     return (
-      <div {...style('text', { size }, this.props)}>
+      <div {...style('text', { size })}>
         <Text
-          style={{ color: this._getTextColor() }}
           weight="thin"
           size={textSize}
-          dataHook="additem-text"
+          dataHook={dataHooks.itemText}
           ellipsis
         >
           {children}
@@ -123,7 +119,14 @@ class AddItem extends Component {
   };
 
   _renderContent = () => {
-    const { theme, alignItems, size, disabled, showIcon } = this.props;
+    const {
+      theme,
+      alignItems,
+      size,
+      disabled,
+      showIcon,
+      tooltipContent,
+    } = this.props;
 
     const container = (
       <div {...style('content', { theme, size, alignItems, disabled })}>
@@ -132,7 +135,10 @@ class AddItem extends Component {
       </div>
     );
     return (
-      <TooltipHOC enabled={theme === 'image'} {...this.props}>
+      <TooltipHOC
+        enabled={theme === 'image' && tooltipContent !== ''}
+        {...this.props}
+      >
         {container}
       </TooltipHOC>
     );

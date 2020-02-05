@@ -40,9 +40,9 @@ describe('BadgeSelect', () => {
 
     it('should have a badge and hidden options by default', async () => {
       const { driver, badgeDriver } = createComponent();
-      expect(await driver.exists()).toBeTruthy();
-      expect(await driver.isDropdownShown()).toBeFalsy();
-      expect(await badgeDriver.exists()).toBeTruthy();
+      expect(await driver.exists()).toBe(true);
+      expect(await driver.isDropdownShown()).toBe(false);
+      expect(await badgeDriver.exists()).toBe(true);
     });
 
     it('should show badge with initial selected skin and text', async () => {
@@ -77,22 +77,22 @@ describe('BadgeSelect', () => {
     it('should show badge selector when badge is clicked', async () => {
       const { driver, badgeDriver } = createComponent();
       await badgeDriver.click();
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
     });
 
     it('should hide options on selection', async () => {
       const { driver } = createComponent();
       await driver.click();
       await driver.clickAtOption(2);
-      expect(await driver.isDropdownShown()).toBeFalsy();
+      expect(await driver.isDropdownShown()).toBe(false);
     });
 
     it('should hide options on outside click', async () => {
       const { driver, badgeDriver } = createComponent();
       await badgeDriver.click();
-      expect(await driver.isDropdownShown()).toBeTruthy();
+      expect(await driver.isDropdownShown()).toBe(true);
       await driver.clickOutside();
-      expect(await driver.isDropdownShown()).toBeFalsy();
+      expect(await driver.isDropdownShown()).toBe(false);
     });
 
     it('should call onSelect when an option is selected', async () => {

@@ -11,7 +11,7 @@ describe('CardGalleryItem', () => {
   it('should exist', async () => {
     const driver = createDriver(<CardGalleryItem />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should not render title by default', async () => {
@@ -117,7 +117,7 @@ describe('CardGalleryItem', () => {
   it('should not render hovered content', async () => {
     const driver = createDriver(<CardGalleryItem />);
 
-    expect(await driver.getHoveredContent().exists()).toBeFalsy();
+    expect(await driver.getHoveredContent().exists()).toBe(false);
   });
 
   describe('on hover', () => {
@@ -126,7 +126,7 @@ describe('CardGalleryItem', () => {
 
       await driver.hover();
 
-      expect(await driver.getHoveredContent().exists()).toBeTruthy();
+      expect(await driver.getHoveredContent().exists()).toBe(true);
     });
 
     it('on click on card should call once only primary action', async () => {

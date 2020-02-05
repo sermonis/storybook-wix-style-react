@@ -60,7 +60,7 @@ export const size = `
   <Text size="medium">
     Size medium is default size that's used most of the time.
   </Text>
-  <Text size="small">    
+  <Text size="small">
    Small size is used where medium doesn't fit or content is less important.
   </Text>
   <Text size="tiny">
@@ -76,12 +76,15 @@ export const link = `
 `;
 
 export const ellipsis = `
-<Layout cols={2} gap={0}>
+<Layout cols={2} gap={10}>
   <Box width="100px">
     <Text>Long text doesn't fit into a single line and then wraps.</Text>
   </Box>
   <Box width="100px">
     <Text ellipsis>Long text doesn't fit into a single line and then hides.</Text>
+  </Box>
+  <Box width="250px">
+    <Text ellipsis showTooltip={false}>Long text without tooltip. The next characters don't fit to the line.</Text>
   </Box>
 </Layout>
 `;
@@ -94,6 +97,17 @@ export const maxwidth = `
 
 export const custom = `
 <Text tagName="div">
-  Examles above appear as "span", while this text appears as a "div" tag.
+  Examples above appear as "span", while this text appears as a "div" tag.
+</Text>
+`;
+
+export const list = `
+<Text>
+  The list below is built using standard "ul" and "li" HTML tags.
+  <ul>
+    <li>First list item</li>
+    <li>Second list item</li>
+    <li>Third list item</li>
+  </ul>
 </Text>
 `;
