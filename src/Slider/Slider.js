@@ -31,9 +31,9 @@ export default class Slider extends Component {
         };
       });
     } else {
-      range({ min, max, step }).map(key => {
-        marksLabels[key] = {
-          label: this._createMarkNode(key, key === min || key === max),
+      range({ min, max, step }).map(entry => {
+        marksLabels[entry] = {
+          label: this._createMarkNode(entry, entry === min || entry === max),
         };
       });
     }
