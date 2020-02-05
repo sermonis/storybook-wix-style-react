@@ -52,7 +52,7 @@ export default {
       description({
         title: 'Description',
         text:
-          'Tag Input is a composition of 2 individual components – `<FormField/>` and `<MultiSelect/>`. Use it when site owner needs to enter multiple keywords.A component for selecting/creating multiple values, and displaying them as tags.',
+          'Tag Input is a composition of 2 individual components – `<FormField/>` and `<MultiSelect/>`. Use it when site owner needs to enter multiple keywords. A component for selecting/creating multiple values, and displaying them as tags.',
       }),
     ]),
 
@@ -98,13 +98,14 @@ export default {
     ...[
       {
         title: 'Size',
-        text: 'Tag input can appear in 3 sizes – `small`, `medium`, `large`',
+        text:
+          'Tag input can appear in 3 sizes – `small`, `medium` and `large`.',
         source: examples.size,
       },
       {
         title: 'Select Mode',
         text:
-          'Tag Input has two select modes – select and type with a keyboard',
+          'Tag Input has two select modes – select and type with a keyboard.',
         source: examples.mode,
       },
       {
@@ -115,7 +116,7 @@ export default {
       },
       {
         title: 'Action',
-        text: 'Encourage user intercation by displaying the call to action',
+        text: 'Encourage user interaction by displaying the call to action.',
         source: examples.action,
       },
       {
