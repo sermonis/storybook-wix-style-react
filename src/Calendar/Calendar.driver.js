@@ -77,6 +77,21 @@ const calendarDriverFactory = ({ element }) => {
         );
       }
     },
+    isDayActive: date => {
+      const day = getDayOfDate(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+      );
+
+      if (day) {
+        return day.parentElement.getAttribute('aria-disabled') === 'false';
+      } else {
+        throw new Error(
+          `ERROR: CalendarDriver.isDayActive() - The given date (${date.toString()}) is not visible`,
+        );
+      }
+    },
     clickOnNthDayOfTheMonth: (n = 0) =>
       getNthDayOfTheMonth(n) &&
       ReactTestUtils.Simulate.click(getNthDayOfTheMonth(n)),

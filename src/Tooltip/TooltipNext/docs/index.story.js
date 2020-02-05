@@ -1,32 +1,29 @@
 import React from 'react';
 import {
-  header,
-  tabs,
-  tab,
-  description,
-  columns,
-  playground,
   api,
-  importExample,
-  divider,
   code,
+  columns,
+  description,
+  divider,
+  header,
+  importExample,
+  playground,
+  tab,
+  tabs,
   title,
 } from 'wix-storybook-utils/Sections';
-
-import { storySettings } from '../test/storySettings';
-
 import Tooltip from '..';
-import TextButton from '../../../TextButton';
-import Text from '../../../Text';
+import { baseScope } from '../../../../stories/utils/LiveCodeExample';
 import AddItem from '../../../AddItem';
-
+import { Cell, Layout } from '../../../Layout';
 import { placements } from '../../../Popover/Popover';
 import SectionHelper from '../../../SectionHelper';
-import { Layout, Cell } from '../../../Layout';
-import { baseScope } from '../../../../stories/utils/LiveCodeExample';
-import usage from './Usage.md';
+import Text from '../../../Text';
+import TextButton from '../../../TextButton';
+import { storySettings } from '../test/storySettings';
 import * as examples from './examples';
 import Readme from './README.TESTKIT.md';
+import usage from './Usage.md';
 
 const liveCode = config =>
   code({
@@ -50,7 +47,7 @@ export default {
     content: 'Enter your postal code, so postman can easier send you a mail.',
     appendTo: 'window',
     placement: 'top',
-    textAlign: 'center',
+    textAlign: 'start',
     size: 'medium',
   },
 

@@ -1,28 +1,28 @@
-@namespace "WSRAvatar";
+@namespace 'WSRAvatar';
 
 :import {
-  -st-from: "../Foundation/stylable/shadows.st.css";
+  -st-from: '../Foundation/stylable/shadows.st.css';
   -st-named: shadow10;
 }
 
 :import {
-  -st-from: "wix-ui-core/dist/src/components/avatar/avatar.st.css";
-  -st-default: Avatar;
+  -st-from: 'wix-ui-core/index.st.css';
+  -st-named: Avatar;
 }
 
 :import {
-  -st-from: "../Foundation/stylable/colors.st.css";
+  -st-from: '../Foundation/stylable/colors.st.css';
   -st-named: A1, A2, A3, A4, A5, A6, F00, D80, G10, R10, Y10, B40, D80;
 }
 
 :import {
-  -st-from: "../Foundation/stylable/gradients.st.css";
+  -st-from: '../Foundation/stylable/gradients.st.css';
   -st-named: GRAD_B10, GRAD_D10, GRAD_G10, GRAD_O10, GRAD_R10;
 }
 
 :import {
-  -st-from: "../Foundation/stylable/typography.st.css";
-  -st-named: sizeMedium, sizeSmall, sizeTiny, weightNormal, weightBold;
+  -st-from: '../Foundation/stylable/typography.st.css';
+  -st-named: text-small-bold, text-tiny-normal, text-medium-normal;
 }
 
 .placeholder {
@@ -304,19 +304,19 @@
 
 /* Sizes text */
 .avatar:contentType(text)::content {
-  -st-mixin: sizeSmall, weightBold;
+  -st-mixin: text-small-bold;
   color: value(D80);
 }
 
 
 .avatarContainer:size(size90) .avatar:contentType(text)::content,
 .avatarContainer:size(size72) .avatar:contentType(text)::content  {
-  -st-mixin: sizeMedium;
+  -st-mixin: text-medium-normal;
 }
 
 .avatarContainer:size(size36) .avatar:contentType(text)::content,
 .avatarContainer:size(size30) .avatar:contentType(text)::content  {
-  -st-mixin: sizeTiny, weightNormal;
+  -st-mixin: text-tiny-normal;
   line-height: 18px;
 }
 

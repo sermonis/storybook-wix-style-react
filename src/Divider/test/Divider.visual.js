@@ -37,19 +37,22 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, hasFlexboxContainer }) => {
-    storiesOf(`Divider/${describe}`, module).add(it, () => (
-      <React.Fragment>
-        <div style={{ height: '50px' }}>
-          <Divider {...props} />
-        </div>
-
-        {/* Checks the case of a flexbox container */
-        hasFlexboxContainer && (
-          <Box verticalAlign="middle" height="50px" marginTop={3}>
+    storiesOf(`Divider${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <React.Fragment>
+          <div style={{ height: '50px' }}>
             <Divider {...props} />
-          </Box>
-        )}
-      </React.Fragment>
-    ));
+          </div>
+
+          {/* Checks the case of a flexbox container */
+          hasFlexboxContainer && (
+            <Box verticalAlign="middle" height="50px" marginTop={3}>
+              <Divider {...props} />
+            </Box>
+          )}
+        </React.Fragment>
+      ),
+    );
   });
 });

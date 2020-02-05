@@ -63,8 +63,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`ToggleButton/${describe}`, module).add(it, () => (
-      <ToggleButton {...props} />
-    ));
+    storiesOf(`ToggleButton${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => <ToggleButton {...props} />,
+    );
   });
 });

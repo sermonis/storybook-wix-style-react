@@ -47,14 +47,36 @@ const tests = [
           primaryButtonLabel: 'Button',
         },
       },
+      {
+        it: 'custom width',
+        props: {
+          title: 'Custom width',
+          content: 'Some content to show you',
+          theme: 'white',
+          width: '800px',
+          primaryButtonLabel: 'Button',
+        },
+      },
+      {
+        it: 'no body padding',
+        props: {
+          title: 'No Body Padding - long text in title',
+          content:
+            'Some content to show you Some content to show you Some content to show you',
+          noBodyPadding: true,
+          theme: 'white',
+          primaryButtonLabel: 'Button',
+        },
+      },
     ],
   },
 ];
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`MessageBox/MarketrialLayout/${describe}`, module).add(it, () => (
-      <MessageBoxMarketerialLayout {...props} />
-    ));
+    storiesOf(
+      `MessageBox/MarketrialLayout${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <MessageBoxMarketerialLayout {...props} />);
   });
 });

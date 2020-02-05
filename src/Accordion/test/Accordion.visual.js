@@ -4,7 +4,9 @@ import { storiesOf } from '@storybook/react';
 import Accordion from 'wix-style-react/Accordion';
 import Text from 'wix-style-react/Text';
 import Card from 'wix-style-react/Card';
+import { Layout, Cell } from 'wix-style-react/Layout';
 import InfoCircle from 'wix-ui-icons-common/InfoCircle';
+import { skins } from '../constants';
 
 export const text =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua';
@@ -38,7 +40,7 @@ storiesOf('Accordion', module).add('withButton', () => (
     ]}
   />
 ));
-/*
+
 storiesOf('Accordion', module).add('multiple', () => (
   <Accordion
     multiple
@@ -69,7 +71,44 @@ storiesOf('Accordion', module).add('multiple', () => (
     ]}
   />
 ));
-*/
+
+storiesOf('Accordion', module).add('skins', () => (
+  <Layout>
+    {Object.values(skins).map(skinColor => (
+      <Cell span={4}>
+        <Accordion
+          multiple
+          skin={skinColor}
+          items={[
+            {
+              title: 'First Initially Open Row',
+              children: <Text>${text}</Text>,
+              open: true,
+              collapseLabel: 'Less',
+            },
+            {
+              title: 'Second Row',
+              children: <Text>${text}</Text>,
+              open: true,
+              collapseLabel: 'Less',
+            },
+            {
+              title: 'Third Row',
+              children: <Text>${text}</Text>,
+              collapseLabel: 'Less',
+            },
+            {
+              title: 'Disable Row',
+              children: <Text>${text}</Text>,
+              collapseLabel: 'Less',
+              disabled: true,
+            },
+          ]}
+        />
+      </Cell>
+    ))}
+  </Layout>
+));
 
 storiesOf('Accordion', module).add('inCard', () => (
   <Card>

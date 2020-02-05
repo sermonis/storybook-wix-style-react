@@ -5,6 +5,7 @@ import {
   FooterLayout,
 } from './MessageBox';
 
+export { default as PopoverMenuNext } from './beta/PopoverMenu';
 export { default as AddItem } from './AddItem';
 export { default as Avatar } from './Avatar';
 export { default as Button } from './Button';
@@ -172,3 +173,7 @@ export {
 export { default as BrowserPreviewWidget } from './BrowserPreviewWidget';
 export { default as MarketingLayout } from './MarketingLayout';
 export { default as Palette } from './Palette';
+export { default as VariableInput } from './VariableInput';
+export { default as Image } from './Image';
+export { default as Selector } from './Selector';
+export { default as SidePanel } from './SidePanel';

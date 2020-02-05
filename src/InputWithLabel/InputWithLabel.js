@@ -9,6 +9,19 @@ import styles from './InputWithLabel.st.css';
 import dataHooks from './dataHooks';
 import classNames from 'classnames';
 
+const getSuffixContainer = suffix =>
+  suffix.map((item, index) => {
+    return (
+      <div
+        data-hook={`suffix-container`}
+        key={`suffix-container-${index}`}
+        className={styles.groupIcon}
+      >
+        {item}
+      </div>
+    );
+  });
+
 class InputWithLabel extends React.Component {
   static propTypes = {
     /** Applied as data-hook HTML attribute that can be used in the tests */
@@ -84,15 +97,7 @@ class InputWithLabel extends React.Component {
       placeholder,
       customInput,
     } = this.props;
-    const suffixContainer = suffix
-      ? suffix.map((item, index) => {
-          return (
-            <div key={`${dataHook}-${index}`} className={styles.groupIcon}>
-              {item}
-            </div>
-          );
-        })
-      : [];
+
     return (
       <div
         data-hook={dataHook}
@@ -119,7 +124,7 @@ class InputWithLabel extends React.Component {
             className={classNames(className, styles.inputContainer)}
             size="medium"
             value={value}
-            suffix={suffixContainer}
+            suffix={suffix ? getSuffixContainer(suffix) : []}
             status={status}
             customInput={customInput}
             hideStatusSuffix

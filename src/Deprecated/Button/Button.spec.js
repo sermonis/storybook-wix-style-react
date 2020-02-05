@@ -74,15 +74,15 @@ describe('Button', () => {
   it('should have a prefixIcon', () => {
     const driver = createDriver(<Button prefixIcon={<div />} />);
 
-    expect(driver.isSuffixIconExists()).toBeFalsy();
-    expect(driver.isPrefixIconExists()).toBeTruthy();
+    expect(driver.isSuffixIconExists()).toBe(false);
+    expect(driver.isPrefixIconExists()).toBe(true);
   });
 
   it('should have a suffixIcon', () => {
     const driver = createDriver(<Button suffixIcon={<div />} />);
 
-    expect(driver.isPrefixIconExists()).toBeFalsy();
-    expect(driver.isSuffixIconExists()).toBeTruthy();
+    expect(driver.isPrefixIconExists()).toBe(false);
+    expect(driver.isSuffixIconExists()).toBe(true);
   });
 });
 

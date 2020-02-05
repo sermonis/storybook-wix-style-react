@@ -1,4 +1,4 @@
-# Data Table component 
+# Data Table component
 
 > A table component for displaying data
 
@@ -45,9 +45,10 @@
 |----------|----------|--------------|------------|-------------|
 | title | string or node | - | true | A string or any element, the column's header title  |
 | render | function | - | true | A function to render column cells. The function will be called with each row's data and should return a jsx element. Signature: `render(rowData, rowNum)` |
+| onCellClick | function | - | - | A callback method to be called when a cell in this column is clicked. Signature: `onCellClick(column, rowData, rowNum, event)` |
 | width | string | - | - | The width to apply to the column. No value means column will try to contain its children, if possible |
 | important | bool | false | - | Whether font color should be stronger, more dominant |
 | sortable | bool | false | - | Enables sorting by column |
 | sortDescending | bool | - | - | Pass false - for ascending sort, true - for descending|
-| style | object | - | - | Sets the column inline style. Vertical padding cannot be set here, please use table rowVerticalPadding  |
+| style | object or function | - | - | Sets the column inline style. Vertical padding cannot be set here, please use table rowVerticalPadding  |
 | infoTooltipProps | object | - | - | Props object for [tooltip](https://wix-wix-style-react.surge.sh/?selectedKind=7.%20Tooltips&selectedStory=7.1.%20Tooltip&full=0&addons=0&stories=1&panelRight=0). Note: dataHook, moveBy and children will not be passed to tooltip. |

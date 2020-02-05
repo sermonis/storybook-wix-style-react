@@ -98,24 +98,27 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`SegmentedToggle/${describe}`, module).add(it, () => {
-      const twoOptions = options.slice(0, 2);
+    storiesOf(`SegmentedToggle${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => {
+        const twoOptions = options.slice(0, 2);
 
-      return (
-        <Layout>
-          <Cell span={4}>
-            {renderSegmentedToggle({
-              options: twoOptions,
-              ...props,
-              ...defaultProps,
-            })}
-          </Cell>
-          <Cell span={6}>
-            {renderSegmentedToggle({ options, ...props, ...defaultProps })}
-          </Cell>
-        </Layout>
-      );
-    });
+        return (
+          <Layout>
+            <Cell span={4}>
+              {renderSegmentedToggle({
+                options: twoOptions,
+                ...props,
+                ...defaultProps,
+              })}
+            </Cell>
+            <Cell span={6}>
+              {renderSegmentedToggle({ options, ...props, ...defaultProps })}
+            </Cell>
+          </Layout>
+        );
+      },
+    );
   });
 });
 

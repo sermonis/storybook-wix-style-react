@@ -1,10 +1,11 @@
 import { textUniDriverFactory } from '../Text/Text.uni.driver';
 import { tooltipDriverFactory } from '../Tooltip/TooltipNext/Tooltip.uni.driver';
 import { baseUniDriverFactory } from 'wix-ui-test-utils/unidriver';
+import { dataHooks } from './constants';
 
 export const addItemUniDriverFactory = (base, body) => {
-  const tooltipSelector = '[data-hook*="additem-tooltip"]';
-  const textSelector = '[data-hook*="additem-text"]';
+  const tooltipSelector = `[data-hook*="${dataHooks.itemTooltip}"]`;
+  const textSelector = `[data-hook*="${dataHooks.itemText}"]`;
   const tooltipDriver = tooltipDriverFactory(base.$(tooltipSelector), body);
   const textDriver = textUniDriverFactory(base.$(textSelector));
 

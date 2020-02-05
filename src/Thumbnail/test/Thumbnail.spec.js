@@ -64,7 +64,7 @@ describe('Thumbnail', () => {
     });
   });
 
-  describe('`backgroundImage` prop', async () => {
+  describe('`backgroundImage` prop', () => {
     it('should allow adding backgroundImage as URL', async () => {
       const driver = await createDriver(
         <Thumbnail
@@ -153,7 +153,7 @@ describe('Thumbnail', () => {
     });
   });
 
-  describe('children', async () => {
+  describe('children', () => {
     it('should render children', async () => {
       const driver = await createDriver(
         <Thumbnail>

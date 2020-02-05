@@ -3,13 +3,13 @@ import publicDriverFactory, {
   getSuffix,
 } from '../SidebarSectionItem.uni.driver';
 
-import styles from '../SidebarSectionItem.st.css';
+import { findByHook } from '../../../test/utils/unidriver';
 
 export default base => {
   return {
     ...publicDriverFactory(base),
 
-    hasChevron: () => base.$(`.${styles.chevron}`).exists(),
+    hasChevron: async () => await findByHook(base, `chevron`).exists(),
     hasPrefix: () => getPrefix(base).exists(),
     hasSuffix: () => getSuffix(base).exists(),
   };

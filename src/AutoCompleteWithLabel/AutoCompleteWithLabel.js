@@ -24,6 +24,7 @@ class AutoCompleteWithLabel extends React.PureComponent {
   }
 
   static propTypes = {
+    /** Applied as data-hook HTML attribute that can be used to create driver in testing */
     dataHook: PropTypes.string,
     /** label to appear in input */
     label: PropTypes.string.isRequired,
@@ -136,6 +137,7 @@ class AutoCompleteWithLabel extends React.PureComponent {
             hideStatusSuffix
             onFocus={onFocus}
             onBlur={onBlur}
+            size={'large'}
             inputElement={
               <Input
                 name={name}

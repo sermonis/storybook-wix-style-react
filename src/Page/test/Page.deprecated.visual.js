@@ -99,11 +99,14 @@ tests.forEach(({ describe, its }) => {
       props,
       componentWrapper: ComponentWrapper = DeprecatedPageContainer,
     }) => {
-      storiesOf(`Deprecated/Page/${describe}`, module).add(it, () => (
-        <ComponentWrapper>
-          <Page {...props} />
-        </ComponentWrapper>
-      ));
+      storiesOf(`Deprecated/Page${describe ? '/' + describe : ''}`, module).add(
+        it,
+        () => (
+          <ComponentWrapper>
+            <Page {...props} />
+          </ComponentWrapper>
+        ),
+      );
     },
   );
 });

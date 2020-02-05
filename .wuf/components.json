@@ -451,5 +451,14 @@
     "missingFiles": [
       "docs"
     ]
+  },
+  "VariableInput": {
+    "path": "src/VariableInput"
+  },
+  "Image": {
+    "path": "src/Image"
+  },
+  "SidePanel": {
+    "path": "src/SidePanel"
   }
 }

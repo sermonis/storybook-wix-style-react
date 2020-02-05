@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import defaultCss from './main.scss';
 import { SidebarItem } from './SidebarItem';
 import { SidebarPersistentHeader } from './SidebarPersistentHeader';
@@ -202,22 +202,23 @@ class Sidebar extends Component {
   render() {
     const css = { ...defaultCss, ...this.props.classNames };
 
-    const sliderClasses = classnames({
+    const sliderClasses = classNames({
       [css.sliderOutToLeft]: this.state.drivenInChildren.length !== 0,
       [css.sliderInFromLeft]:
         this.state.drivenInChildren.length === 0 &&
         this.state.drivenOutChildren.length !== 0,
       [css.slider]: true,
+      [css.light]: this.props.skin === sidebarSkins.light,
     });
 
-    const sliderOutToRightClasses = classnames(css.slider, {
+    const sliderOutToRightClasses = classNames(css.slider, {
       [css.sliderOutToRight]: !this.props.isHidden,
     });
-    const sliderInFromRightClasses = classnames(css.slider, {
+    const sliderInFromRightClasses = classNames(css.slider, {
       [css.sliderInFromRight]: !this.props.isHidden,
     });
 
-    const rootClasses = classnames({
+    const rootClasses = classNames({
       [css.sideBar]: true,
       [css.hiddenSideBar]: this.props.isHidden,
       [css.light]: this.props.skin === sidebarSkins.light,

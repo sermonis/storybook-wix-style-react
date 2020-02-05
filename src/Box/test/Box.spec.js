@@ -25,14 +25,14 @@ describe('Box', () => {
         <Box className={expectedClassName}>{children}</Box>,
       );
 
-      expect(await driver.hasClass(expectedClassName)).toBeTruthy();
+      expect(await driver.hasClass(expectedClassName)).toBe(true);
     });
 
     it('should render the passed children', async () => {
       const children = <span>Children</span>;
       const driver = createDriver(<Box dataHook="box-child">{children}</Box>);
 
-      expect(await driver.hasChild()).toBeTruthy();
+      expect(await driver.hasChild()).toBe(true);
     });
 
     describe('Borders', () => {

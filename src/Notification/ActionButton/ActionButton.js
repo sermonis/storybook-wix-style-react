@@ -6,7 +6,7 @@ import TextButton from '../../TextButton';
 const ActionButton = ({ children, onClick, type, link, target }) => {
   const commonProps = {
     dataHook: 'notification-cta-button',
-    onClick: e => onClick(e),
+    onClick,
   };
 
   if (type === 'textLink') {
@@ -24,7 +24,7 @@ const ActionButton = ({ children, onClick, type, link, target }) => {
     );
   } else {
     return (
-      <Button size="small" skin="transparent" {...commonProps}>
+      <Button type="button" size="small" skin="transparent" {...commonProps}>
         {children}
       </Button>
     );
@@ -40,7 +40,6 @@ ActionButton.propTypes = {
 };
 
 ActionButton.defaultProps = {
-  onClick: e => e.preventDefault(),
   type: 'button',
   target: '_self',
 };

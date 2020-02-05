@@ -45,7 +45,7 @@ describe('Table', () => {
 
     it('should pass id prop to child', async () => {
       const { driver } = render(<Table {...defaultProps} />);
-      expect(await driver.hasChildWithId(defaultProps.id)).toBeTruthy();
+      expect(await driver.hasChildWithId(defaultProps.id)).toBe(true);
     });
 
     describe('showSelection prop', () => {
@@ -54,9 +54,9 @@ describe('Table', () => {
           <Table {...defaultProps} selectedIds={firstSelected()} />,
         );
         const rowCheckboxDriver = await driver.getRowCheckboxDriver(1);
-        expect(await rowCheckboxDriver.exists()).toBeTruthy();
+        expect(await rowCheckboxDriver.exists()).toBe(true);
         const bulkSelectionCheckboxDriver = await driver.getBulkSelectionCheckboxDriver();
-        expect(await bulkSelectionCheckboxDriver.exists()).toBeTruthy();
+        expect(await bulkSelectionCheckboxDriver.exists()).toBe(true);
       });
 
       it('should not display selection column', async () => {
@@ -64,9 +64,9 @@ describe('Table', () => {
           <Table {...defaultProps} showSelection={false} />,
         );
         const rowCheckboxDriver = await driver.getRowCheckboxDriver(1);
-        expect(await rowCheckboxDriver.exists()).toBeFalsy();
+        expect(await rowCheckboxDriver.exists()).toBe(false);
         const bulkSelectionCheckboxDriver = await driver.getBulkSelectionCheckboxDriver();
-        expect(await bulkSelectionCheckboxDriver.exists()).toBeFalsy();
+        expect(await bulkSelectionCheckboxDriver.exists()).toBe(false);
       });
     });
 
@@ -81,9 +81,9 @@ describe('Table', () => {
           <Table data={dataWithUnselectable} {...otherDefaultProps} />,
         );
         const firstRowCheckboxDriver = await driver.getRowCheckboxDriver(0);
-        expect(await firstRowCheckboxDriver.exists()).toBeFalsy();
+        expect(await firstRowCheckboxDriver.exists()).toBe(false);
         const secondRowCheckboxDriver = await driver.getRowCheckboxDriver(1);
-        expect(await secondRowCheckboxDriver.exists()).toBeTruthy();
+        expect(await secondRowCheckboxDriver.exists()).toBe(true);
       });
     });
 
@@ -93,9 +93,9 @@ describe('Table', () => {
           <Table {...defaultProps} selectedIds={firstSelected()} />,
         );
         const rowCheckboxDriver = await driver.getRowCheckboxDriver(1);
-        expect(await rowCheckboxDriver.exists()).toBeTruthy();
+        expect(await rowCheckboxDriver.exists()).toBe(true);
         const bulkSelectionCheckboxDriver = await driver.getBulkSelectionCheckboxDriver();
-        expect(await bulkSelectionCheckboxDriver.exists()).toBeTruthy();
+        expect(await bulkSelectionCheckboxDriver.exists()).toBe(true);
       });
 
       it('should not display selection checkbox in header when set to true', async () => {
@@ -103,9 +103,9 @@ describe('Table', () => {
           <Table {...defaultProps} hideBulkSelectionCheckbox />,
         );
         const rowCheckboxDriver = await driver.getRowCheckboxDriver(1);
-        expect(await rowCheckboxDriver.exists()).toBeTruthy();
+        expect(await rowCheckboxDriver.exists()).toBe(true);
         const bulkSelectionCheckboxDriver = await driver.getBulkSelectionCheckboxDriver();
-        expect(await bulkSelectionCheckboxDriver.exists()).toBeFalsy();
+        expect(await bulkSelectionCheckboxDriver.exists()).toBe(false);
       });
     });
 
@@ -114,8 +114,8 @@ describe('Table', () => {
         const { driver } = render(
           <Table {...defaultProps} selectedIds={firstSelected()} />,
         );
-        expect(await driver.isRowSelected(0)).toBeTruthy();
-        expect(await driver.isRowSelected(1)).toBeFalsy();
+        expect(await driver.isRowSelected(0)).toBe(true);
+        expect(await driver.isRowSelected(1)).toBe(false);
       });
 
       it('should select rows according to selectedIds prop given numeric ids', async () => {
@@ -129,8 +129,8 @@ describe('Table', () => {
             selectedIds={[1111]}
           />,
         );
-        expect(await driver.isRowSelected(0)).toBeTruthy();
-        expect(await driver.isRowSelected(1)).toBeFalsy();
+        expect(await driver.isRowSelected(0)).toBe(true);
+        expect(await driver.isRowSelected(1)).toBe(false);
       });
 
       it('should select rows according to selectedIds prop given row index as ids', async () => {
@@ -144,8 +144,8 @@ describe('Table', () => {
             selectedIds={[0]}
           />,
         );
-        expect(await driver.isRowSelected(0)).toBeTruthy();
-        expect(await driver.isRowSelected(1)).toBeFalsy();
+        expect(await driver.isRowSelected(0)).toBe(true);
+        expect(await driver.isRowSelected(1)).toBe(false);
       });
 
       it('should update selection if selection prop has change', async () => {
@@ -153,9 +153,9 @@ describe('Table', () => {
         const { driver, rerender } = render(
           <Table {...defaultProps} selectedIds={selectedIds} />,
         );
-        expect(await driver.isRowSelected(0)).toBeFalsy();
+        expect(await driver.isRowSelected(0)).toBe(false);
         rerender(<Table {...defaultProps} selectedIds={firstSelected()} />);
-        expect(await driver.isRowSelected(0)).toBeTruthy();
+        expect(await driver.isRowSelected(0)).toBe(true);
       });
     });
 
@@ -169,11 +169,11 @@ describe('Table', () => {
             ref={c => (tableInst = c)}
           />,
         );
-        expect(await driver.isRowSelected(0)).toBeFalsy();
-        expect(await driver.isRowSelected(1)).toBeFalsy();
+        expect(await driver.isRowSelected(0)).toBe(false);
+        expect(await driver.isRowSelected(1)).toBe(false);
         tableInst.setSelectedIds(allSelected());
-        expect(await driver.isRowSelected(0)).toBeTruthy();
-        expect(await driver.isRowSelected(1)).toBeTruthy();
+        expect(await driver.isRowSelected(0)).toBe(true);
+        expect(await driver.isRowSelected(1)).toBe(true);
       });
     });
 
@@ -183,7 +183,7 @@ describe('Table', () => {
           <Table {...defaultProps} selectedIds={firstSelected()} />,
         );
         await driver.clickRowCheckbox(1);
-        expect(await driver.isRowSelected(1)).toBeTruthy();
+        expect(await driver.isRowSelected(1)).toBe(true);
       });
 
       it('should unselect row when checkbox clicked given row selected', async () => {
@@ -191,7 +191,7 @@ describe('Table', () => {
           <Table {...defaultProps} selectedIds={allSelected()} />,
         );
         await driver.clickRowCheckbox(1);
-        expect(await driver.isRowSelected(1)).toBeFalsy();
+        expect(await driver.isRowSelected(1)).toBe(false);
       });
 
       it(`should disable bulk selection when passed 'selectionDisabled' prop`, async () => {
@@ -236,11 +236,11 @@ describe('Table', () => {
 
       it('should keep selection when re-rendered given selectedIds not provided (Uncontrolled)', async () => {
         const { driver, rerender } = render(<Table {...defaultProps} />);
-        expect(await driver.isRowSelected(1)).toBeFalsy();
+        expect(await driver.isRowSelected(1)).toBe(false);
         await driver.clickRowCheckbox(1);
-        expect(await driver.isRowSelected(1)).toBeTruthy();
+        expect(await driver.isRowSelected(1)).toBe(true);
         rerender(<Table {...defaultProps} />);
-        expect(await driver.isRowSelected(1)).toBeTruthy();
+        expect(await driver.isRowSelected(1)).toBe(true);
       });
     });
 
@@ -251,9 +251,9 @@ describe('Table', () => {
           const { driver } = render(
             <Table {...defaultProps} selectedIds={selectedIds} />,
           );
-          expect((await driver.getBulkSelectionState()) === 'ALL').toBeTruthy();
-          expect((await driver.getBulkSelectionState()) === 'NONE').toBeFalsy();
-          expect((await driver.getBulkSelectionState()) === 'SOME').toBeFalsy();
+          expect((await driver.getBulkSelectionState()) === 'ALL').toBe(true);
+          expect((await driver.getBulkSelectionState()) === 'NONE').toBe(false);
+          expect((await driver.getBulkSelectionState()) === 'SOME').toBe(false);
         });
 
         it('should display bulk-selection as unchecked when no rows are selected', async () => {
@@ -261,10 +261,8 @@ describe('Table', () => {
           const { driver } = render(
             <Table {...defaultProps} selectedIds={selectedIds} />,
           );
-          expect(
-            (await driver.getBulkSelectionState()) === 'NONE',
-          ).toBeTruthy();
-          expect((await driver.getBulkSelectionState()) === 'ALL').toBeFalsy();
+          expect((await driver.getBulkSelectionState()) === 'NONE').toBe(true);
+          expect((await driver.getBulkSelectionState()) === 'ALL').toBe(false);
         });
 
         it('should display bulk-selection as partial when some rows are selected', async () => {
@@ -272,9 +270,7 @@ describe('Table', () => {
           const { driver } = render(
             <Table {...defaultProps} selectedIds={selectedIds} />,
           );
-          expect(
-            (await driver.getBulkSelectionState()) === 'SOME',
-          ).toBeTruthy();
+          expect((await driver.getBulkSelectionState()) === 'SOME').toBe(true);
         });
 
         it('should display bulk-selection as checked when data and selectedIds change', async () => {
@@ -285,7 +281,7 @@ describe('Table', () => {
               selectedIds={[ID_1]}
             />,
           );
-          expect((await driver.getBulkSelectionState()) === 'ALL').toBeTruthy();
+          expect((await driver.getBulkSelectionState()) === 'ALL').toBe(true);
           rerender(
             <Table
               {...defaultProps}
@@ -296,7 +292,7 @@ describe('Table', () => {
               selectedIds={[ID_1, ID_2]}
             />,
           );
-          expect((await driver.getBulkSelectionState()) === 'ALL').toBeTruthy();
+          expect((await driver.getBulkSelectionState()) === 'ALL').toBe(true);
         });
       });
 
@@ -307,8 +303,8 @@ describe('Table', () => {
             <Table {...defaultProps} selectedIds={selectedIds} />,
           );
           await driver.clickBulkSelectionCheckbox();
-          expect(await driver.isRowSelected(0)).toBeTruthy();
-          expect(await driver.isRowSelected(1)).toBeTruthy();
+          expect(await driver.isRowSelected(0)).toBe(true);
+          expect(await driver.isRowSelected(1)).toBe(true);
         });
 
         it('should select only selectable rows when bulk-selection checkbox clicked given no checkboxes are checked', async () => {
@@ -334,8 +330,8 @@ describe('Table', () => {
             </Table>,
           );
           await driver.clickBulkSelectionCheckbox();
-          expect(await driver.isRowSelected(1)).toBeTruthy();
-          expect(await driver.isRowSelected(2)).toBeTruthy();
+          expect(await driver.isRowSelected(1)).toBe(true);
+          expect(await driver.isRowSelected(2)).toBe(true);
           expect(tableSelectionContext.selectedCount).toBe(data.length);
           expect(tableSelectionContext.bulkSelectionState).toBe('ALL');
           expect(tableSelectionContext.getSelectedIds()).toEqual(
@@ -349,8 +345,8 @@ describe('Table', () => {
             <Table {...defaultProps} selectedIds={selectedIds} />,
           );
           await driver.clickBulkSelectionCheckbox();
-          expect(await driver.isRowSelected(0)).toBeTruthy();
-          expect(await driver.isRowSelected(1)).toBeTruthy();
+          expect(await driver.isRowSelected(0)).toBe(true);
+          expect(await driver.isRowSelected(1)).toBe(true);
         });
 
         it('should unselect all rows when bulk-selection checkbox clicked given all checkboxes are checked', async () => {
@@ -359,8 +355,8 @@ describe('Table', () => {
             <Table {...defaultProps} selectedIds={selectedIds} />,
           );
           await driver.clickBulkSelectionCheckbox();
-          expect(await driver.isRowSelected(0)).toBeFalsy();
-          expect(await driver.isRowSelected(1)).toBeFalsy();
+          expect(await driver.isRowSelected(0)).toBe(false);
+          expect(await driver.isRowSelected(1)).toBe(false);
         });
       });
 
@@ -427,7 +423,7 @@ describe('Table', () => {
             <Table {...defaultProps} selectedIds={selectedIds} />,
           );
           await driver.clickRowCheckbox(0);
-          expect((await driver.getBulkSelectionState()) === 'ALL').toBeTruthy();
+          expect((await driver.getBulkSelectionState()) === 'ALL').toBe(true);
         });
 
         it('should uncheck bulk-selection checkbox when all rows change to not-selected', async () => {
@@ -436,9 +432,7 @@ describe('Table', () => {
             <Table {...defaultProps} selectedIds={selectedIds} />,
           );
           await driver.clickRowCheckbox(1);
-          expect(
-            (await driver.getBulkSelectionState()) === 'NONE',
-          ).toBeTruthy();
+          expect((await driver.getBulkSelectionState()) === 'NONE').toBe(true);
         });
 
         it('should uncheck bulk-selection checkbox when deselectRowsByDefault', async () => {
@@ -451,9 +445,7 @@ describe('Table', () => {
             />,
           );
           await driver.clickBulkSelectionCheckbox();
-          expect(
-            (await driver.getBulkSelectionState()) === 'NONE',
-          ).toBeTruthy();
+          expect((await driver.getBulkSelectionState()) === 'NONE').toBe(true);
         });
 
         it('should show partial in bulk-selection checkbox when row unselected given all rows selected', async () => {
@@ -462,9 +454,7 @@ describe('Table', () => {
             <Table {...defaultProps} selectedIds={selectedIds} />,
           );
           await driver.clickRowCheckbox(1);
-          expect(
-            (await driver.getBulkSelectionState()) === 'SOME',
-          ).toBeTruthy();
+          expect((await driver.getBulkSelectionState()) === 'SOME').toBe(true);
         });
 
         it('should show partial in bulk-selection checkbox when row selected given all rows not selected', async () => {
@@ -473,9 +463,7 @@ describe('Table', () => {
             <Table {...defaultProps} selectedIds={selectedIds} />,
           );
           await driver.clickRowCheckbox(1);
-          expect(
-            (await driver.getBulkSelectionState()) === 'SOME',
-          ).toBeTruthy();
+          expect((await driver.getBulkSelectionState()) === 'SOME').toBe(true);
         });
       });
     });
@@ -489,7 +477,7 @@ describe('Table', () => {
             selectedIds={noneSelected()}
           />,
         );
-        expect(!!(await driver.getTitlebar())).toBeFalsy();
+        expect(!!(await driver.getTitlebar())).toBe(false);
       });
 
       it('should have Table.ToolbarContainer with SelectionContext', async () => {
@@ -572,7 +560,7 @@ describe('Table', () => {
             </div>
           </Table>,
         );
-        expect(!!(await driver.getTitlebar())).toBeTruthy();
+        expect(!!(await driver.getTitlebar())).toBe(true);
       });
     });
 
@@ -607,7 +595,7 @@ describe('Table', () => {
         });
 
         const bulkSelectionCheckboxDriver = await titlebarDriver.getBulkSelectionCheckboxDriver();
-        expect(await bulkSelectionCheckboxDriver.isChecked()).toBeTruthy();
+        expect(await bulkSelectionCheckboxDriver.isChecked()).toBe(true);
 
         const contentDriver = tableTestkitFactory({
           wrapper: container,
@@ -618,7 +606,7 @@ describe('Table', () => {
         expect(await contentDriver.getRowsCount()).toBe(
           defaultProps.data.length,
         );
-        expect(await contentDriver.isRowSelected(0)).toBeTruthy();
+        expect(await contentDriver.isRowSelected(0)).toBe(true);
       });
     });
   }

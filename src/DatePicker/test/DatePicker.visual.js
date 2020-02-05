@@ -126,8 +126,11 @@ const interactiveTests = [
 
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`DatePicker/${describe}`, module).add(it, () => (
-      <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
-    ));
+    storiesOf(`DatePicker${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
+      ),
+    );
   });
 });

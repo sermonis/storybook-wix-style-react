@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 
 import styles from './Accordion.st.css';
 import AccordionItem from './AccordionItem';
-import { buttonTypes } from './constants';
 
 class Accordion extends React.Component {
   static displayName = 'Accordion';
 
   static propTypes = {
+    /** Applied as data-hook HTML attribute that can be used to create driver in testing */
     dataHook: PropTypes.string,
 
     /** allow multiple rows to be opened simultaneously */
     multiple: PropTypes.bool,
+
+    /** Accordion skin color */
+    skin: PropTypes.oneOf(['standard', 'light']),
 
     /** accordion items nodes */
     items: PropTypes.arrayOf(
@@ -22,7 +25,7 @@ class Accordion extends React.Component {
         content: PropTypes.node,
         expandLabel: PropTypes.node,
         collapseLabel: PropTypes.node,
-        buttonType: PropTypes.oneOf(Object.values(buttonTypes)),
+        buttonType: PropTypes.oneOf(['textButton', 'button']),
       }),
     ),
   };
@@ -30,6 +33,7 @@ class Accordion extends React.Component {
   static defaultProps = {
     items: [],
     multiple: false,
+    skin: 'standard',
   };
 
   constructor(props) {
@@ -53,7 +57,7 @@ class Accordion extends React.Component {
 
   render() {
     const { openIndexes } = this.state;
-    const { dataHook, items } = this.props;
+    const { dataHook, items, skin } = this.props;
 
     return (
       <div data-hook={dataHook}>
@@ -68,6 +72,7 @@ class Accordion extends React.Component {
             onToggle={this._toggle(index)}
             {...item}
             open={openIndexes.includes(index)}
+            skin={skin}
           />
         ))}
       </div>

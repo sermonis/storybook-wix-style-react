@@ -7,6 +7,7 @@ import Text from '../Text';
 
 import Input from '../Input';
 import styles from './TimeInput.scss';
+import { dataHooks } from './constants';
 
 /**
  * An uncontrolled time input component with a stepper and am/pm support
@@ -222,7 +223,7 @@ export default class TimePicker extends Component {
             skin={this.props.disabled ? 'disabled' : 'standard'}
             className={styles.ampm}
             onClick={this.handleAmPmClick}
-            dataHook="am-pm-indicator"
+            dataHook={dataHooks.amPmIndicator}
           >
             {this.state.am ? 'am' : 'pm'}
           </Text>
@@ -232,7 +233,7 @@ export default class TimePicker extends Component {
           downDisabled={this.props.disabled}
           onUp={this.handlePlus}
           onDown={this.handleMinus}
-          dataHook="ticker"
+          dataHook={dataHooks.ticker}
         />
       </Input.Group>
     );
@@ -246,7 +247,7 @@ export default class TimePicker extends Component {
           onChange={this.handleInputChange}
           onBlur={this.handleInputBlur}
           suffix={suffix}
-          dataHook="time-input"
+          dataHook={dataHooks.input}
           disabled={this.props.disabled}
         />
       </div>

@@ -1,11 +1,11 @@
 :import {
-  -st-from: "wix-ui-core/dist/src/hocs/Focusable/Focusable.st.css";
-  -st-default: Focusable;
+  -st-from: "wix-ui-core/hocs.st.css";
+  -st-named: Focusable;
 }
 
 :import {
   -st-from: "../../Foundation/stylable/colors.st.css";
-  -st-named: F00, B10, B50, D55, D80, D10;
+  -st-named: F00, B10, B50, D80, D10, D10-30;
 }
 
 :import {
@@ -62,7 +62,7 @@
 }
 
 .button:disabled {
-  color: value(D55);
+  color: value(D10-30);
   cursor: not-allowed;
 }
 /* Selected styles */
@@ -78,8 +78,8 @@
 }
 
 .button:selected:disabled {
-  border: 1px solid value(D55);
-  box-shadow: 0 0 0 1px value(D55);
+  border: 1px solid value(D10-30);
+  box-shadow: 0 0 0 1px value(D10-30);
   cursor: not-allowed;
 }
 

@@ -27,6 +27,7 @@ const validTooltipProps = [
   'zIndex',
   'hideDelay',
   'showDelay',
+  'showTooltip',
 ];
 
 const omit = (props, remove) => {

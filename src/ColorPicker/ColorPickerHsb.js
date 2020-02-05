@@ -1,22 +1,25 @@
 import React from 'react';
-import { object, func } from 'prop-types';
 import color from 'color';
 import clamp from 'lodash/clamp';
-
-import WixComponent from '../BaseComponents/WixComponent';
-
+import PropTypes from 'prop-types';
 import css from './ColorPickerHsb.scss';
 
-export default class ColorPickerHsb extends WixComponent {
+class ColorPickerHsb extends React.PureComponent {
   static propTypes = {
-    current: object.isRequired,
-    onChange: func.isRequired,
+    /** Applied as data-hook HTML attribute that can be used to create driver in testing */
+    dataHook: PropTypes.string,
+
+    /** The current Hsb value */
+    current: PropTypes.object.isRequired,
+
+    /** A callback function that will be triggered when the value is changed */
+    onChange: PropTypes.func.isRequired,
   };
 
   onMarkerDragStart = e => {
     e.preventDefault();
-    window.addEventListener('mousemove', this.onMarkerDrag);
-    window.addEventListener('touchmove', this.onMarkerDrag);
+    window.addEventListener('mousemove', this.setNewColorByMouseEvent);
+    window.addEventListener('touchmove', this.setNewColorByMouseEvent);
     window.addEventListener('mouseup', this.onMarkerDragEnd);
     window.addEventListener('touchend', this.onMarkerDragEnd);
     window.addEventListener('touchcancel', this.onMarkerDragEnd);
@@ -25,15 +28,11 @@ export default class ColorPickerHsb extends WixComponent {
     this.setNewColorByMouseEvent(e);
   };
 
-  onMarkerDrag = e => {
-    this.setNewColorByMouseEvent(e);
-  };
-
   onMarkerDragEnd = () => {
-    window.removeEventListener('touchmove', this.onMarkerDrag);
-    window.removeEventListener('mousemove', this.onMarkerDrag);
+    window.removeEventListener('touchmove', this.setNewColorByMouseEvent);
+    window.removeEventListener('mousemove', this.setNewColorByMouseEvent);
     window.removeEventListener('touchcancel', this.onMarkerDragEnd);
-    window.addEventListener('touchend', this.onMarkerDragEnd);
+    window.removeEventListener('touchend', this.onMarkerDragEnd);
     window.removeEventListener('mouseup', this.onMarkerDragEnd);
   };
 
@@ -69,7 +68,7 @@ export default class ColorPickerHsb extends WixComponent {
   }
 
   render() {
-    const { current } = this.props;
+    const { dataHook, current } = this.props;
     const hue = current.saturationv(100).lightness(50);
     const style = {
       left: `${current.saturationv()}%`,
@@ -78,7 +77,7 @@ export default class ColorPickerHsb extends WixComponent {
     return (
       <div
         className={css.root}
-        data-hook="color-picker-hsb"
+        data-hook={dataHook}
         ref={e => (this.gradient = e)}
         onMouseDown={this.onMarkerDragStart}
         onTouchStart={this.onMarkerDragStart}
@@ -91,3 +90,5 @@ export default class ColorPickerHsb extends WixComponent {
     );
   }
 }
+
+export default ColorPickerHsb;

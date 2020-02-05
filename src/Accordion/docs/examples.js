@@ -74,3 +74,23 @@ export const inCard = `
     />
 </Card>
 `;
+
+export const skins = `
+<Layout>
+<Cell>
+  <Accordion
+    items={[
+      { title: 'Accordion with standard skin', children: <Text>${text}</Text>, open: true, collapseLabel: 'Less' },
+    ]}
+  />
+</Cell>
+<Cell>
+  <Accordion
+    skin='light'
+    items={[
+      { title: 'Accordion with light skin', children: <Text>${text}</Text>, open: true, collapseLabel: 'Less' },
+    ]}
+  />
+</Cell>
+</Layout>
+`;

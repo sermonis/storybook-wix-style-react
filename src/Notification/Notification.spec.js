@@ -39,21 +39,21 @@ describe('Notification', () => {
     describe('Visibility', () => {
       it('should verify component exists', async () => {
         const driver = createDriver(renderNotificationWithProps());
-        expect(await driver.exists()).toBeTruthy();
+        expect(await driver.exists()).toBe(true);
       });
 
       it('should be visible', async () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true }),
         );
-        expect(await driver.visible()).toBeTruthy();
+        expect(await driver.visible()).toBe(true);
       });
 
       it('should not be visible', async () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: false }),
         );
-        expect(await driver.visible()).toBeFalsy();
+        expect(await driver.visible()).toBe(false);
       });
     });
 
@@ -62,43 +62,43 @@ describe('Notification', () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true }),
         );
-        expect(await driver.isStandardNotification()).toBeTruthy();
-        expect(await driver.hasTheme('standard')).toBeTruthy();
+        expect(await driver.isStandardNotification()).toBe(true);
+        expect(await driver.hasTheme('standard')).toBe(true);
       });
 
       it('should support standard theme', async () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true, theme: 'standard' }),
         );
-        expect(await driver.isStandardNotification()).toBeTruthy();
+        expect(await driver.isStandardNotification()).toBe(true);
       });
 
       it('should support error theme', async () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true, theme: 'error' }),
         );
-        expect(await driver.isErrorNotification()).toBeTruthy();
+        expect(await driver.isErrorNotification()).toBe(true);
       });
 
       it('should support success theme', async () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true, theme: 'success' }),
         );
-        expect(await driver.isSuccessNotification()).toBeTruthy();
+        expect(await driver.isSuccessNotification()).toBe(true);
       });
 
       it('should support warning theme', async () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true, theme: 'warning' }),
         );
-        expect(await driver.isWarningNotification()).toBeTruthy();
+        expect(await driver.isWarningNotification()).toBe(true);
       });
 
       it('should support premium theme', async () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true, theme: 'premium' }),
         );
-        expect(await driver.isPremiumNotification()).toBeTruthy();
+        expect(await driver.isPremiumNotification()).toBe(true);
       });
     });
 
@@ -135,7 +135,7 @@ describe('Notification', () => {
           const driver = createDriver(
             renderNotificationWithProps({ show: true }),
           );
-          expect(await driver.hasActionButton()).toBeFalsy();
+          expect(await driver.hasActionButton()).toBe(false);
         });
 
         it('should call the supplied onClick handler when clicked', async () => {
@@ -162,15 +162,15 @@ describe('Notification', () => {
           const driver = createDriver(
             renderNotificationWithProps({ show: true }),
           );
-          expect(await driver.hasCloseButton()).toBeTruthy();
+          expect(await driver.hasCloseButton()).toBe(true);
         });
 
         it('should have a close button (without action button)', async () => {
           const driver = createDriver(
             renderNotificationWithProps({ show: true }),
           );
-          expect(await driver.hasActionButton()).toBeFalsy();
-          expect(await driver.hasCloseButton()).toBeTruthy();
+          expect(await driver.hasActionButton()).toBe(false);
+          expect(await driver.hasCloseButton()).toBe(true);
         });
 
         it('should allow no CloseButton', async () => {
@@ -180,7 +180,7 @@ describe('Notification', () => {
               <Notification.TextLabel>{labelText}</Notification.TextLabel>
             </Notification>,
           );
-          expect(await driver.hasCloseButton()).toBeFalsy();
+          expect(await driver.hasCloseButton()).toBe(false);
         });
       });
     });
@@ -190,28 +190,28 @@ describe('Notification', () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true }),
         );
-        expect(await driver.isRelativelyPositioned()).toBeTruthy();
+        expect(await driver.isRelativelyPositioned()).toBe(true);
       });
 
       it('should set the type to global and position relative', async () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true, type: 'global' }),
         );
-        expect(await driver.isRelativelyPositioned()).toBeTruthy();
+        expect(await driver.isRelativelyPositioned()).toBe(true);
       });
 
       it('should set the type to local and position absolute', async () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true, type: 'local' }),
         );
-        expect(await driver.isAbsolutePositioned()).toBeTruthy();
+        expect(await driver.isAbsolutePositioned()).toBe(true);
       });
 
       it('should set the type to sticky and position fixed', async () => {
         const driver = createDriver(
           renderNotificationWithProps({ show: true, type: 'sticky' }),
         );
-        expect(await driver.isFixedPositioned()).toBeTruthy();
+        expect(await driver.isFixedPositioned()).toBe(true);
       });
     });
 
@@ -227,7 +227,7 @@ describe('Notification', () => {
           );
           await driver.clickOnCloseButton();
           jest.runAllTimers(); // for animations
-          expect(await driver.visible()).toBeFalsy();
+          expect(await driver.visible()).toBe(false);
         });
 
         it('should allow reopening the notification after closed by close button', async () => {
@@ -236,9 +236,9 @@ describe('Notification', () => {
           );
           await driver.clickOnCloseButton();
           jest.runAllTimers(); // for animations
-          expect(await driver.visible()).toBeFalsy();
+          expect(await driver.visible()).toBe(false);
           rerender(renderNotificationWithProps({ show: true }));
-          expect(await driver.visible()).toBeTruthy();
+          expect(await driver.visible()).toBe(true);
         });
       });
 
@@ -251,7 +251,7 @@ describe('Notification', () => {
           const driver = createDriver(renderNewNotification({ show: true }));
           jest.runAllTimers();
 
-          expect(await driver.visible()).toBeTruthy();
+          expect(await driver.visible()).toBe(true);
           expect(setTimeout).not.toBeCalled();
         });
 
@@ -263,9 +263,9 @@ describe('Notification', () => {
             }),
           );
 
-          expect(await driver.visible()).toBeTruthy();
+          expect(await driver.visible()).toBe(true);
           jest.runAllTimers();
-          expect(await driver.visible()).toBeFalsy();
+          expect(await driver.visible()).toBe(false);
         });
 
         it('should be able to show notification again after timeout', async () => {
@@ -277,7 +277,7 @@ describe('Notification', () => {
           );
 
           jest.runAllTimers();
-          expect(await driver.visible()).toBeFalsy();
+          expect(await driver.visible()).toBe(false);
           jest.clearAllTimers();
 
           rerender(
@@ -286,7 +286,7 @@ describe('Notification', () => {
               autoHideTimeout: someTimeout,
             }),
           );
-          expect(await driver.visible()).toBeTruthy();
+          expect(await driver.visible()).toBe(true);
         });
 
         it('should auto-hide after starting from a closed status', async () => {
@@ -298,16 +298,16 @@ describe('Notification', () => {
           );
 
           jest.runAllTimers();
-          expect(await driver.visible()).toBeFalsy();
+          expect(await driver.visible()).toBe(false);
           rerender(
             renderNewNotification({
               show: true,
               autoHideTimeout: someTimeout,
             }),
           );
-          expect(await driver.visible()).toBeTruthy();
+          expect(await driver.visible()).toBe(true);
           jest.runAllTimers();
-          expect(await driver.visible()).toBeFalsy();
+          expect(await driver.visible()).toBe(false);
         });
       });
 
@@ -427,12 +427,12 @@ describe('Notification', () => {
         dataHook: 'button_dh',
       });
 
-      expect(enzymeNotificationTestkit.visible()).toBeFalsy();
-      expect(enzymeButtonTestkit.exists()).toBeTruthy();
+      expect(enzymeNotificationTestkit.visible()).toBe(false);
+      expect(await enzymeButtonTestkit.exists()).toBe(true);
 
       await enzymeButtonTestkit.click();
 
-      expect(enzymeNotificationTestkit.visible()).toBeTruthy();
+      expect(enzymeNotificationTestkit.visible()).toBe(true);
     });
   });
 });

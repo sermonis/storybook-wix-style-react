@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import {
   header,
@@ -11,49 +10,28 @@ import {
   divider,
   code as baseCode,
   api,
+  testkit,
+  playground,
 } from 'wix-storybook-utils/Sections';
-import { Layout, Cell } from 'wix-style-react/Layout';
 
 import { storySettings } from '../test/storySettings';
 import allComponents from '../../../stories/utils/allComponents';
-import MaynSteps from '!raw-loader!./examples/ManySteps';
-import FourSteps from '!raw-loader!./examples/FourSteps';
-import StepTypes from '!raw-loader!./examples/StepTypes';
 import Stepper from '..';
+import { Type, StepType, FitMode } from '../constants';
+import responsiveExample from '!raw-loader!./examples/responsive';
+import stepTypesExample from '!raw-loader!./examples/stepTypes';
+import fitModesExample from '!raw-loader!./examples/fitModes';
+import stepperTypeExample from '!raw-loader!./examples/stepperTypes';
+import cardExample from '!raw-loader!./examples/card';
+import composerHeaderExample from '!raw-loader!./examples/composerHeader';
 
-import testkitDesc from './testkit.md';
+const code = config => baseCode({ components: allComponents, ...config });
 
-const code = config =>
-  baseCode({
-    components: {
-      Stepper,
-      steps7: steps7,
-      steps4: steps4,
-      onClick,
-      ...allComponents,
-    },
-    autoRender: false,
-    ...config,
-  });
-
-const steps7 = [
-  { text: 'This is a long step name', type: 'completed' },
-  { text: 'This is a long step name' },
-  { text: 'This is a long step name', type: 'error' },
-  { text: 'This is a long step name' },
-  { text: 'This is a long step name', type: 'error' },
-  { text: 'This is a long step name' },
-  { text: 'This is a long step name', type: 'disabled' },
-];
-
-const steps4 = [
-  { text: 'First step', type: 'completed' },
+const steps = [
+  { text: 'First step', type: StepType.Completed },
   { text: 'Second step' },
-  { text: 'Third step', type: 'error' },
-  { text: 'Forth step' },
+  { text: 'Third step', type: StepType.Disabled },
 ];
-
-const onClick = id => console.log(`step ${id} was clicked`);
 
 export default {
   category: storySettings.category,
@@ -62,23 +40,25 @@ export default {
   component: Stepper,
   componentPath: '..',
 
-  componentProps: {
-    buttonText: 'Hello World!',
+  componentProps: setState => ({
     dataHook: storySettings.dataHook,
-    steps: steps7,
-    activeStep: 2,
-  },
+    steps,
+    type: Type.Circle,
+    fit: FitMode.Compact,
+    activeStep: 1,
+    onClick: activeStep => setState({ activeStep }),
+  }),
 
   exampleProps: {
-    // Put here presets of props, for more info:
-    // https://github.com/wix/wix-ui/blob/master/packages/wix-storybook-utils/docs/usage.md#using-list
+    steps: [{ label: '3 steps', value: steps }],
+    onClick: stepIndex => undefined, // eslint-disable-line
   },
 
   sections: [
     header({
-      issueUrl: 'https://github.com/wix/wix-style-react/issues/new',
       sourceUrl:
         'https://github.com/wix/wix-style-react/tree/master/src/Stepper/',
+      component: <Stepper steps={steps} activeStep={1} />,
     }),
 
     tabs([
@@ -93,41 +73,70 @@ export default {
             }),
           ]),
 
-          columns([
-            importExample("import Stepper from 'wix-style-react/Stepper';"),
-          ]),
+          importExample("import Stepper from 'wix-style-react/Stepper';"),
 
           divider(),
 
           title('Examples'),
 
           code({
-            title: 'Steps types',
-            description: `Steps can get different types: normal, completed, error and disabled.`,
-            compact: true,
-            source: StepTypes,
-          }),
-
-          code({
-            title: 'Inside card',
-            description: `In cases where there is not enough space, the active step's text is fully displayed and the rest of the steps texts are equally shortened.`,
-            compact: true,
-            source: MaynSteps,
-          }),
-
-          code({
-            title: 'Inside card',
+            title: 'Step types',
             description:
-              'Demonstrating a case where there is enough space for all steps text',
+              'Steps can have different types: completed, normal, error and disabled.',
             compact: true,
-            source: FourSteps,
+            source: stepTypesExample,
+          }),
+
+          code({
+            title: 'Stepper types',
+            description:
+              'Using `type` prop stepper can appear in `circle` style or plain `text`. Text type is good for neutral and compact layouts.',
+            compact: true,
+            source: stepperTypeExample,
+          }),
+
+          code({
+            title: 'Fit modes',
+            description:
+              'Using `fit` prop stepper can appear in `normal` or `stretched` fit mode. With `stretched` fit the component will grow and fill parent container width.',
+            compact: true,
+            source: fitModesExample,
+          }),
+
+          code({
+            title: 'Responsive',
+            description:
+              "When there is not enough space the active step's text is fully displayed and the rest of the steps are equally shortened.",
+            compact: true,
+            source: responsiveExample,
+          }),
+
+          divider(),
+
+          title('Use Cases'),
+
+          code({
+            title: 'Inside a Card',
+            description:
+              'Stepper is used in a Card header to indicate the path a user needs to follow to complete the process.',
+            compact: true,
+            source: cardExample,
+          }),
+
+          code({
+            title: 'Inside a ComposerHeader',
+            description:
+              'Stepper inside a ComposerHeader can appear in start or center positions and must use type `text`.',
+            compact: true,
+            source: composerHeaderExample,
           }),
         ],
       }),
 
       ...[
         { title: 'API', sections: [api()] },
-        { title: 'Testkit', sections: [description(testkitDesc)] },
+        { title: 'Testkit', sections: [testkit()] },
+        { title: 'Playground', sections: [playground()] },
       ].map(tab),
     ]),
   ],

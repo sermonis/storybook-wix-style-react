@@ -175,14 +175,17 @@ const MediaOverlayWrapper = ({ componentDidMount, rtl, ...props }) => {
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount, rtl }) => {
-    storiesOf(`MediaOverlay/${describe}`, module).add(it, () => (
-      <MediaOverlayWrapper
-        {...commonProps}
-        {...props}
-        data-hook={storySettings.dataHook}
-        componentDidMount={componentDidMount}
-        rtl={rtl}
-      />
-    ));
+    storiesOf(`MediaOverlay${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <MediaOverlayWrapper
+          {...commonProps}
+          {...props}
+          data-hook={storySettings.dataHook}
+          componentDidMount={componentDidMount}
+          rtl={rtl}
+        />
+      ),
+    );
   });
 });

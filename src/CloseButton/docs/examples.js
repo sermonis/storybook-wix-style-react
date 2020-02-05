@@ -30,6 +30,7 @@ export const sizesExamples = `
 <Layout gap={0} justifyItems="center" alignItems="center">
   <CloseButton />
   <CloseButton size="medium" />
+  <CloseButton size="large" />
 </Layout>
 `;
 

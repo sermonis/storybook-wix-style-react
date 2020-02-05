@@ -35,11 +35,14 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`ToggleSwitch/${describe}`, module).add(it, () => (
-      <React.Fragment>
-        <ToggleSwitch {...props} checked />
-        <ToggleSwitch {...props} />
-      </React.Fragment>
-    ));
+    storiesOf(`ToggleSwitch${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <React.Fragment>
+          <ToggleSwitch {...props} checked />
+          <ToggleSwitch {...props} />
+        </React.Fragment>
+      ),
+    );
   });
 });

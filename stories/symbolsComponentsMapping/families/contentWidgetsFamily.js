@@ -2,6 +2,7 @@ import { contentWidgetsSymbols } from '../symbols';
 import {
   contentWidgetsComponentsNames,
   sharedComponentsNames,
+  layoutComponentsNames,
 } from '../components';
 
 /**
@@ -31,4 +32,9 @@ export const contentWidgetsSymbolsToComponents = {
   ],
 
   [contentWidgetsSymbols.omniSetup]: [],
+
+  [contentWidgetsSymbols.marketingCardLayout]: [
+    layoutComponentsNames.Card,
+    contentWidgetsComponentsNames.MarketingLayout,
+  ],
 };

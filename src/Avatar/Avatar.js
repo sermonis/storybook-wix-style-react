@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import IconButton from '../IconButton';
 import deprecationLog from '../utils/deprecationLog';
-import { avatarColorList, avatarShapes, dataHooks } from './Avatar.const';
+import { avatarColorList, avatarShapes, dataHooks } from './constants';
 import { Avatar as CoreAvatar } from 'wix-ui-core/dist/src/components/avatar';
 import { placeholderSVGs } from './assets';
 import styles from './Avatar.st.css';
@@ -130,7 +130,7 @@ Avatar.propTypes = {
   shape: PropTypes.oneOf(['circle', 'square']),
   /** classes to be applied to the root element */
   className: PropTypes.string,
-  /** Applied as data-hook HTML attribute that can be used to create an Avatar driver in testing */
+  /** Applied as data-hook HTML attribute that can be used to create driver in testing */
   dataHook: PropTypes.string,
   /** Avatar presence. Options like 'online' mean that the conatct is online */
   presence: PropTypes.oneOf(['online', 'offline', 'busy']),

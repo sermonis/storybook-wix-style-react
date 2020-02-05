@@ -1,22 +1,24 @@
 @import '../common';
+@import '../../src/Typography/Typography.scss';
 
 :global(.wix-style-react-slider) :global(.rc-slider) {
   position: relative;
   height: 14px;
   padding: 5px 0;
   width: 100%;
-  border-radius: 6px;
   touch-action: none;
   box-sizing: border-box;
+}
+
+:global(.wix-style-react-slider) :global(.rc-slider-with-marks) {
+  height: 50px;
 }
 
 :global(.wix-style-react-slider) :global(.rc-slider-rail) {
   position: absolute;
   width: 100%;
-  height: 4px;
   background-color: $B40;
-  border-radius: 5px;
-  height: 6px;
+  height: 3px;
   border-radius: 10px;
 }
 
@@ -24,7 +26,7 @@
   position: absolute;
   left: 0;
   background-color: $B10;
-  height: 6px;
+  height: 3px;
   border-radius: 10px;
 }
 
@@ -61,14 +63,14 @@
 }
 
 :global(.wix-style-react-slider) :global(.rc-slider-disabled .rc-slider-track) {
-  background-color: $D10-20;
+  background-color: $D10-30;
 }
 
 :global(.wix-style-react-slider) :global(.rc-slider-disabled .rc-slider-handle) {
-  color: $D10-20;
+  color: $D50;
 }
 
-.markLine {
+.mark-line {
   position: relative;
   margin: auto;
   top: 6px;
@@ -77,7 +79,11 @@
   background-color: $D50;
 }
 
-.markValue {
+.mark-value {
   position: relative;
   margin-top: 14px;
+
+  .mark-text {
+    @extend .text, .sizeSmall, .weightThin;
+  }
 }

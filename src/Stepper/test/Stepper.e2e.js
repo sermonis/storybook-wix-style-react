@@ -1,12 +1,13 @@
-import { eyesItInstance } from '../../../test/utils/eyes-it';
+import { browser } from 'protractor';
 import {
-  waitForVisibilityOf,
   scrollToElement,
+  waitForVisibilityOf,
 } from 'wix-ui-test-utils/protractor';
+
+import { eyesItInstance } from '../../../test/utils/eyes-it';
 import { createTestStoryUrl } from '../../../test/utils/storybook-helpers';
 import { stepperTestkitFactory } from '../../../testkit/protractor';
 import { storySettings } from './storySettings';
-import { browser } from 'protractor';
 
 const createStoryUrl = testName =>
   createTestStoryUrl({ ...storySettings, testName });
@@ -55,7 +56,7 @@ describe('Stepper', () => {
       await createDriver();
     });
 
-    eyes.it('should be rerender with step sizes adapted', async () => {
+    eyes.it('should re-render with updated step sizes', async () => {
       await browser.driver
         .manage()
         .window()
@@ -63,35 +64,34 @@ describe('Stepper', () => {
     });
   });
 
-  describe('on tab press', () => {
+  describe('on two tab key presses', () => {
     beforeEach(async () => {
       await browser.get(createStoryUrl(testStoryNames.ACCESSIBILITY));
       await createDriver();
+      await pressTab();
+      await pressTab();
     });
 
-    describe('and enter press', () => {
+    describe('and enter key press', () => {
       eyes.it(
         'should skip disabled and activate the next step in line',
         async () => {
-          await pressTab();
           await pressEnter();
         },
       );
     });
 
-    describe('and backspace press', () => {
+    describe('and space key press', () => {
       eyes.it(
         'should skip disabled activate the next step in line',
         async () => {
-          await pressTab();
           await pressSpace();
         },
       );
     });
 
-    describe('and non enter/backspace press', () => {
+    describe('and non enter/space key press', () => {
       eyes.it('should not activate step', async () => {
-        await pressTab();
         await pressRightKey();
       });
     });

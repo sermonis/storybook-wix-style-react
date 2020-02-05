@@ -24,6 +24,7 @@ class AccordionItem extends React.PureComponent {
     open: PropTypes.bool,
     disabled: PropTypes.bool,
     onToggle: PropTypes.func,
+    skin: PropTypes.oneOf(['standard', 'light']),
   };
 
   static defaultProps = {
@@ -80,7 +81,7 @@ class AccordionItem extends React.PureComponent {
   };
 
   _renderCloseButton = () => {
-    const { collapseLabel, buttonType, onToggle, disabled } = this.props;
+    const { collapseLabel, buttonType, disabled } = this.props;
 
     const shouldRenderButton =
       collapseLabel && buttonType === buttonTypes.button;
@@ -88,7 +89,6 @@ class AccordionItem extends React.PureComponent {
     const commonProps = {
       disabled,
       children: collapseLabel,
-      onClick: onToggle,
       dataHook: dataHooks.toggleButton,
     };
 
@@ -100,52 +100,58 @@ class AccordionItem extends React.PureComponent {
   };
 
   render() {
-    const { icon, title, open, children, onToggle, disabled } = this.props;
+    const {
+      icon,
+      title,
+      open,
+      children,
+      onToggle,
+      disabled,
+      skin,
+    } = this.props;
+    const { hover } = this.state;
 
     return (
-      <div
-        data-hook={dataHooks.item}
-        onMouseEnter={this._onMouseEnter}
-        onMouseLeave={this._onMouseLeave}
-        onClick={!open && !disabled ? onToggle : null}
-      >
-        <div
-          {...style(
-            'header',
-            { disabled, hover: !open && this.state.hover },
-            this.props,
-          )}
-        >
-          {icon && (
-            <div className={style.icon} data-hook="icon">
-              {icon}
-            </div>
-          )}
-          {title && (
-            <div className={style.title} data-hook="title-container">
-              {typeof title === 'string' ? (
-                <Text data-hook="title" ellipsis weight="normal">
-                  {title}
-                </Text>
-              ) : (
-                title
-              )}
-            </div>
-          )}
+      <div {...style('root', { disabled, hover, open, skin }, this.props)}>
+        <div data-hook={dataHooks.item}>
           <div
-            className={style.toggleButton}
-            data-hook="toggle-accordion-wrapper"
-            children={
-              open ? this._renderCloseButton() : this._renderOpenButton()
-            }
-          />
-        </div>
-
-        <Animator show={open} height>
-          <div data-hook="children" className={style.children}>
-            {children}
+            onClick={!disabled ? onToggle : null}
+            className={style.header}
+            data-hook="header"
+            onMouseEnter={this._onMouseEnter}
+            onMouseLeave={this._onMouseLeave}
+          >
+            {icon && (
+              <div className={style.icon} data-hook="icon">
+                {icon}
+              </div>
+            )}
+            {title && (
+              <div className={style.title} data-hook="titleContainer">
+                {typeof title === 'string' ? (
+                  <Text data-hook="title" ellipsis weight="normal">
+                    {title}
+                  </Text>
+                ) : (
+                  title
+                )}
+              </div>
+            )}
+            <div
+              className={style.toggleButton}
+              data-hook="toggle-accordion-wrapper"
+              children={
+                open ? this._renderCloseButton() : this._renderOpenButton()
+              }
+            />
           </div>
-        </Animator>
+
+          <Animator show={open} height>
+            <div data-hook="children" className={style.children}>
+              {children}
+            </div>
+          </Animator>
+        </div>
       </div>
     );
   }

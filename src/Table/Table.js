@@ -31,20 +31,30 @@ export function createColumns({ tableProps, bulkSelectionContext }) {
       ) : (
         <TableBulkSelectionCheckbox dataHook="table-select" />
       ),
+      onCellClick: (column, row, rowNum, event) => {
+        if (row.unselectable) {
+          return;
+        }
+
+        const id = defaultTo(row.id, rowNum);
+        toggleSelectionById(id, 'Checkbox');
+        event.preventDefault();
+        event.stopPropagation();
+      },
       render: (row, rowNum) => {
         const id = defaultTo(row.id, rowNum);
         return row.unselectable ? null : (
-          <div onClick={e => e.stopPropagation()}>
+          <div>
             <Checkbox
               disabled={disabled}
               dataHook="row-select"
               checked={isSelected(id)}
-              onChange={() => toggleSelectionById(id, 'Checkbox')}
             />
           </div>
         );
       },
       width: '12px',
+      style: (_, row) => (row.unselectable ? undefined : { cursor: 'pointer' }),
     };
   };
 
@@ -222,10 +232,11 @@ Table.propTypes = {
    *    * `render`: a function which will be called for every row in `data` to display this row's value for this column<br>
    *
    *  Each column can also specify these fields:
+   *    * `onCellClick`: A callback method to be called when a cell in this column is clicked. Signature: `onCellClick(column, rowData, rowNum, event)`
    *    * `sortable`: Sets whether this field is sortable. If `true` clicking the header will call `onSortClick`
    *    * `sortDescending`: Sets what sort icon to display in the column header. `true` will show an up arrow, `false` will show a down arrow, `undefined' will show no icon
    *    * `infoTooltipProps`: Props object for column header's [tooltip](https://wix-wix-style-react.surge.sh/?selectedKind=7.%20Tooltips&selectedStory=7.1.%20Tooltip&full=0&addons=0&stories=1&panelRight=0). Note: `dataHook`, `moveBy` and `children` will not be passed to tooltip.
-   *    * `style`: Sets the column inline style. Vertical padding cannot be set here, please use table's `rowVerticalPadding` prop
+   *    * `style`: Can be a CSS style `object` or a function that returns a style `object` (signature: `style(column, rowData, rowNum)`). Sets the column inline style. Vertical padding cannot be set here, please use table's `rowVerticalPadding` prop
    *    * `align`: Sets the alignment of the column content
    *    * `width`: CSS value to set the width to use for this column. No value means column will try to contain its children, if possible
    *    * `important`: Sets whether font color of the column should be stronger, more dominant
@@ -234,10 +245,11 @@ Table.propTypes = {
     PropTypes.shape({
       title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
       render: PropTypes.func.isRequired,
+      onCellClick: PropTypes.func,
       sortable: PropTypes.bool,
       sortDescending: PropTypes.bool,
       infoTooltipProps: PropTypes.shape(Tooltip.propTypes),
-      style: PropTypes.string,
+      style: PropTypes.oneOf([PropTypes.object, PropTypes.func]),
       align: PropTypes.oneOf(['start', 'center', 'end']),
       width: PropTypes.string,
       important: PropTypes.bool,

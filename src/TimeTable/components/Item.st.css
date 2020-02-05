@@ -1,19 +1,19 @@
 :import {
-  -st-from: "../../Foundation/stylable/colors.st.css";
+  -st-from: '../../Foundation/stylable/colors.st.css';
   -st-named: D80, D20, D10, D40, D10-30;
 }
 :import {
-  -st-from: "../../Foundation/stylable/typography.st.css";
-  -st-named: sizeTiny, sizeSmall, sizeMedium, weightBold, weightNormal;
+  -st-from: '../../Foundation/stylable/typography.st.css';
+  -st-named: text-tiny-thin;
 }
 :import {
-  -st-from: "../../Foundation/stylable//mixins/calc_rgba";
+  -st-from: '../../Foundation/stylable//mixins/calc_rgba';
   -st-default: calc_rgba;
 }
 
 .root {
   -st-states: disabled, draggable;
-  -st-mixin: weightNormal, sizeTiny;
+  -st-mixin: text-tiny-thin;
 
   padding: 6px 7px;
   border-radius: 4px;

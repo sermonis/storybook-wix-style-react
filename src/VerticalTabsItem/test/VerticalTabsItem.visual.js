@@ -70,8 +70,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`VerticalTabsItem/${describe}`, module).add(it, () => (
-      <VerticalTabsItem {...props}>Tab Item</VerticalTabsItem>
-    ));
+    storiesOf(
+      `VerticalTabsItem${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <VerticalTabsItem {...props}>Tab Item</VerticalTabsItem>);
   });
 });

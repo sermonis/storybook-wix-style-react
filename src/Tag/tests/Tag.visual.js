@@ -111,7 +111,7 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, container }) => {
-    storiesOf(`Tag/${describe}`, module).add(it, () => (
+    storiesOf(`Tag${describe ? '/' + describe : ''}`, module).add(it, () => (
       <Box direction={'vertical'}>
         {['tiny', 'small', 'medium', 'large'].map(size => (
           <Box margin={1} width="330px" {...container}>

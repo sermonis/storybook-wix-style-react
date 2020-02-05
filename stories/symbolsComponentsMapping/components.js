@@ -31,6 +31,7 @@ export const inputsComponentsNames = {
   Search: 'Search',
   ImageViewer: 'ImageViewer',
   GoogleAddressInput: 'GoogleAddressInput',
+  VariableInput: 'VariableInput',
 };
 
 /**
@@ -144,6 +145,7 @@ export const otherComponentsNames = {
   Loader: 'Loader',
   LinearProgressBar: 'LinearProgressBar',
   CircularProgressBar: 'CircularProgressBar',
+  Image: 'Image',
 };
 
 /**
@@ -157,4 +159,5 @@ export const contentWidgetsComponentsNames = {
   PreviewWidget: 'PreviewWidget',
   BrowserPreviewWidget: 'BrowserPreviewWidget',
   MobilePreviewWidget: 'MobilePreviewWidget',
+  MarketingLayout: 'MarketingLayout',
 };

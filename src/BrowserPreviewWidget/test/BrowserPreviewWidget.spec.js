@@ -31,7 +31,7 @@ describe('BrowserPreviewWidget', () => {
   it('should render', async () => {
     const { driver } = render(<BrowserPreviewWidget {...requiredProps} />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should render the browser preview content', async () => {

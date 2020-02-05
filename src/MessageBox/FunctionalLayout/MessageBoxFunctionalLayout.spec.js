@@ -49,9 +49,7 @@ describe('MessageBox', () => {
         expect(await driver.getConfirmationButtonText()).toBe(
           props.confirmText,
         );
-        expect(
-          await driver.isConfirmationButtonPrefixIconExists(),
-        ).toBeTruthy();
+        expect(await driver.isConfirmationButtonPrefixIconExists()).toBe(true);
       });
 
       it('should display the suffix icon on top the confirmation button', async () => {
@@ -63,9 +61,7 @@ describe('MessageBox', () => {
         expect(await driver.getConfirmationButtonText()).toBe(
           props.confirmText,
         );
-        expect(
-          await driver.isConfirmationButtonSuffixIconExists(),
-        ).toBeTruthy();
+        expect(await driver.isConfirmationButtonSuffixIconExists()).toBe(true);
       });
 
       it('should display the cancellation text on top the cancellation button', async () => {
@@ -83,9 +79,7 @@ describe('MessageBox', () => {
         };
         const driver = createDriver(<MessageBoxFunctionalLayout {...props} />);
         expect(await driver.getCancellationButtonText()).toBe(props.cancelText);
-        expect(
-          await driver.isCancellationButtonPrefixIconExists(),
-        ).toBeTruthy();
+        expect(await driver.isCancellationButtonPrefixIconExists()).toBe(true);
       });
 
       it('should display the suffix icon on top the cancellation button', async () => {
@@ -95,9 +89,7 @@ describe('MessageBox', () => {
         };
         const driver = createDriver(<MessageBoxFunctionalLayout {...props} />);
         expect(await driver.getCancellationButtonText()).toBe(props.cancelText);
-        expect(
-          await driver.isCancellationButtonSuffixIconExists(),
-        ).toBeTruthy();
+        expect(await driver.isCancellationButtonSuffixIconExists()).toBe(true);
       });
 
       it('should disable cancel button if disabled', async () => {
@@ -106,7 +98,7 @@ describe('MessageBox', () => {
           disableCancel: true,
         };
         const driver = createDriver(<MessageBoxFunctionalLayout {...props} />);
-        expect(await driver.isCancelEnable()).toBeFalsy();
+        expect(await driver.isCancelEnable()).toBe(false);
       });
 
       it('should disable confirmation button if disabled', async () => {
@@ -115,7 +107,7 @@ describe('MessageBox', () => {
           disableConfirmation: true,
         };
         const driver = createDriver(<MessageBoxFunctionalLayout {...props} />);
-        expect(await driver.isConfirmationEnable()).toBeFalsy();
+        expect(await driver.isConfirmationEnable()).toBe(false);
       });
 
       it('should not display the cancellation button if cancellationText is empty', async () => {
@@ -173,7 +165,7 @@ describe('MessageBox', () => {
           closeButton: false,
         };
         const driver = createDriver(<MessageBoxFunctionalLayout {...props} />);
-        expect(await driver.getHeaderCloseButton()).toBeFalsy();
+        expect(await driver.getHeaderCloseButton()).toBe(null);
       });
 
       it(`should trigger the 'onCancel' action upon clicking the header close button`, async () => {
@@ -205,7 +197,7 @@ describe('MessageBox', () => {
       it('should set the theme by default to "blue"', async () => {
         const props = {};
         const driver = createDriver(<MessageBoxFunctionalLayout {...props} />);
-        expect(await driver.isThemeExist('blue')).toBeTruthy();
+        expect(await driver.isThemeExist('blue')).toBe(true);
       });
 
       it('should allowing setting the theme', async () => {
@@ -213,9 +205,9 @@ describe('MessageBox', () => {
           theme: 'green',
         };
         const driver = createDriver(<MessageBoxFunctionalLayout {...props} />);
-        expect(await driver.isThemeExist('green')).toBeTruthy();
-        expect(await driver.isThemeExist('blue')).toBeFalsy();
-        expect(await driver.isThemeExist('purple')).toBeFalsy();
+        expect(await driver.isThemeExist('green')).toBe(true);
+        expect(await driver.isThemeExist('blue')).toBe(false);
+        expect(await driver.isThemeExist('purple')).toBe(false);
       });
     });
 
@@ -289,14 +281,14 @@ describe('MessageBox', () => {
             <div>Content</div>
           </MessageBoxFunctionalLayout>,
         );
-        expect(await regularDriver.toHaveBodyPadding()).toBeTruthy();
+        expect(await regularDriver.toHaveBodyPadding()).toBe(true);
 
         const zeroPaddingDriver = createDriver(
           <MessageBoxFunctionalLayout {...zeroPaddingRendering}>
             <div>Content</div>
           </MessageBoxFunctionalLayout>,
         );
-        expect(await zeroPaddingDriver.toHaveBodyPadding()).toBeFalsy();
+        expect(await zeroPaddingDriver.toHaveBodyPadding()).toBe(false);
       });
 
       it('should render the passed image', async () => {

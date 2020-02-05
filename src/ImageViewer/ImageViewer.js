@@ -107,6 +107,11 @@ class ImageViewer extends Component {
 
   _renderImage = () => {
     const { imageLoading } = this.state;
+
+    if (!this.props.imageUrl) {
+      return;
+    }
+
     const {
       currentImageUrl,
       previousImageUrl,
@@ -116,7 +121,6 @@ class ImageViewer extends Component {
     const previousImageName = 'image-viewer-previous-image';
     const shouldDisplayContainer = !!(currentImageUrl || previousImageUrl);
     const generateKey = (imageName, imageUrl) => `${imageName}-${imageUrl}`;
-
     return (
       <div
         {...styles('imageContainer', {

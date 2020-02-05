@@ -6,7 +6,7 @@
     "pretty": true,
     "jsx": "react",
     "strict": true,
-    "noImplicitAny": false
+    "noEmit": true
   },
   "include": ["src/**/*.ts", "test/types/**.*"],
   "files": ["./node_modules/wix-ui-core/dist/src/globals.d.ts"]

@@ -50,6 +50,7 @@ export const inputsSymbols = {
   googleAddressInput: '3.13 Google Address Input',
   searchInput: '3.14 Search Input',
   mediaInput: '3.15 Media Input',
+  variableInput: '3.16 Variable Input',
 };
 
 /**
@@ -144,6 +145,7 @@ export const otherSymbols = {
   loader: '11.6 Loader',
   linearProgressBar: '11.7 Linear Progress Bar',
   circularProgressBar: '11.8 Circular Progress Bar',
+  image: '11.9 Image',
 };
 
 /**
@@ -158,4 +160,5 @@ export const contentWidgetsSymbols = {
   cardGalleryItem: '12.6 Card Gallery Item',
   preview: '12.7 Preview',
   omniSetup: '12.8 Omni Setup',
+  marketingCardLayout: '12.9 Marketing Card Layout',
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Breadcrumbs from '../Breadcrumbs';
 import Box from 'wix-style-react/Box';
-import { Layout, Cell } from 'wix-style-react/Layout';
 import { SIZES, THEMES } from '../constnats';
 import { breadcrumbsTestkitFactory } from '../../../testkit';
 
@@ -55,9 +54,10 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Breadcrumbs/${describe}`, module).add(it, () => (
-      <Breadcrumbs items={items} {...props} />
-    ));
+    storiesOf(`Breadcrumbs${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => <Breadcrumbs items={items} {...props} />,
+    );
   });
 });
 
@@ -124,8 +124,11 @@ const interactiveTests = [
 
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`Breadcrumbs/${describe}`, module).add(it, () => (
-      <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
-    ));
+    storiesOf(`Breadcrumbs${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
+      ),
+    );
   });
 });

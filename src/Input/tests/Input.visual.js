@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import Input from '..';
 import Search from 'wix-ui-icons-common/Search';
+import AllInputs from './AllInputs';
 
 const defaultProps = {
   value: 'Some text value...',
@@ -10,10 +11,10 @@ const defaultProps = {
 
 const groupSuffix = (
   <Input.Group>
-    <Input.Affix>$</Input.Affix>
     <Input.IconAffix>
       <Search />
     </Input.IconAffix>
+    <Input.Affix>$</Input.Affix>
   </Input.Group>
 );
 
@@ -112,8 +113,17 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Input/${describe}`, module).add(it, () => (
+    storiesOf(`Input${describe ? '/' + describe : ''}`, module).add(it, () => (
       <Input {...defaultProps} {...props} />
     ));
   });
+});
+
+storiesOf('Input', module).add('All inputs', () => {
+  return (
+    <div>
+      <AllInputs />
+      <AllInputs rtl />
+    </div>
+  );
 });

@@ -1,11 +1,11 @@
 :import {
-  -st-from: "wix-ui-core/dist/src/hocs/Focusable/Focusable.st.css";
-  -st-default: Focusable;
+  -st-from: "wix-ui-core/hocs.st.css";
+  -st-named: Focusable;
 }
 
 :import {
   -st-from: "../Foundation/stylable/colors.st.css";
-  -st-named: B10, B20, B30, D50, D80, D10-30, F00;
+  -st-named:  B00-24, B10, B20, D50, D80, D10-30, F00;
 }
 
 :vars {
@@ -48,7 +48,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  box-shadow: 0 0 0 1px value(B30) inset;
+  box-shadow: 0 0 0 1px value(B00-24) inset;
   border-radius: value(borderRadius);
   content: ' ';
 }
@@ -109,7 +109,7 @@
 .thumbnail:hasBackground,
 .thumbnail:hasChildren {
   padding: 0;
-  background-color: white;
+  background-color: value(D80);
 }
 
 .customChild {
@@ -184,6 +184,9 @@
   border-radius: 50%;
   color: white;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 :global([dir="rtl"]) .selectedIcon {

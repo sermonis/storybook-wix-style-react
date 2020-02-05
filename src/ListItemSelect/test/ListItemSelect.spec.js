@@ -52,13 +52,13 @@ describe('ListItemSelect', () => {
   it('should be unselected', async () => {
     const { driver } = render(renderListItemSelect({ selected: false }));
 
-    expect(await driver.isSelected()).toBeFalsy();
+    expect(await driver.isSelected()).toBe(false);
   });
 
   it('should be selected', async () => {
     const { driver } = render(renderListItemSelect({ selected: true }));
 
-    expect(await driver.isSelected()).toBeTruthy();
+    expect(await driver.isSelected()).toBe(true);
   });
 
   it('should trigger click callback', async () => {

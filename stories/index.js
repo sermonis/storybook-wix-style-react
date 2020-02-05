@@ -66,6 +66,7 @@ require('../src/Grid/docs');
 require('../src/Heading/docs/index.story');
 require('../src/Highlighter/docs/index.story');
 require('../src/IconButton/docs/index.story');
+require('../src/Image/docs/index.story');
 require('../src/ImageViewer/docs/index.story');
 require('../src/InfoIcon/docs/index.story');
 require('../src/Input/docs/index.story');
@@ -112,6 +113,7 @@ require('../src/SidebarHeader/docs/index.story');
 require('../src/SidebarSectionItem/docs/index.story');
 require('../src/SidebarSectionTitle/docs/index.story');
 require('../src/SidebarBackButton/docs/index.story');
+require('../src/SidePanel/docs/index.story');
 require('../src/Skeleton/docs/index.story');
 require('../src/Slider/docs/index.story');
 require('../src/SocialButton/docs/index.story');
@@ -139,6 +141,7 @@ require('../src/VerticalTabs/docs/index.story');
 require('../src/VerticalTabsItem/docs/index.story');
 require('../src/MarketingLayout/docs/index.story');
 require('../src/Palette/docs/index.story');
+require('../src/VariableInput/docs/index.story');
 require('./WIP');
 
 // Next API
@@ -160,8 +163,10 @@ require('./CardLayout/index.story'); // 2.1 Card Layout
 // 3. Inputs
 require('./TextInput/index.story'); // 3.1. Text Input
 require('./TextArea/index.story'); // 3.2 Text Area
+require('./RichTextArea/index.story'); // 3.3 Rich Text Area
 require('./NumberInput/index.story'); // 3.4 NumberInput
 require('./MultiSelect/index.story'); // 3.12 Tags
+require('./VariableInput/index.story'); // 3.16 VariableInput
 
 // 4. Selection
 require('./SegmentedToggle/index.story'); // 4.5 SegmentedToggle

@@ -88,13 +88,16 @@ const InfoIconWrapper = ({ componentDidMount, ...props }) => {
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`InfoIcon/${describe}`, module).add(it, () => (
-      <InfoIconWrapper
-        {...commonProps}
-        {...props}
-        componentDidMount={componentDidMount}
-      />
-    ));
+    storiesOf(`InfoIcon${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InfoIconWrapper
+          {...commonProps}
+          {...props}
+          componentDidMount={componentDidMount}
+        />
+      ),
+    );
   });
 });
 

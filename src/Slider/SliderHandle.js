@@ -12,6 +12,7 @@ class SliderHandle extends Component {
     this.state = {
       showTooltip: false,
       dragging: false,
+      hovered: false,
     };
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
@@ -34,7 +35,9 @@ class SliderHandle extends Component {
   clickFocus() {}
 
   handleMouseUp() {
-    this.toggleTooltip(false);
+    if (!this.state.hovered) {
+      this.toggleTooltip(false);
+    }
     this.setState({ dragging: false });
   }
 
@@ -45,12 +48,14 @@ class SliderHandle extends Component {
 
   handleMouseEnter() {
     this.toggleTooltip(true);
+    this.setState({ hovered: true });
   }
 
   handleMouseLeave() {
     if (!this.state.dragging) {
       this.toggleTooltip(false);
     }
+    this.setState({ hovered: false });
   }
 
   toggleTooltip(showTooltip) {
@@ -62,27 +67,39 @@ class SliderHandle extends Component {
   }
 
   render() {
-    const { disabled, rtl, focusableOnFocus, focusableOnBlur } = this.props;
+    const {
+      value,
+      offset,
+      disabled,
+      focusableOnFocus,
+      focusableOnBlur,
+    } = this.props;
+    const { showTooltip } = this.state;
+
     return (
-      <div
-        {...styles('root', { disabled }, this.props)}
-        onBlur={focusableOnBlur}
-        onFocus={focusableOnFocus}
-        tabIndex="0"
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-        onMouseDown={this.handleMouseDown}
-        onMouseUp={this.handleMouseUp}
-        data-hook="slider-handle"
-        style={{ left: `${this.props.offset}%` }}
-      >
-        {this.state.showTooltip && (
-          <div data-hook="slider-tooltip" className={styles.tooltip}>
-            {this.props.value}
+      <>
+        <div
+          {...styles('root', { disabled }, this.props)}
+          onBlur={focusableOnBlur}
+          onFocus={focusableOnFocus}
+          tabIndex="0"
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.handleMouseUp}
+          data-hook="slider-handle"
+          style={{ left: `${offset}%` }}
+        />
+        {showTooltip && (
+          <div
+            data-hook="slider-tooltip"
+            className={styles.tooltip}
+            style={{ left: `${offset}%` }}
+          >
+            {value}
           </div>
         )}
-        <div {...styles('dot', { disabled, rtl }, this.props)} />
-      </div>
+      </>
     );
   }
 }

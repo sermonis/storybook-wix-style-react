@@ -1,8 +1,6 @@
 import { baseUniDriverFactory } from '../../test/utils/unidriver';
 import { buttonDriverFactory } from '../Button/Button.uni.driver';
 
-import styles from './SectionHelper.scss';
-
 export const sectionHelperUniDriverFactory = base => {
   const actionButtonDriver = () =>
     buttonDriverFactory(base.$('[data-hook="sectionhelper-action-btn"]'));
@@ -17,12 +15,12 @@ export const sectionHelperUniDriverFactory = base => {
     clickClose: () => closeButtonDriver().click(),
     isCloseButtonDisplayed: () => closeButtonDriver().exists(),
     textContent: () => base.text(),
-    isWarning: () => base.hasClass(styles.warning),
-    isStandard: () => base.hasClass(styles.standard),
-    isDanger: () => base.hasClass(styles.danger),
-    isExperimentalDark: () => base.hasClass(styles.experimentalDark),
-    isSuccess: () => base.hasClass(styles.success),
-    isPremium: () => base.hasClass(styles.premium),
-    isPreview: () => base.hasClass(styles.preview),
+    isWarning: () => base.hasClass('warning'),
+    isStandard: () => base.hasClass('standard'),
+    isDanger: () => base.hasClass('danger'),
+    isExperimentalDark: () => base.hasClass('experimentalDark'),
+    isSuccess: () => base.hasClass('success'),
+    isPremium: () => base.hasClass('premium'),
+    isPreview: () => base.hasClass('preview'),
   };
 };

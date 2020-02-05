@@ -16,7 +16,7 @@ describe('BarChart', () => {
     const items = [];
     const { driver } = render(<BarChart statistics={items} />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   describe('one item', () => {

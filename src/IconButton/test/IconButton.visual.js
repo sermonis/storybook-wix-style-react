@@ -1,64 +1,57 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import More from 'wix-ui-icons-common/More';
-import MoreSmall from 'wix-ui-icons-common/MoreSmall';
 import IconButton from '../IconButton';
-import { SKINS } from '../constants';
+import { SKINS, SIZES } from '../constants';
+import { visualize, story, snap } from 'storybook-snapper';
 
-const skins = Object.keys(SKINS);
+import {
+  getSkinBackground,
+  renderButtonBlock,
+} from '../../utils/ButtonHelpers';
+
+const skins = Object.values(SKINS).reduce((output, skin) => {
+  return [...output, { skin, background: getSkinBackground(skin) }];
+}, []);
 
 const tests = [
   {
-    describe: 'size',
-    its: [
-      {
-        it: 'tiny',
-        props: { size: 'tiny', children: <MoreSmall /> },
-      },
-      {
-        it: 'small',
-        props: { size: 'small', children: <MoreSmall /> },
-      },
-      {
-        it: 'medium',
-        props: { size: 'medium', children: <More /> },
-      },
-      {
-        it: 'large',
-        props: { size: 'large', children: <More /> },
-      },
-    ],
-  },
-  {
-    describe: 'skins',
-    its: skins.reduce((its, skin) => {
-      const primary = {
-        it: `Primary ${skin}`,
-        props: {
-          as: 'a',
-          children: <More />,
-          skin,
-        },
-      };
-      const secondary = {
-        it: `Secondary ${skin}`,
-        props: {
-          ...primary.props,
-          priority: 'secondary',
-        },
-      };
-
-      return [...its, primary, secondary];
-    }, []),
+    describe: 'Sizes',
+    its: Object.values(SIZES).map(size => ({
+      it: size,
+      props: { size, children: <More /> },
+    })),
   },
 ];
 
-tests.forEach(({ describe, its }) => {
-  its.forEach(({ it, props }) => {
-    storiesOf(`IconButton/${describe}`, module).add(it, () => (
-      <div style={{ background: '#ccc', padding: '12px 18px', height: '42px' }}>
-        <IconButton {...props} />
-      </div>
-    ));
+const blockOfTests = [
+  {
+    it: 'Primary Skins',
+    render: () =>
+      renderButtonBlock({
+        Component: IconButton,
+        props: { children: <More /> },
+        skins,
+      }),
+  },
+  {
+    it: 'Secondary Skins',
+    render: () =>
+      renderButtonBlock({
+        Component: IconButton,
+        props: { priority: 'secondary', children: <More /> },
+        skins,
+      }),
+  },
+];
+
+visualize('IconButton', () => {
+  blockOfTests.forEach(({ it, render }) => {
+    snap(it, render);
+  });
+
+  tests.forEach(({ describe, its }) => {
+    story(describe, () => {
+      its.map(({ it, props }) => snap(it, () => <IconButton {...props} />));
+    });
   });
 });

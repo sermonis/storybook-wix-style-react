@@ -24,7 +24,7 @@ describe('MarketingLayout', () => {
 
   it('should render', async () => {
     const { driver } = render(<MarketingLayout {...defaultProps} />);
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   describe('`title` prop', () => {

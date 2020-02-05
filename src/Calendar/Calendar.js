@@ -9,12 +9,10 @@ import startOfMonth from 'date-fns/start_of_month';
 import parse from 'date-fns/parse';
 import isSameDay from 'date-fns/is_same_day';
 import { CalendarView } from './utils';
-
-import WixComponent from '../BaseComponents/WixComponent';
 import localeUtilsFactory from '../LocaleUtils';
 import DatePickerHead from './DatePickerHead';
 
-export default class Calendar extends WixComponent {
+export default class Calendar extends React.PureComponent {
   static displayName = 'Calendar';
 
   static defaultProps = {
@@ -334,21 +332,21 @@ export default class Calendar extends WixComponent {
   };
 
   componentDidMount() {
-    super.componentDidMount();
     this.props.autoFocus && this._focusSelectedDay();
   }
 
   componentDidUpdate(prevProps) {
-    super.componentDidUpdate(prevProps);
     if (!prevProps.autoFocus && this.props.autoFocus) {
       this._focusSelectedDay();
     }
   }
 
   render() {
+    const { dataHook, className } = this.props;
     return (
       <div
-        className={classNames(styles.calendar, this.props.className)}
+        data-hook={dataHook}
+        className={classNames(styles.calendar, className)}
         onClick={this._preventActionEventDefault}
       >
         <DayPicker
@@ -361,12 +359,16 @@ export default class Calendar extends WixComponent {
 }
 
 Calendar.propTypes = {
+  /** Applied as data-hook HTML attribute that can be used in the tests */
+  dataHook: PropTypes.string,
+
   /** Auto focus on selected day when component mounts or updates */
   autoFocus: PropTypes.bool,
 
   /** Display multiple months, currently allowing only 1 or 2 */
   numOfMonths: PropTypes.oneOf([1, 2]),
 
+  /** A single CSS class name to be appended to the root element. */
   className: PropTypes.string,
 
   /** Callback function called with a Date or a Range whenever the user selects a day in the calendar */

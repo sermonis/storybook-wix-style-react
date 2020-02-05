@@ -1,10 +1,10 @@
 :import {
-    -st-from: "wix-ui-core/index.st.css";
+    -st-from: 'wix-ui-core/index.st.css';
     -st-named: CircularProgressBar;
 }
 
 :import {
-    -st-from: "../Foundation/stylable/colors.st.css";
+    -st-from: '../Foundation/stylable/colors.st.css';
     -st-named:
             B00, B30,
             D20,
@@ -12,8 +12,8 @@
 }
 
 :import {
-    -st-from: "../Foundation/stylable/typography.st.css";
-    -st-named: fontMedium;
+    -st-from: '../Foundation/stylable/typography.st.css';
+    -st-named: heading-h6;
 }
 
 .progressBar {
@@ -74,9 +74,7 @@
 
 .root .progressBar::progressIndicator {
     color: value(D20);
-    font-family: value(fontMedium);
-    font-size: 10px;
-    font-weight: 500;
-    margin-top: 18px;
+  -st-mixin: heading-h6;
+    margin-top: 12px;
 }
 

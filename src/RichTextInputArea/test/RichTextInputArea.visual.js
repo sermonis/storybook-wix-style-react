@@ -173,15 +173,19 @@ const interactiveTests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`RichTextInputArea/${describe}`, module).add(it, () => (
-      <RichTextInputArea {...props} />
-    ));
+    storiesOf(
+      `RichTextInputArea${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <RichTextInputArea {...props} />);
   });
 });
 
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`RichTextInputArea/${describe}`, module).add(it, () => (
+    storiesOf(
+      `RichTextInputArea${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => (
       <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
     ));
   });

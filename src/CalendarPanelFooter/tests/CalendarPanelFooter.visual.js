@@ -30,8 +30,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`CalendarPanelFooter/${describe}`, module).add(it, () => (
-      <CalendarPanelFooter {...props} />
-    ));
+    storiesOf(
+      `CalendarPanelFooter${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <CalendarPanelFooter {...props} />);
   });
 });

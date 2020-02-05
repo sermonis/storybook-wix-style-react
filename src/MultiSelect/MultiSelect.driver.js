@@ -32,7 +32,7 @@ const multiSelectDriverFactory = ({ element }) => {
     /** returns the number of tags selected in the input */
     numberOfTags: () => tags.length,
     customSuffixExists: () =>
-      inputWrapper.querySelector('[data-hook="custom-suffix"]'),
+      !!inputWrapper.querySelector('[data-hook="custom-suffix"]'),
 
     /** returns the label of the tag given it's index */
     getTagLabelAt: index => tags[index].textContent,

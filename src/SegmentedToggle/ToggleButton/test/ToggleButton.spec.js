@@ -9,7 +9,7 @@ describe('ToggleButton', () => {
 
   it('should render', async () => {
     const driver = createDriver(<ToggleButton />);
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should be controlled', async () => {

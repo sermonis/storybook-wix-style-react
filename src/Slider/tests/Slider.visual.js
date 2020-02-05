@@ -9,6 +9,7 @@ const commonProps = {
   max: 10,
   value: 4,
   displayMarks: false,
+  onChange: e => e,
 };
 
 const tests = [
@@ -43,15 +44,11 @@ const tests = [
 ];
 
 tests.forEach(({ describe, its }) => {
-  let _describe = '';
-  if (describe) {
-    _describe += `/${describe}`;
-  }
   its.forEach(({ it, props, container }) => {
-    storiesOf(`Slider${_describe}`, module).add(it, () => (
+    storiesOf(`Slider${describe ? '/' + describe : ''}`, module).add(it, () => (
       <Box direction={'vertical'}>
-        {[0, 4, 10].map(value => (
-          <Box margin={4} {...container}>
+        {[0, 4, 10].map((value, key) => (
+          <Box key={key} margin={4} {...container}>
             <Layout>
               <Cell>
                 <Slider {...commonProps} {...props} value={value} />

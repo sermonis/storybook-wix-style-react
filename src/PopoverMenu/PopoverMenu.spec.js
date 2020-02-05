@@ -110,7 +110,7 @@ describe('PopoverMenu', () => {
       expect(driver.menu.isShown()).toBe(true);
     });
 
-    expect(driver.menu.hasArrow()).toBeFalsy();
+    expect(driver.menu.hasArrow()).toBe(false);
   });
 
   it('should invoke onShow property when menu is shows ', async () => {

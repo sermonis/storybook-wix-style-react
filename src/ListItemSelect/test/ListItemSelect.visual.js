@@ -112,19 +112,22 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`ListItemSelect/${describe}`, module).add(it, () => (
-      <React.Fragment>
-        {permutations.map(_props => (
-          <Box backgroundColor="#eee">
-            <Box width="400px" margin={1}>
-              <ListItemSelect {..._props} {...props} />
+    storiesOf(`ListItemSelect${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <React.Fragment>
+          {permutations.map(_props => (
+            <Box backgroundColor="#eee">
+              <Box width="400px" margin={1}>
+                <ListItemSelect {..._props} {...props} />
+              </Box>
+              <Box width="400px" margin={1}>
+                <ListItemSelect checkbox {..._props} {...props} />
+              </Box>
             </Box>
-            <Box width="400px" margin={1}>
-              <ListItemSelect checkbox {..._props} {...props} />
-            </Box>
-          </Box>
-        ))}
-      </React.Fragment>
-    ));
+          ))}
+        </React.Fragment>
+      ),
+    );
   });
 });

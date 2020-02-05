@@ -23,6 +23,6 @@ describe('VerticalTabs', () => {
       </VerticalTabs>,
     );
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 });

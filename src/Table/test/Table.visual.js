@@ -298,7 +298,7 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Table/${describe}`, module).add(it, () => (
+    storiesOf(`Table${describe ? '/' + describe : ''}`, module).add(it, () => (
       <div style={{ backgroundColor: '#DFE5EB', padding: '20px' }}>
         <Card>
           <Table {...props} />

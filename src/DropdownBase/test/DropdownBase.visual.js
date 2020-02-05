@@ -67,10 +67,16 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`DropdownBase/${describe}`, module).add(it, () => (
-      <div style={{ padding: '60px' }}>
-        <DropdownBaseWrapper {...props} componentDidMount={componentDidMount} />
-      </div>
-    ));
+    storiesOf(`DropdownBase${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div style={{ padding: '60px' }}>
+          <DropdownBaseWrapper
+            {...props}
+            componentDidMount={componentDidMount}
+          />
+        </div>
+      ),
+    );
   });
 });

@@ -28,6 +28,12 @@ export const WEIGHTS = {
   bold: 'bold',
 };
 
+const getStyleDataAttributes = styleAttributes =>
+  Object.keys(styleAttributes).reduce((acc, styleKey) => {
+    acc[`data-${styleKey}`] = styleAttributes[styleKey];
+    return acc;
+  }, {});
+
 const Text = ({
   size,
   secondary,
@@ -41,22 +47,22 @@ const Text = ({
   /* eslint-disable no-unused-vars */
   const { dataHook, ...textProps } = rest;
 
+  const styleAttributes = {
+    size,
+    secondary,
+    skin,
+    light,
+    weight,
+  };
+  const styleDataAttributes = getStyleDataAttributes(styleAttributes);
+
   return React.createElement(
     tagName,
     {
       ...textProps,
       'data-hook': dataHook,
-      ...style(
-        'root',
-        {
-          size,
-          secondary,
-          skin,
-          light,
-          weight,
-        },
-        rest,
-      ),
+      ...style('root', styleAttributes, rest),
+      ...styleDataAttributes,
     },
     children,
   );

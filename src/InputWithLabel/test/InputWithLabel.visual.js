@@ -159,16 +159,20 @@ const interactiveTests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`InputWithLabel/${describe}`, module).add(it, () => (
-      <InputWithLabel {...commonProps} {...props} />
-    ));
+    storiesOf(`InputWithLabel${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => <InputWithLabel {...commonProps} {...props} />,
+    );
   });
 });
 
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`InputWithLabel/${describe}`, module).add(it, () => (
-      <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
-    ));
+    storiesOf(`InputWithLabel${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
+      ),
+    );
   });
 });

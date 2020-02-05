@@ -30,7 +30,7 @@
 .inputSuffix {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 6px;
   height: 34px;
   box-sizing: border-box;
 }
@@ -79,6 +79,12 @@
   padding-right: 55px;
 }
 
+.warning {
+  border-color: $paletteY1;
+  position: relative;
+  padding-right: 55px;
+}
+
 .disabled {
   border-color: $D10-30;
 }
@@ -90,6 +96,10 @@
 
   &.error {
     @include FocusBoxError;
+  }
+
+  &.warning {
+    @include FocusBoxWarning;
   }
 }
 

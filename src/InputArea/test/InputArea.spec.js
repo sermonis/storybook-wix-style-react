@@ -101,36 +101,36 @@ describe('InputArea', () => {
 
       it('should not show counter when hasCounter is not present', async () => {
         const driver = createDriver(<InputAreaForTesting />);
-        expect(await driver.getHasCounter()).toBeFalsy();
+        expect(await driver.getHasCounter()).toBe(false);
       });
     });
 
     describe('resizable attribute', () => {
       it('should pass down to the wrapped input', async () => {
         const driver = createDriver(<InputAreaForTesting resizable />);
-        expect(await driver.getResizable()).toBeTruthy();
+        expect(await driver.getResizable()).toBe(true);
       });
 
       it('should pass down to the wrapped input with default false value', async () => {
         const driver = createDriver(<InputAreaForTesting />);
-        expect(await driver.getResizable()).toBeFalsy();
+        expect(await driver.getResizable()).toBe(false);
       });
     });
 
     describe('disabled attribute', () => {
       it('should pass down to the wrapped input', async () => {
         const driver = createDriver(<InputAreaForTesting disabled />);
-        expect(await driver.getDisabled()).toBeTruthy();
+        expect(await driver.getDisabled()).toBe(true);
       });
 
       it('should pass down to the wrapped input with default false value', async () => {
         const driver = createDriver(<InputAreaForTesting />);
-        expect(await driver.getDisabled()).toBeFalsy();
+        expect(await driver.getDisabled()).toBe(false);
       });
 
       it('depreacted - should not display an error icon even if the error is true', async () => {
         const driver = createDriver(<InputAreaForTesting disabled error />);
-        expect(await driver.hasExclamation()).toBeFalsy();
+        expect(await driver.hasExclamation()).toBe(false);
       });
 
       it('should not display a status icon even if status="error"', async () => {
@@ -149,7 +149,7 @@ describe('InputArea', () => {
 
       it('should not be resizable', async () => {
         const driver = createDriver(<InputAreaForTesting disabled />);
-        expect(await driver.getResizable()).toBeFalsy();
+        expect(await driver.getResizable()).toBe(false);
       });
     });
 
@@ -185,19 +185,19 @@ describe('InputArea', () => {
     describe('size attribute', () => {
       it('should pass down small size', async () => {
         const driver = createDriver(<InputAreaForTesting size="small" />);
-        expect(await driver.isSizeSmall()).toBeTruthy();
+        expect(await driver.isSizeSmall()).toBe(true);
       });
     });
 
     describe('readOnly attribute', () => {
       it('should pass down to the wrapped input', async () => {
         const driver = createDriver(<InputAreaForTesting readOnly />);
-        expect(await driver.getReadOnly()).toBeTruthy();
+        expect(await driver.getReadOnly()).toBe(true);
       });
 
       it('should pass down to the wrapped input with default false value', async () => {
         const driver = createDriver(<InputAreaForTesting />);
-        expect(await driver.getReadOnly()).toBeFalsy();
+        expect(await driver.getReadOnly()).toBe(false);
       });
     });
 
@@ -205,7 +205,7 @@ describe('InputArea', () => {
       it('should display an error icon if error is true', async () => {
         const driver = createDriver(<InputAreaForTesting error />);
 
-        expect(await driver.hasError()).toBeTruthy();
+        expect(await driver.hasError()).toBe(true);
       });
     });
 
@@ -305,21 +305,21 @@ describe('InputArea', () => {
     describe('forceFocus attribute', () => {
       it('should have focus class on input if forceFocus is true', async () => {
         const driver = createDriver(<InputAreaForTesting forceFocus />);
-        expect(await driver.isFocusedStyle()).toBeTruthy();
+        expect(await driver.isFocusedStyle()).toBe(true);
       });
     });
 
     describe('forceHover attribute', () => {
       it('should have hover class on input if forceHover is true', async () => {
         const driver = createDriver(<InputAreaForTesting forceHover />);
-        expect(await driver.isHoveredStyle()).toBeTruthy();
+        expect(await driver.isHoveredStyle()).toBe(true);
       });
 
       it('should be hovered if forceFocus is false and forceHover is true', async () => {
         const driver = createDriver(
           <InputAreaForTesting forceHover forceFocus={false} />,
         );
-        expect(await driver.isHoveredStyle()).toBeTruthy();
+        expect(await driver.isHoveredStyle()).toBe(true);
       });
     });
 
@@ -328,40 +328,40 @@ describe('InputArea', () => {
         const { driver, rerender } = render(
           <InputAreaForTesting autoFocus={false} />,
         );
-        expect(await driver.isFocus()).toBeFalsy();
+        expect(await driver.isFocus()).toBe(false);
         rerender(<InputAreaForTesting autoFocus />);
-        expect(await driver.isFocus()).toBeFalsy();
+        expect(await driver.isFocus()).toBe(false);
       });
 
       it('Mounting an input element with autoFocus=true, gives it the focus', async () => {
         const driver = createDriver(<InputAreaForTesting autoFocus />);
-        expect(await driver.isFocus()).toBeTruthy();
+        expect(await driver.isFocus()).toBe(true);
       });
     });
 
     describe('focus function', () => {
       it('calling focus should give focus to the input', async () => {
         const driver = createDriver(<InputAreaForTesting autoFocus={false} />);
-        expect(await driver.isFocus()).toBeFalsy();
+        expect(await driver.isFocus()).toBe(false);
         await driver.focus();
-        expect(await driver.isFocus()).toBeTruthy();
+        expect(await driver.isFocus()).toBe(true);
       });
     });
 
     describe('theme attribute', () => {
       it('should set the theme by default to "normal"', async () => {
         const driver = createDriver(<InputAreaForTesting />);
-        expect(await driver.isOfStyle('normal')).toBeTruthy();
+        expect(await driver.isOfStyle('normal')).toBe(true);
       });
 
       it('should allowing setting the theme to "paneltitle"', async () => {
         const driver = createDriver(<InputAreaForTesting theme="paneltitle" />);
-        expect(await driver.isOfStyle('paneltitle')).toBeTruthy();
+        expect(await driver.isOfStyle('paneltitle')).toBe(true);
       });
 
       it('should allow setting the theme to "material"', async () => {
         const driver = createDriver(<InputAreaForTesting theme="material" />);
-        expect(await driver.isOfStyle('material')).toBeTruthy();
+        expect(await driver.isOfStyle('material')).toBe(true);
       });
     });
 

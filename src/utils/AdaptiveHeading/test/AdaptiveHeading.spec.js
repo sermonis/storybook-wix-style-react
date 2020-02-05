@@ -19,7 +19,7 @@ describe('AdaptiveHeading', () => {
       <AdaptiveHeading text="text" textInShort="short" />,
     );
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should render heading when there is no short version', async () => {

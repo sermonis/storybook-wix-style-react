@@ -1,58 +1,40 @@
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
-import { StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
-import stylesheet from './Thumbnail.st.css';
-import textDriverFactory from '../Text/Text.driver';
-import { testkitFactoryCreator } from 'wix-ui-test-utils/vanilla';
-
-const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
+import { textUniDriverFactory } from '../Text/Text.uni.driver';
+import { dataHooks } from './constants';
 
 export const thumbnailDriverFactory = base => {
-  const stylableUtil = new StylableUnidriverUtil(stylesheet);
   const byHook = hook => base.$(`[data-hook*="${hook}"]`);
-  const getThumbnailWrapper = () => byHook('thumbnail-wrapper');
+  const getThumbnailWrapper = () => byHook(dataHooks.thumbnailWrapper);
   const getStyle = async (element, rule) =>
     (await element.attr('style')).match(new RegExp(`${rule}: (.*?);`))[1];
-
-  const titleDriver = async () =>
-    textTestkitFactory({
-      wrapper: await byHook('thumbnail-title').getNative(), // eslint-disable-line no-restricted-properties
-      dataHook: 'thumbnail-title',
-    });
 
   return {
     ...baseUniDriverFactory(base),
 
     /** Get thumbnail title */
-    getTitle: async () => (await titleDriver()).getText(),
+    getTitle: async () =>
+      (
+        await textUniDriverFactory(await byHook(dataHooks.thumbnailTitle))
+      ).getText(),
 
     /** Get thumbnail description */
-    getDescription: () => byHook('thumbnail-description').text(),
+    getDescription: () => byHook(dataHooks.thumbnailDescription).text(),
 
     /** Get selected icon */
-    getSelectedIcon: () => byHook('thumbnail-selected-icon'),
+    getSelectedIcon: () => byHook(dataHooks.thumbnailSelectedIcon),
 
-    getBackgroundImage: () => byHook('thumbnail-background-image'),
+    getBackgroundImage: () => byHook(dataHooks.thumbnailBackgroundImage),
 
     /** Is Thumbnail selected */
-    isSelected: async () => {
-      const stylableState = await stylableUtil.getStyleState(
-        getThumbnailWrapper(),
-        'selected',
-      );
-      return stylableState === 'true';
-    },
+    isSelected: async () =>
+      (await getThumbnailWrapper().attr('data-selected')) === 'true',
 
     /** Is Thumbnail disabled */
-    isDisabled: async () => {
-      const stylableState = await stylableUtil.getStyleState(
-        getThumbnailWrapper(),
-        'disabled',
-      );
-      return stylableState === 'true';
-    },
+    isDisabled: async () =>
+      (await getThumbnailWrapper().attr('data-disabled')) === 'true',
 
     /** Get thumbnail image */
-    getImage: () => byHook('thumbnail-image'),
+    getImage: () => byHook(dataHooks.thumbnailImage),
 
     /** Get thumbnail width, if it's set through `width` prop */
     getWidth: async () => await getStyle(base, 'width'),

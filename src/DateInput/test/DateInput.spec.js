@@ -11,7 +11,7 @@ describe('DateInput', () => {
 
   it('should render', async () => {
     const driver = createDriver(<DateInput />);
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should format date based on locale', async () => {

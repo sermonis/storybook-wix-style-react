@@ -10,7 +10,7 @@ describe('ToggleIcon', () => {
 
   it('should render', async () => {
     const driver = createDriver(<ToggleIcon />);
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should be controlled', async () => {

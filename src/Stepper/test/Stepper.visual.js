@@ -1,282 +1,312 @@
-/* eslint-disable no-console */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { storiesOf } from '@storybook/react';
+
 import Stepper from '../Stepper';
+import { Type, FitMode, StepType } from '../constants';
 import { stepperTestkitFactory } from '../../../testkit';
+import { storySettings } from './storySettings';
 
-const interactiveDataHook = 'interactive-stepper';
+const { dataHook, storyName } = storySettings;
+const onClick = () => {};
 
-const createDriver = dataHook =>
+const createDriver = () =>
   stepperTestkitFactory({
     wrapper: document.body,
     dataHook,
   });
 
-class InteractiveEyeTest extends React.Component {
-  async componentDidMount() {
-    this.props.componentDidMount();
-  }
+const hoverFirstStep = async () => createDriver().hoverStep(0);
+const getTestNameByType = (type, name) => `type=${type}/${name}`;
 
-  render() {
-    const { componentDidMount, ...rest } = this.props;
+const generateStepTypeTests = type => ({
+  describe: getTestNameByType(type, 'step types'),
+  its: [
+    {
+      it: 'disabled',
+      props: {
+        type,
+        steps: [
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name', type: StepType.Disabled },
+          { text: 'This is a long step name', type: StepType.Disabled },
+          { text: 'This is a long step name', type: StepType.Disabled },
+          { text: 'This is a long step name', type: StepType.Disabled },
+          { text: 'This is a long step name', type: StepType.Disabled },
+          { text: 'This is a long step name', type: StepType.Disabled },
+        ],
+        activeStep: 0,
+      },
+    },
+    {
+      it: 'completed',
+      props: {
+        type,
+        steps: [
+          { text: 'This is a long step name', type: StepType.Completed },
+          { text: 'This is a long step name', type: StepType.Completed },
+          { text: 'This is a long step name', type: StepType.Completed },
+          { text: 'This is a long step name', type: StepType.Completed },
+          { text: 'This is a long step name', type: StepType.Completed },
+          { text: 'This is a long step name', type: StepType.Completed },
+          { text: 'This is a long step name' },
+        ],
+        activeStep: 6,
+      },
+    },
+    {
+      it: 'error',
+      props: {
+        type,
+        steps: [
+          { text: 'This is a long step name', type: StepType.Error },
+          { text: 'This is a long step name', type: StepType.Error },
+          { text: 'This is a long step name', type: StepType.Error },
+          { text: 'This is a long step name', type: StepType.Error },
+          { text: 'This is a long step name', type: StepType.Error },
+          { text: 'This is a long step name', type: StepType.Error },
+          { text: 'This is a long step name' },
+        ],
+        activeStep: 6,
+      },
+    },
+    {
+      it: 'error & active',
+      props: {
+        type,
+        steps: [
+          { text: 'This is a long step name', type: StepType.Error },
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name' },
+        ],
+        activeStep: 0,
+      },
+    },
+    {
+      it: 'completed & active',
+      props: {
+        type,
+        steps: [
+          { text: 'This is a long step name', type: StepType.Completed },
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name' },
+          { text: 'This is a long step name' },
+        ],
+        activeStep: 0,
+      },
+    },
+  ],
+});
 
-    return (
-      <div style={{ marginLeft: '100px', marginTop: '100px' }}>
-        <Stepper dataHook={interactiveDataHook} {...rest} />
-      </div>
-    );
-  }
-}
+const generateHoverTests = type => ({
+  describe: getTestNameByType(type, 'hover'),
+  its: [
+    {
+      it: 'normal',
+      props: {
+        type,
+        steps: [{ text: 'step1' }, { text: 'step2' }, { text: 'step3' }],
+        activeStep: 1,
+        onClick,
+      },
+      componentDidMount: hoverFirstStep,
+    },
+    {
+      it: 'disabled',
+      props: {
+        type,
+        steps: [
+          { text: 'step1', type: StepType.Disabled },
+          { text: 'step2' },
+          { text: 'step3' },
+        ],
+        activeStep: 1,
+        onClick,
+      },
+      componentDidMount: hoverFirstStep,
+    },
+    {
+      it: 'active',
+      props: {
+        type,
+        steps: [{ text: 'step1' }, { text: 'step2' }, { text: 'step3' }],
+        activeStep: 0,
+        onClick,
+      },
+      componentDidMount: hoverFirstStep,
+    },
+    {
+      it: 'error',
+      props: {
+        type,
+        steps: [
+          { text: 'step1', type: StepType.Error },
+          { text: 'step2' },
+          { text: 'step3' },
+        ],
+        activeStep: 1,
+        onClick,
+      },
+      componentDidMount: hoverFirstStep,
+    },
+    {
+      it: 'error & active',
+      props: {
+        type,
+        steps: [
+          { text: 'step1', type: StepType.Error },
+          { text: 'step2' },
+          { text: 'step3' },
+        ],
+        activeStep: 0,
+        onClick,
+      },
+      componentDidMount: hoverFirstStep,
+    },
+    {
+      it: 'completed',
+      props: {
+        type,
+        steps: [
+          { text: 'step1', type: StepType.Completed },
+          { text: 'step2' },
+          { text: 'step3' },
+        ],
+        activeStep: 1,
+        onClick,
+      },
+      componentDidMount: hoverFirstStep,
+    },
+    {
+      it: 'completed & active',
+      props: {
+        type,
+        steps: [
+          { text: 'step1', type: StepType.Completed },
+          { text: 'step2' },
+          { text: 'step3' },
+        ],
+        activeStep: 0,
+        onClick,
+      },
+      componentDidMount: hoverFirstStep,
+    },
+  ],
+});
+
+const generateResponsiveTests = type => ({
+  describe: getTestNameByType(type, 'responsive'),
+  its: [
+    {
+      it: '4 steps',
+      props: {
+        type,
+        steps: [
+          { text: 'First step' },
+          { text: 'Second step' },
+          { text: 'Third step' },
+          { text: 'Forth step' },
+        ],
+        activeStep: 1,
+      },
+    },
+    {
+      it: '7 steps',
+      props: {
+        type,
+        steps: [
+          { text: 'First step' },
+          { text: 'Second step' },
+          { text: 'Third step' },
+          { text: 'Forth step' },
+          { text: 'Fifth step' },
+          { text: 'Six step' },
+          { text: 'Seventh step' },
+        ],
+        activeStep: 1,
+      },
+    },
+  ],
+});
+
+const generateFitModeTests = type => ({
+  describe: getTestNameByType(type, 'fit'),
+  its: [
+    {
+      it: 'stretched',
+      props: {
+        type,
+        fit: FitMode.Stretched,
+        steps: [
+          { text: 'First step' },
+          { text: 'Second step' },
+          { text: 'Third step' },
+          { text: 'Forth step' },
+        ],
+        activeStep: 0,
+      },
+    },
+  ],
+});
 
 const tests = [
-  {
-    describe: 'render',
-    its: [
-      {
-        it: 'disabled',
-        props: {
-          steps: [
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name', type: 'disabled' },
-            { text: 'This is a long step name', type: 'disabled' },
-            { text: 'This is a long step name', type: 'disabled' },
-            { text: 'This is a long step name', type: 'disabled' },
-            { text: 'This is a long step name', type: 'disabled' },
-            { text: 'This is a long step name', type: 'disabled' },
-          ],
-          onClick: () => {},
-          activeStep: 0,
-        },
-      },
-      {
-        it: 'completed',
-        props: {
-          steps: [
-            { text: 'This is a long step name', type: 'completed' },
-            { text: 'This is a long step name', type: 'completed' },
-            { text: 'This is a long step name', type: 'completed' },
-            { text: 'This is a long step name', type: 'completed' },
-            { text: 'This is a long step name', type: 'completed' },
-            { text: 'This is a long step name', type: 'completed' },
-            { text: 'This is a long step name' },
-          ],
-          onClick: () => {},
-          activeStep: 6,
-        },
-      },
-      {
-        it: 'error',
-        props: {
-          steps: [
-            { text: 'This is a long step name', type: 'error' },
-            { text: 'This is a long step name', type: 'error' },
-            { text: 'This is a long step name', type: 'error' },
-            { text: 'This is a long step name', type: 'error' },
-            { text: 'This is a long step name', type: 'error' },
-            { text: 'This is a long step name', type: 'error' },
-            { text: 'This is a long step name' },
-          ],
-          onClick: () => {},
-          activeStep: 6,
-        },
-      },
-      {
-        it: 'error & active',
-        props: {
-          steps: [
-            { text: 'This is a long step name', type: 'error' },
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name' },
-          ],
-          onClick: () => {},
-          activeStep: 0,
-        },
-      },
-      {
-        it: 'completed & active',
-        props: {
-          steps: [
-            { text: 'This is a long step name', type: 'completed' },
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name' },
-            { text: 'This is a long step name' },
-          ],
-          onClick: () => {},
-          activeStep: 0,
-        },
-      },
-    ],
-  },
-  {
-    describe: 'responsive',
-    its: [
-      {
-        it: '4 steps',
-        props: {
-          steps: [
-            { text: 'First step' },
-            { text: 'Second step' },
-            { text: 'Third step' },
-            { text: 'Forth step' },
-          ],
-          onClick: () => {},
-          activeStep: 1,
-        },
-      },
-      {
-        it: '7 steps',
-        props: {
-          steps: [
-            { text: 'First step' },
-            { text: 'Second step' },
-            { text: 'Third step' },
-            { text: 'Forth step' },
-            { text: 'Fifth step' },
-            { text: 'Six step' },
-            { text: 'Seventh step' },
-          ],
-          onClick: () => {},
-          activeStep: 1,
-        },
-      },
-    ],
-  },
+  generateStepTypeTests(Type.Circle),
+  generateStepTypeTests(Type.Text),
+  generateResponsiveTests(Type.Circle),
+  generateResponsiveTests(Type.Text),
+  generateFitModeTests(Type.Circle),
+  generateFitModeTests(Type.Text),
 ];
 
 const interactiveTests = [
-  {
-    describe: 'hover',
-    its: [
-      {
-        componentDidMount: async () => {
-          const driver = createDriver(interactiveDataHook);
-          await driver.hoverStep(0);
-        },
-        it: 'normal',
-        props: {
-          steps: [{ text: 'step1' }, { text: 'step2' }, { text: 'step3' }],
-          activeStep: 1,
-        },
-      },
-      {
-        componentDidMount: async () => {
-          const driver = createDriver(interactiveDataHook);
-          await driver.hoverStep(0);
-        },
-        it: 'disabled',
-        props: {
-          steps: [
-            { text: 'step1', type: 'disabled' },
-            { text: 'step2' },
-            { text: 'step3' },
-          ],
-          activeStep: 1,
-        },
-      },
-      {
-        componentDidMount: async () => {
-          const driver = createDriver(interactiveDataHook);
-          await driver.hoverStep(0);
-        },
-        it: 'active',
-        props: {
-          steps: [{ text: 'step1' }, { text: 'step2' }, { text: 'step3' }],
-          activeStep: 0,
-        },
-      },
-      {
-        componentDidMount: async () => {
-          const driver = createDriver(interactiveDataHook);
-          await driver.hoverStep(0);
-        },
-        it: 'error',
-        props: {
-          steps: [
-            { text: 'step1', type: 'error' },
-            { text: 'step2' },
-            { text: 'step3' },
-          ],
-          activeStep: 1,
-        },
-      },
-      {
-        componentDidMount: async () => {
-          const driver = createDriver(interactiveDataHook);
-          await driver.hoverStep(0);
-        },
-        it: 'error & active',
-        props: {
-          steps: [
-            { text: 'step1', type: 'error' },
-            { text: 'step2' },
-            { text: 'step3' },
-          ],
-          activeStep: 0,
-        },
-      },
-      {
-        componentDidMount: async () => {
-          const driver = createDriver(interactiveDataHook);
-          await driver.hoverStep(0);
-        },
-        it: 'completed',
-        props: {
-          steps: [
-            { text: 'step1', type: 'completed' },
-            { text: 'step2' },
-            { text: 'step3' },
-          ],
-          activeStep: 1,
-        },
-      },
-      {
-        componentDidMount: async () => {
-          const driver = createDriver(interactiveDataHook);
-          await driver.hoverStep(0);
-        },
-        it: 'completed & active',
-        props: {
-          steps: [
-            { text: 'step1', type: 'completed' },
-            { text: 'step2' },
-            { text: 'step3' },
-          ],
-          activeStep: 0,
-        },
-      },
-    ],
-  },
+  generateHoverTests(Type.Circle),
+  generateHoverTests(Type.Text),
 ];
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Stepper/${describe}`, module).add(it, () => (
-      <div
-        style={{
-          marginLeft: '100px',
-          marginTop: '100px',
-          padding: '20px 20px',
-          width: '966px',
-          border: '1px solid black',
-        }}
-      >
-        <Stepper {...props} />
-      </div>
-    ));
+    storiesOf(`${storyName}${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div
+          style={{
+            padding: 20,
+            width: 966,
+            border: '1px solid black',
+          }}
+        >
+          <Stepper {...props} />
+        </div>
+      ),
+    );
   });
 });
 
+const InteractiveStepperWrapper = ({ componentDidMount, ...props }) => {
+  useEffect(() => {
+    componentDidMount && componentDidMount();
+  });
+
+  return <Stepper {...props} />;
+};
+
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`Stepper/${describe}`, module).add(it, () => (
-      <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
-    ));
+    storiesOf(`${storyName}${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InteractiveStepperWrapper
+          dataHook={dataHook}
+          {...props}
+          componentDidMount={componentDidMount}
+        />
+      ),
+    );
   });
 });

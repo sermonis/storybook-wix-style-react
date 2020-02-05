@@ -18,7 +18,7 @@ describe('GooglePreview', () => {
       />,
     );
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
     expect(await driver.getTitle()).toEqual('site name');
     expect(await driver.getPreviewUrl()).toEqual('www.site-name.com');
     expect(await driver.getDescription()).toEqual('site description');

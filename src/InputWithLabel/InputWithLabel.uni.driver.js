@@ -1,7 +1,6 @@
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
 import { testkit as inputUniDriverFactory } from '../Input/Input.uni.driver';
 import { labelledElementDriverFactory as labelledElementUniDriverFactory } from '../LabelledElement/LabelledElement.uni.driver';
-import styles from './InputWithLabel.st.css';
 import dataHooks from './dataHooks';
 
 export const inputWithLabelDriverFactory = base => {
@@ -18,7 +17,7 @@ export const inputWithLabelDriverFactory = base => {
   return {
     ...baseUniDriverFactory(base),
     /** Gets the amount of rendered suffixes */
-    getSuffixesCount: () => base.$$(`.${styles.groupIcon}`).count(),
+    getSuffixesCount: () => base.$$(`[data-hook="suffix-container"]`).count(),
     /** Returns true if an error status message exists */
     hasErrorMessage: () => errorMessageDriver.exists(),
     /** Gets the error status message */

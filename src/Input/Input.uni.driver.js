@@ -1,5 +1,4 @@
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
-import styles from './Input.scss';
 import { ReactBase } from '../../test/utils/unidriver';
 import DATA_ATTR from './DataAttr';
 
@@ -13,9 +12,9 @@ export const testkit = base => {
   const reactBaseInput = ReactBase(input);
 
   const clearButtonNode = base.$(`[data-hook=input-clear-button]`);
-  const unitNode = base.$(`.${styles.unit}`);
-  const menuArrowNode = base.$(`.${styles.menuArrow}`);
-  const magnifyingGlassNode = base.$(`.${styles.magnifyingGlass}`);
+  const unitNode = base.$(`.unit`);
+  const menuArrowNode = base.$(`.menuArrow`);
+  const magnifyingGlassNode = base.$(`.magnifyingGlass`);
 
   const driver = {
     ...baseUniDriverFactory(base),
@@ -23,7 +22,7 @@ export const testkit = base => {
     getInputElementClasses: async () =>
       await reactBaseInput._DEPRECATED_getClassList(),
     suffixComponentExists: async className =>
-      await base.$(`.${styles.suffix} ${className}`).exists(),
+      await base.$(`.suffix ${className}`).exists(),
     getRootElementClasses: async () =>
       await reactBase._DEPRECATED_getClassList(),
     getAriaDescribedby: async () => await input.attr('aria-describedby'),
@@ -37,31 +36,31 @@ export const testkit = base => {
     clickCustomAffix: async () =>
       await base.$(`[data-hook="custom-affix"]`).click(),
     isMenuArrowLast: async () => {
-      const selector = `.${styles.suffixes} .${styles.suffix}:last-child > .${styles.menuArrow}`;
+      const selector = `.suffixes .suffix:last-child > .menuArrow`;
       return (await base.$$(selector).count()) === 1;
     },
     hasSuffixesClass: async () =>
-      (await base.$$(`.${styles.input}.${styles.withSuffixes}`).count()) === 1,
+      (await base.$$(`.input.withSuffixes`).count()) === 1,
     hasSuffixClass: async () =>
-      (await base.$$(`.${styles.input}.${styles.withSuffix}`).count()) === 1,
-    hasSuffix: async () => await base.$(`.${styles.suffix}`).exists(),
+      (await base.$$(`.input.withSuffix`).count()) === 1,
+    hasSuffix: async () => await base.$(`.suffix`).exists(),
     hasPrefixClass: async () =>
-      (await base.$$(`.${styles.input}.${styles.withPrefix}`).count()) === 1,
+      (await base.$$(`.input.withPrefix`).count()) === 1,
     prefixComponentExists: async style =>
-      (await base.$$(`.${styles.prefix} ${style}`).count()) === 1,
-    hasPrefix: async () => (await base.$$(`.${styles.prefix}`).count()) === 1,
+      (await base.$$(`.prefix ${style}`).count()) === 1,
+    hasPrefix: async () => (await base.$$(`.prefix`).count()) === 1,
     hasClearButton: async () => await clearButtonNode.exists(),
     clickClear: async () => await clearButtonNode.click(),
     getValue: async () => await input.value(),
     getText: async () => await input.value(),
     getPattern: async () => await input.attr('pattern'),
     getPlaceholder: async () => await input.attr('placeholder'),
-    isOfStyle: async style => await base.hasClass(styles[`theme-${style}`]),
-    isOfSize: async size => await base.hasClass(styles[`size-${size}`]),
+    isOfStyle: async style => await base.hasClass(`theme-${style}`),
+    isOfSize: async size => await base.hasClass(`size-${size}`),
     getSize: async () => await base.attr(DATA_ATTR.DATA_SIZE),
-    isDisabled: async () => await base.hasClass(styles.disabled),
-    isHoveredStyle: async () => await base.hasClass(styles.hasHover),
-    isFocusedStyle: async () => await base.hasClass(styles.hasFocus),
+    isDisabled: async () => await base.hasClass('disabled'),
+    isHoveredStyle: async () => await base.hasClass('hasHover'),
+    isFocusedStyle: async () => await base.hasClass('hasFocus'),
     getRequired: async () => await input._prop('required'),
     enterText: async value => await input.enterValue(value),
     getAutocomplete: async () => await input.attr('autocomplete'),
@@ -75,12 +74,12 @@ export const testkit = base => {
     getReadOnly: async () => await input._prop('readOnly'),
     getDisabled: async () => await input._prop('disabled'),
     getTextOverflow: async () => (await input._prop('style'))['text-overflow'],
-    hasExclamation: async () => await base.$(`.${styles.exclamation}`).exists(),
-    hasError: async () => await base.hasClass(styles.hasError),
-    hasWarning: async () => await base.hasClass(styles.hasWarning),
+    hasExclamation: async () => await base.$(`.exclamation`).exists(),
+    hasError: async () => await base.hasClass('hasError'),
+    hasWarning: async () => await base.hasClass('hasWarning'),
     hasLoader: async () => {
       // There actually should be only 1  element with `.loaderContainer`, this is a component bug that there are actually 2.
-      return (await base.$$(`.${styles.loaderContainer}`).count()) > 0;
+      return (await base.$$(`.loaderContainer`).count()) > 0;
     },
 
     focus: async () => await reactBaseInput.focus(),
@@ -109,14 +108,14 @@ export const testkit = base => {
       }
     },
     isFocus: async () => await reactBaseInput.isFocus(),
-    hasHelp: async () => await base.$(`.${styles.help}`).exists(),
+    hasHelp: async () => await base.$('.help').exists(),
     clickUnit: async () => await unitNode.click(),
     hasMagnifyingGlass: async () => await magnifyingGlassNode.exists(),
     clickMagnifyingGlass: async () => await magnifyingGlassNode.click(),
     clickMenuArrow: async () => await menuArrowNode.click(),
     hasMenuArrow: async () => await menuArrowNode.exists(),
-    isNarrowError: async () => await base.$(`.${styles.narrow}`).exists(),
-    isRTL: async () => await base.hasClass(styles.rtl),
+    isNarrowError: async () => await base.$(`.narrow`).exists(),
+    isRTL: async () => await base.hasClass('rtl'),
     getCursorLocation: async () => await input._prop('selectionStart'),
     clearText: () => driver.enterText(''),
     clickOutside: () => ReactBase.clickDocument(),

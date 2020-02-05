@@ -1,24 +1,26 @@
 import React from 'react';
+import { storySettings } from './storySettings';
+import { baseScope } from '../utils/LiveCodeExample';
 import {
   header,
-  description,
   title,
+  description,
   table,
   importExample,
   columns,
   code as baseCode,
 } from 'wix-storybook-utils/Sections';
 import LinkTo from '@storybook/addon-links/react';
-
-import { storySettings } from './storySettings';
 import * as examples from './examples';
-import { baseScope } from '../utils/LiveCodeExample';
+import FormField from 'wix-style-react/FormField';
+import RichTextInputArea from 'wix-style-react/RichTextInputArea';
 
 const code = config =>
-  baseCode({ components: baseScope, compact: true, ...config });
-
-const example = ({ source, ...rest }) =>
-  columns([description({ ...rest }), code({ source })]);
+  baseCode({
+    components: baseScope,
+    compact: true,
+    ...config,
+  });
 
 export default {
   category: storySettings.category,
@@ -26,16 +28,23 @@ export default {
 
   sections: [
     header({
+      component: (
+        <div style={{ width: '50%' }}>
+          <FormField label="Rich Text Area">
+            <RichTextInputArea placeholder="Placeholder" />
+          </FormField>
+        </div>
+      ),
+
       issueUrl: 'https://github.com/wix/wix-style-react/issues/new',
-      sourceUrl:
-        'https://github.com/wix/wix-style-react/tree/master/src/RichTextInputArea/',
     }),
+
     columns([
-      description({
-        title: 'Description',
-        text: `Rich text area allows to enter and edit long and complex descriptions.`,
-      }),
+      description(
+        'A rich text area can be used to allow for extended and formated user input.',
+      ),
     ]),
+
     columns([
       table({
         title: 'Included Components',
@@ -58,26 +67,41 @@ export default {
       }),
     ]),
 
-    columns([
-      importExample({
-        source: examples.importExample,
-      }),
-    ]),
+    importExample(examples.importExample),
 
     title('Examples'),
 
-    ...[
-      {
+    columns([
+      description({
         title: 'Plain Example',
-        text: 'Default rich text area setup.',
-        source: examples.plainFormFieldComposition,
-      },
-      {
-        title: 'Text Styling',
+        text: 'Default Rich text area setup.',
+      }),
+      code({ source: examples.basicExample }),
+    ]),
+
+    columns([
+      description({
+        title: 'Char Limit',
         text:
-          'Rich text area supports two types of bullet point styles, basic text styling and hyperlinks.',
-        source: examples.textStylingFormFieldComposition,
-      },
-    ].map(example),
+          'This component allows to limit number of characters can be inserted.',
+      }),
+      code({ source: examples.charLimitExample }),
+    ]),
+
+    columns([
+      description({
+        title: 'Resizable Height',
+        text: 'It is allowed to make text area resizable.',
+      }),
+      code({ source: examples.resizableHeightExample }),
+    ]),
+
+    columns([
+      description({
+        title: 'Label Position',
+        text: `Text Area's label can be position on top, left or can be hidden. Additional properties behave accordingly.`,
+      }),
+      code({ source: examples.positionExample }),
+    ]),
   ],
 };

@@ -23,7 +23,7 @@ describe('PreviewWidget', () => {
   it('should render', async () => {
     const { driver } = render(<PreviewWidget {...requiredProps} />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should render the preview content', async () => {

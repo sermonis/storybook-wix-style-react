@@ -85,8 +85,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`MobilePreviewWidget/${describe}`, module).add(it, () => (
-      <MobilePreviewWidget {...commonProps} {...props} />
-    ));
+    storiesOf(
+      `MobilePreviewWidget${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <MobilePreviewWidget {...commonProps} {...props} />);
   });
 });

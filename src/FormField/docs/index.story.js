@@ -101,6 +101,7 @@ export default {
     children: childrenExamples[0].value,
     label: 'This is an input:',
     labelPlacement: 'top',
+    labelAlignment: 'middle',
     required: true,
     infoContent: 'I help you to fill info',
     stretchContent: true,
@@ -158,6 +159,11 @@ export default {
             source: examples.withTooltip,
           }),
 
+          code({
+            title: 'Label Alignment',
+            source: examples.alignment,
+          }),
+
           description({
             title: 'With length count',
             text:
@@ -176,6 +182,12 @@ export default {
             description:
               'An example of displaying remaining character count using charCount prop (instead of render function method).',
             source: exampleCharCount,
+          }),
+          code({
+            title: 'With custom suffix',
+            description:
+              'An example that shows custom suffix element. Notice in case there are both `suffix` and `charCount`, the character counter will disappear',
+            source: examples.customSuffix,
           }),
           code({
             title: 'Within Grid',

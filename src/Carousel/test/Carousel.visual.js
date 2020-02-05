@@ -84,10 +84,13 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`Carousel/${describe}`, module).add(it, () => (
-      <div style={{ maxWidth: '550px' }}>
-        <Carousel {...props} />
-      </div>
-    ));
+    storiesOf(`Carousel${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div style={{ maxWidth: '550px' }}>
+          <Carousel {...props} />
+        </div>
+      ),
+    );
   });
 });

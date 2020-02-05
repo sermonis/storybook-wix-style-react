@@ -12,7 +12,7 @@ describe('NumberInput', () => {
   afterEach(() => cleanup());
   it('should render', async () => {
     const driver = createDriver(<NumberInput />);
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should render correct initial value', async () => {

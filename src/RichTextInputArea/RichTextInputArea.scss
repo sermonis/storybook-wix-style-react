@@ -1,5 +1,3 @@
-@import '~draft-js/dist/Draft';
-
 @import '../common';
 @import '../typography-helpers';
 
@@ -28,7 +26,7 @@ $padding: 12px;
 .editorWrapper {
   position: relative;
 
-  :global(.public-DraftEditor-content) { 
+  :global(.public-DraftEditor-content) {
     background-color: $backgroundColor;
     min-height: $minHeight;
     max-height: var(--max-height);

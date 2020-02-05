@@ -1,15 +1,10 @@
-import { StylableUnidriverUtil } from 'wix-ui-test-utils/unidriver';
 import { colorInputDriverFactory as publicDriverFactory } from './ColorInput.uni.driver';
-import hashStyles from './components/Hash.st.css';
-import viewerStyles from './components/ColorViewer.st.css';
 import { swatchesPrivateDriverFactory } from '../Swatches/test/Swatches.private.uni.driver';
 import DATA_HOOKS from './DataHooks';
 import inputUniDriverFactory from '../Input/Input.uni.driver';
 import popoverDriverFactory from '../Popover/Popover.uni.driver';
 
 export const colorInputPrivateDriverFactory = (base, body) => {
-  const viewerStylableUtil = new StylableUnidriverUtil(viewerStyles);
-  const hashStylableUtil = new StylableUnidriverUtil(hashStyles);
   const swatchesHook = `[data-hook="${DATA_HOOKS.COLOR_PICKER_SWATCHES}"]`;
   const swatchesDriver = swatchesPrivateDriverFactory(base.$(swatchesHook));
   const colorViewerPopoverHook = `[data-hook="${DATA_HOOKS.COLOR_INPUT_POPOVER}"]`;
@@ -19,16 +14,12 @@ export const colorInputPrivateDriverFactory = (base, body) => {
   );
 
   const isHashDisabled = async () =>
-    (await hashStylableUtil.getStyleState(
-      base.$(`[data-hook="${DATA_HOOKS.COLOR_INPUT_HASH}"]`),
-      'disabled',
-    )) === 'true';
+    (await base
+      .$(`[data-hook="${DATA_HOOKS.COLOR_INPUT_HASH}"]`)
+      .attr('data-disabled')) === 'true';
 
-  const getViewerSize = async () =>
-    await viewerStylableUtil.getStyleState(
-      base.$(`[data-hook="${DATA_HOOKS.COLOR_INPUT_VIEWER}"]`),
-      'size',
-    );
+  const getViewerSize = () =>
+    base.$(`[data-hook="${DATA_HOOKS.COLOR_INPUT_VIEWER}"]`).attr('data-size');
 
   const inputTestkit = inputUniDriverFactory(base);
 

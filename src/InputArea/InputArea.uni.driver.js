@@ -1,11 +1,10 @@
-import styles from './InputArea.scss';
 import { errorIndicatorDriverFactory } from '../ErrorIndicator/ErrorIndicator.uni.driver';
 import { warningIndicatorDriverFactory } from '../WarningIndicator/WarningIndicator.uni.driver';
 import { baseUniDriverFactory, ReactBase } from '../../test/utils/unidriver';
 import { dataHooks } from './constants';
 
 export const inputAreaUniDriverFactory = (base, body) => {
-  const textAreaElement = base.$(`.${styles.root}`);
+  const textAreaElement = base.$(`.root`);
   const textArea = base.$('textarea');
   const counterSelector = '[data-hook="counter"]';
   const indicatorSelector = `[data-hook="${dataHooks.tooltip}"]`;
@@ -30,18 +29,18 @@ export const inputAreaUniDriverFactory = (base, body) => {
     getMaxLength: () => textArea._prop('maxLength'),
     getTabIndex: () => textArea._prop('tabIndex'),
     getReadOnly: () => textArea._prop('readOnly'),
-    getResizable: () => textAreaElement.hasClass(styles.resizable),
+    getResizable: () => textAreaElement.hasClass('resizable'),
     getDisabled: () =>
-      textAreaElement.hasClass(styles.disabled) && textArea._prop('disabled'),
+      textAreaElement.hasClass('disabled') && textArea._prop('disabled'),
     getHasCounter: () => !!base.$$(counterSelector).length,
     getCounterValue: () => base.$(counterSelector).text(),
-    hasExclamation: () => base.$$(`.${styles.exclamation}`).length === 1,
-    hasError: () => textAreaElement.hasClass(styles.hasError),
-    hasWarning: () => textAreaElement.hasClass(styles.hasWarning),
-    isFocusedStyle: () => textAreaElement.hasClass(styles.hasFocus),
-    isSizeSmall: () => textArea.hasClass(styles.sizeSmall),
-    isHoveredStyle: () => textAreaElement.hasClass(styles.hasHover),
-    isOfStyle: style => textAreaElement.hasClass(styles[`theme-${style}`]),
+    hasExclamation: () => base.$$(`.exclamation`).length === 1,
+    hasError: () => textAreaElement.hasClass('hasError'),
+    hasWarning: () => textAreaElement.hasClass('hasWarning'),
+    isFocusedStyle: () => textAreaElement.hasClass('hasFocus'),
+    isSizeSmall: () => textArea.hasClass('sizeSmall'),
+    isHoveredStyle: () => textAreaElement.hasClass('hasHover'),
+    isOfStyle: style => textAreaElement.hasClass([`theme-${style}`]),
     isFocus: () => textAreaBase.isFocus(),
     exists: () => textArea.exists(),
     getStyle: () => textArea._prop('style'),

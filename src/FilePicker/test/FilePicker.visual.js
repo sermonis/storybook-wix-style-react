@@ -34,8 +34,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`FilePicker/${describe}`, module).add(it, () => (
-      <FilePicker {...defaultProps} {...props} />
-    ));
+    storiesOf(`FilePicker${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => <FilePicker {...defaultProps} {...props} />,
+    );
   });
 });

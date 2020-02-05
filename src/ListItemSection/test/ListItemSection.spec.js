@@ -68,4 +68,19 @@ describe('ListItemSection', () => {
     await driver.click();
     expect(onClick).not.toBeCalled();
   });
+
+  it('should stop propagation when clicking on a divider and whitespace', async () => {
+    const onClick = jest.fn();
+    const { driver } = render(
+      <div onClick={onClick}>
+        <ListItemSection type="divider" dataHook="dh1" />
+        <ListItemSection type="whitespace" dataHook="dh2" />
+      </div>,
+    );
+
+    expect(onClick).not.toBeCalled();
+    await (await driver.element()).querySelector('[data-hook="dh1"]').click();
+    await (await driver.element()).querySelector('[data-hook="dh2"]').click();
+    expect(onClick).not.toBeCalled();
+  });
 });

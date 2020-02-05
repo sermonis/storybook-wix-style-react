@@ -1,5 +1,4 @@
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
-import styles from './MessageBoxFunctionalLayout.scss';
 import { ReactBase, getElement } from '../../../test/utils/unidriver';
 
 export const MessageBoxFunctionalLayoutUniDriverFactory = base => {
@@ -44,7 +43,7 @@ export const MessageBoxFunctionalLayoutUniDriverFactory = base => {
       ).indexOf('disabled') === -1,
     toHaveBodyPadding: async () =>
       !Array.from(await ReactBase(body())._DEPRECATED_getClassList()).includes(
-        `${styles.noPadding}`,
+        `noPadding`,
       ),
   };
 };

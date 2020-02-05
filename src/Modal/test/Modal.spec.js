@@ -174,14 +174,14 @@ describe('Modal', () => {
           props.closeTimeoutMS = 100;
 
           const { rerender, driver } = render(<Modal {...props} />);
-          expect(await driver.isOpen()).toBeTruthy();
+          expect(await driver.isOpen()).toBe(true);
           rerender(<Modal {...props} isOpen={false} />);
 
           jest.advanceTimersByTime(props.closeTimeoutMS - 50);
-          expect(await driver.isOpen()).toBeTruthy();
+          expect(await driver.isOpen()).toBe(true);
 
           jest.advanceTimersByTime(100);
-          expect(await driver.isOpen()).toBeFalsy();
+          expect(await driver.isOpen()).toBe(false);
         });
       });
     });
@@ -189,14 +189,14 @@ describe('Modal', () => {
     describe('theme', () => {
       it('should set the theme by default to "blue"', async () => {
         const { driver } = render(<Modal {...props} />);
-        expect(await driver.isThemeExist('blue')).toBeTruthy();
+        expect(await driver.isThemeExist('blue')).toBe(true);
       });
 
       it('should allowing setting the theme', async () => {
         props.theme = 'green';
         const { driver } = render(<Modal {...props} />);
-        expect(await driver.isThemeExist('green')).toBeTruthy();
-        expect(await driver.isThemeExist('blue')).toBeFalsy();
+        expect(await driver.isThemeExist('green')).toBe(true);
+        expect(await driver.isThemeExist('blue')).toBe(false);
       });
     });
 

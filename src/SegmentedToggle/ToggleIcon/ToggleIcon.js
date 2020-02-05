@@ -19,6 +19,7 @@ const Icon = ({
     {...styles('button', { selected }, rest)}
     data-click={dataClick}
     data-hook="toggle-icon"
+    data-selected={selected}
     onClick={onClick}
     onFocus={focusableOnFocus}
     onBlur={focusableOnBlur}

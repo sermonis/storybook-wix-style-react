@@ -103,18 +103,24 @@ const interactiveTests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`BadgeSelect/${describe}`, module).add(it, () => (
-      <Box margin={3} align="center">
-        <BadgeSelect {...props} />
-      </Box>
-    ));
+    storiesOf(`BadgeSelect${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <Box margin={3} align="center">
+          <BadgeSelect {...props} />
+        </Box>
+      ),
+    );
   });
 });
 
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`BadgeSelect/${describe}`, module).add(it, () => (
-      <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
-    ));
+    storiesOf(`BadgeSelect${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
+      ),
+    );
   });
 });

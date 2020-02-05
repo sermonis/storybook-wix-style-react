@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Tooltip from '../../Tooltip/TooltipNext';
 
 import style from './TooltipHOC.st.css';
+import { dataHooks } from '../constants';
 
 class TooltipHOC extends Component {
   static defaultProps = {
@@ -30,7 +31,7 @@ class TooltipHOC extends Component {
         {...tooltipProps}
         {...style('tooltip', {}, this.props)}
         upgrade
-        dataHook="additem-tooltip"
+        dataHook={dataHooks.itemTooltip}
       >
         {children}
       </Tooltip>

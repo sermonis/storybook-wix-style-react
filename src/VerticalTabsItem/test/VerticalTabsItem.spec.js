@@ -16,7 +16,7 @@ describe('VerticalTabsItem', () => {
   it('should render', async () => {
     const { driver } = render(<VerticalTabsItem>Item</VerticalTabsItem>);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should get the items text', async () => {

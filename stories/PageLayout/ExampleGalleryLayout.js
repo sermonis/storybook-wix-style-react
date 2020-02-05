@@ -1,6 +1,6 @@
 import React from 'react';
 import Page from 'wix-style-react/Page';
-import { Breadcrumbs } from 'wix-style-react/Breadcrumbs';
+import Breadcrumbs from 'wix-style-react/Breadcrumbs';
 import Button from 'wix-style-react/Button';
 import { Row, Col, Container } from 'wix-style-react/Grid';
 import CardGalleryItem from 'wix-style-react/CardGalleryItem';
@@ -31,8 +31,7 @@ class ExampleGalleryLayout extends React.Component {
   }
 
   renderCardGalleryItem() {
-    const backgroundImageUrl =
-      'https://static.wixstatic.com/media/89ea07a19c3d415e99a8a8a3c0ab1de8.jpg/v1/fill/w_343,h_343,al_c,q_80,usm_0.66_1.00_0.01/89ea07a19c3d415e99a8a8a3c0ab1de8.jpg';
+    const backgroundImageUrl = 'example.jpg';
 
     return (
       <CardGalleryItem

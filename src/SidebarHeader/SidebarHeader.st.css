@@ -1,22 +1,22 @@
 :import {
-  -st-from: "../Text/Text.st.css";
+  -st-from: '../Text/Text.st.css';
   -st-default: Text;
-};
+}
 
 :import {
-  -st-from: "../Sidebar/colors.st.css";
+  -st-from: '../Sidebar/colors.st.css';
   -st-named:
     sidebarBackgroundColor, textColor,
     sidebarLightBackgroundColor, lightTextColor
 }
 
 :import {
-  -st-from: "../Foundation/stylable/typography.st.css";
-  -st-named: weightXBold;
+  -st-from: '../Foundation/stylable/typography.st.css';
+  -st-named: text-tiny-bold;
 }
 
 :import {
-  -st-from: "../Sidebar/main.st.css";
+  -st-from: '../Sidebar/main.st.css';
   -st-named: sidebarWidth
 }
 
@@ -43,9 +43,10 @@
 }
 
 .title:size(medium):weight(bold) {
-  -st-mixin: weightXBold;
+  -st-mixin: text-tiny-bold;
   display: block;
   font-size: 20px;
+  line-height: 24px;
 }
 
 .subtitle {

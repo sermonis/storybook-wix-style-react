@@ -26,4 +26,6 @@ export const otherSymbolsToComponents = {
   [otherSymbols.linearProgressBar]: [componentsNames.LinearProgressBar],
 
   [otherSymbols.circularProgressBar]: [componentsNames.CircularProgressBar],
+
+  [otherSymbols.image]: [componentsNames.Image],
 };

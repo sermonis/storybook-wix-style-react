@@ -1,11 +1,11 @@
 :import {
-  -st-from: "../Foundation/stylable/colors.st.css";
-  -st-named: D80, D80-70, D10-30, F00;
+  -st-from: "wix-ui-core/index.st.css";
+  -st-named: ButtonNext;
 }
 
 :import {
-  -st-from: "wix-ui-core/dist/src/components/button-next/button-next.st.css";
-  -st-default: Button;
+  -st-from: "../Foundation/stylable/colors.st.css";
+  -st-named: D80, D80-70, D10-30, F00;
 }
 
 :import {
@@ -23,7 +23,8 @@
 
 .root {
   -st-states: disabled;
-  display:inline-flex;
+  display: inline-flex;
+  text-align: center;
   flex-direction: column;
   align-items: center;
   outline: none;
@@ -35,7 +36,7 @@
 }
 
 .icon {
-  -st-extends: Button;
+  -st-extends: ButtonNext;
   -st-states: type(string), disabled, single;
   display: flex;
   justify-content: center;
@@ -47,7 +48,7 @@
   min-height: 48px;
   max-width: 100%;
   max-height: 100%;
-  
+
   border-radius: 24px;
   border: none;
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import ListItemSection from '../ListItemSection';
 import Box from '../../Box';
-import Text from '../../Text';
 
 const commonProps = {
   title: 'I am a list section',
@@ -92,10 +91,13 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`ListItemSection/${describe}`, module).add(it, () => (
-      <Box width="400px">
-        <ListItemSection {...commonProps} {...props} />
-      </Box>
-    ));
+    storiesOf(`ListItemSection${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <Box width="400px">
+          <ListItemSection {...commonProps} {...props} />
+        </Box>
+      ),
+    );
   });
 });

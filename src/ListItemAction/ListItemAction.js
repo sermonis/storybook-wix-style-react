@@ -99,6 +99,8 @@ class ListItemActionComponent extends React.PureComponent {
     return (
       <Component
         {...styles('root', { skin, disabled }, this.props)}
+        data-skin={skin}
+        data-disabled={disabled}
         tabIndex={tabIndex}
         ref={ref => (this.innerComponentRef = ref)}
         autoFocus={autoFocus}

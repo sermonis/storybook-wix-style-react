@@ -30,6 +30,6 @@ describe('Range', () => {
       ),
     );
     const rangeTestkit = rangeTestkitFactory({ wrapper, dataHook });
-    expect(rangeTestkit.exists()).toBeTruthy();
+    expect(rangeTestkit.exists()).toBe(true);
   });
 });

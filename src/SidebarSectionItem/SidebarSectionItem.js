@@ -92,7 +92,12 @@ class SidebarSectionItem extends React.PureComponent {
               </Text>
               {!disabled && (suffix || drillable) && (
                 <span data-hook={dataHooks.suffix} className={styles.suffix}>
-                  {suffix || <ChevronRight className={styles.chevron} />}
+                  {suffix || (
+                    <ChevronRight
+                      data-hook="chevron"
+                      className={styles.chevron}
+                    />
+                  )}
                 </span>
               )}
             </button>

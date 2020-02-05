@@ -22,6 +22,7 @@ const EllipsedBadgeContent = ellipsisHOC(BadgeContent);
 
 class Badge extends React.PureComponent {
   static propTypes = {
+    /** Applied as data-hook HTML attribute that can be used to create driver in testing */
     dataHook: PropTypes.string,
     /** variation of the component structure */
     type: PropTypes.oneOf(['solid', 'outlined', 'transparent']),
@@ -119,10 +120,16 @@ class Badge extends React.PureComponent {
         {...style('root', { clickable: !!onClick, ...rest }, this.getProps())}
       >
         {prefixIcon &&
-          React.cloneElement(prefixIcon, { className: style.prefix })}
+          React.cloneElement(prefixIcon, {
+            className: style.prefix,
+            'data-prefix-icon': true,
+          })}
         {this._renderContent(children)}
         {suffixIcon &&
-          React.cloneElement(suffixIcon, { className: style.suffix })}
+          React.cloneElement(suffixIcon, {
+            className: style.suffix,
+            'data-suffix-icon': true,
+          })}
       </div>
     );
   }

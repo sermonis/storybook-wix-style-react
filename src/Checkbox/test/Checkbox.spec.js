@@ -25,23 +25,23 @@ describe('Checkbox', () => {
 
     it('should be unchecked and not disabled by default', async () => {
       const { driver } = render(<Checkbox />);
-      expect(await driver.isChecked()).toBeFalsy();
-      expect(await driver.isDisabled()).toBeFalsy();
+      expect(await driver.isChecked()).toBe(false);
+      expect(await driver.isDisabled()).toBe(false);
     });
 
     it('should be checked', async () => {
       const { driver } = render(<Checkbox checked />);
-      expect(await driver.isChecked()).toBeTruthy();
+      expect(await driver.isChecked()).toBe(true);
     });
 
     it('should be disabled', async () => {
       const { driver } = render(<Checkbox disabled />);
-      expect(await driver.isDisabled()).toBeTruthy();
+      expect(await driver.isDisabled()).toBe(true);
     });
 
     it('should have an error state', async () => {
       const { driver } = render(<Checkbox hasError />);
-      expect(await driver.hasError()).toBeTruthy();
+      expect(await driver.hasError()).toBe(true);
     });
 
     it('should call onChange when clicking the Checkbox', async () => {
@@ -68,13 +68,13 @@ describe('Checkbox', () => {
     it('should not run in indeterminate mode when not specified', async () => {
       const { driver } = render(<Checkbox />);
 
-      expect(await driver.isIndeterminate()).toBeFalsy();
+      expect(await driver.isIndeterminate()).toBe(false);
     });
 
     it('should run in indeterminate mode when specified', async () => {
       const { driver } = render(<Checkbox indeterminate />);
 
-      expect(await driver.isIndeterminate()).toBeTruthy();
+      expect(await driver.isIndeterminate()).toBe(true);
     });
 
     it('should show error message when in error state with message', async () => {

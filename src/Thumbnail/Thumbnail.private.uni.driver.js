@@ -1,5 +1,6 @@
 import ReactTestUtils from 'react-dom/test-utils';
 import { thumbnailDriverFactory as publicDriverFactory } from './Thumbnail.uni.driver';
+import { dataHooks } from './constants';
 
 export const thumbnailPrivateDriverFactory = base => {
   const byHook = hook => base.$(`[data-hook*="${hook}"]`);
@@ -9,19 +10,19 @@ export const thumbnailPrivateDriverFactory = base => {
     ...publicDriver,
 
     /** Does the title exist */
-    titleExists: () => byHook('thumbnail-title').exists(),
+    titleExists: () => byHook(dataHooks.thumbnailTitle).exists(),
 
     /** Does bottom title exist */
-    bottomTitleExists: () => byHook('thumbnail-bottom-title').exists(),
+    bottomTitleExists: () => byHook(dataHooks.thumbnailBottomTitle).exists(),
 
     /** Does the description exist */
-    descriptionExists: () => byHook('thumbnail-description').exists(),
+    descriptionExists: () => byHook(dataHooks.thumbnailDescription).exists(),
 
     /** Does the selected icon exist */
     selectedIconExists: () => !!publicDriver.getSelectedIcon(),
 
     /** Does the thumbnails image exist */
-    imageExists: () => byHook('thumbnail-image').exists(),
+    imageExists: () => byHook(dataHooks.thumbnailImage).exists(),
 
     /** Does custom child exist */
     customChildExists: () => byHook('custom-child').exists(),

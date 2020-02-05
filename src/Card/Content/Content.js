@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { node, oneOf } from 'prop-types';
+import PropTypes from 'prop-types';
 import styles from './Content.scss';
 
-class Content extends Component {
+class Content extends React.Component {
   static propTypes = {
-    children: node,
-    size: oneOf(['medium', 'large']),
+    children: PropTypes.node,
+    size: PropTypes.oneOf(['medium', 'large']),
   };
 
   _getChildName = children =>

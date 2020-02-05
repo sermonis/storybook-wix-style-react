@@ -7,8 +7,6 @@ import FormFieldErrorSmall from 'wix-ui-icons-common/system/FormFieldErrorSmall'
 import ToggleOn from 'wix-ui-icons-common/system/ToggleOn';
 import CircleLoaderCheck from 'wix-ui-icons-common/system/CircleLoaderCheck';
 import CircleLoaderCheckSmall from 'wix-ui-icons-common/system/CircleLoaderCheckSmall';
-
-import WixComponent from '../BaseComponents/WixComponent';
 import Arc from './Arc';
 import css from './Loader.scss';
 import Heading from '../Heading';
@@ -60,10 +58,13 @@ const sizeToErrorIcon = {
   large: <FormFieldError />,
 };
 
-export default class Loader extends WixComponent {
+class Loader extends React.PureComponent {
   static displayName = 'Loader';
 
   static propTypes = {
+    /** Applied as data-hook HTML attribute that can be used in the tests */
+    dataHook: PropTypes.string,
+
     /** The size of the loader */
     size: PropTypes.oneOf(['tiny', 'small', 'medium', 'large']),
 
@@ -91,7 +92,7 @@ export default class Loader extends WixComponent {
   };
 
   render() {
-    const { size, color, text, status, statusMessage } = this.props;
+    const { dataHook, size, color, text, status, statusMessage } = this.props;
     const sizeInPx = sizesInPx[size];
     const shouldShowFullCircle = status !== 'loading';
     const lightArcAngle = !shouldShowFullCircle
@@ -136,6 +137,7 @@ export default class Loader extends WixComponent {
 
     return (
       <div
+        data-hook={dataHook}
         className={classNames(
           css.loaderContainer,
           css[size],
@@ -181,3 +183,5 @@ export default class Loader extends WixComponent {
     );
   }
 }
+
+export default Loader;

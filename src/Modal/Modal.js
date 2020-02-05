@@ -7,13 +7,14 @@ import defaultTo from 'lodash/defaultTo';
 
 import styles from './Modal.scss';
 import { flexPositions } from './constants';
-import WixComponent from '../BaseComponents/WixComponent';
 import { ZIndex } from '../ZIndex';
 
 const CHILDREN_WRAPPER_DIV_ID = 'modal-children-container';
 
-class Modal extends WixComponent {
+class Modal extends React.PureComponent {
   static propTypes = {
+    /** Applied as data-hook HTML attribute that can be used to create driver in testing */
+    dataHook: PropTypes.string,
     /** Is modal open or not*/
     isOpen: PropTypes.bool.isRequired,
     /** Border radius of modal*/
@@ -73,6 +74,7 @@ class Modal extends WixComponent {
 
   render() {
     const {
+      dataHook,
       horizontalPosition,
       verticalPosition,
       height,
@@ -147,7 +149,7 @@ class Modal extends WixComponent {
     }
 
     return (
-      <div>
+      <div data-hook={dataHook}>
         <ReactModal
           portalClassName={portalClassName}
           isOpen={isOpen}

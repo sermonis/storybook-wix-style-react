@@ -9,13 +9,15 @@
   },
   "scripts": {
     "pretest": "yoshi build",
-    "test": "yoshi test --jest"
+    "test": "yoshi test --jest",
+    "storybook:named-imports": " npm run transpile --prefix ../../ && ../../node_modules/.bin/start-storybook -c ./.storybook -p 6009"
   },
   "yoshi": {
     "entry": {
       "es": "./es",
       "es-named": "./es-named",
-      "cjs": "./cjs"
+      "cjs": "./cjs",
+      "puppeteer-testkit": "./puppeteer-testkit"
     },
     "externals": {
       "react": "React",

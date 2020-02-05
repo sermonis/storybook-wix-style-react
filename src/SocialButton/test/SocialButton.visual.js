@@ -15,14 +15,22 @@ const tests = [
   },
   {
     describe: 'text',
-    its: icons.map(icon => ({ it: icon, props: { icon, text: 'Share me' } })),
+    its: icons.map(icon => ({
+      it: icon,
+      props: { icon, text: 'Share me please!' },
+    })),
   },
 ];
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`SocialButton/${describe}`, module).add(it, () => (
-      <SocialButton {...props} />
-    ));
+    storiesOf(`SocialButton${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div style={{ maxWidth: 100 }}>
+          <SocialButton {...props} />
+        </div>
+      ),
+    );
   });
 });

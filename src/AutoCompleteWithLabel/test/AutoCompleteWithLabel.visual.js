@@ -59,7 +59,10 @@ const interactiveTests = [
         it: 'focused',
         props: {
           label: 'my label',
-          options: [{ id: 1, value: 'option' }, { id: 2, value: 'option 2' }],
+          options: [
+            { id: 1, value: 'option' },
+            { id: 2, value: 'option 2' },
+          ],
         },
         componentDidMount: async () => {
           const driver = createDriver(interactiveDataHook);
@@ -70,7 +73,10 @@ const interactiveTests = [
         it: 'auto completes',
         props: {
           label: 'my label',
-          options: [{ id: 1, value: 'option' }, { id: 2, value: 'option 2' }],
+          options: [
+            { id: 1, value: 'option' },
+            { id: 2, value: 'option 2' },
+          ],
         },
         componentDidMount: async () => {
           const driver = createDriver(interactiveDataHook);
@@ -84,15 +90,19 @@ const interactiveTests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`AutoCompleteWithLabel/${describe}`, module).add(it, () => (
-      <AutoCompleteWithLabel {...commonProps} {...props} />
-    ));
+    storiesOf(
+      `AutoCompleteWithLabel${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <AutoCompleteWithLabel {...commonProps} {...props} />);
   });
 });
 
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`InputWithLabel/${describe}`, module).add(it, () => (
+    storiesOf(
+      `AutoCompleteWithLabel${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => (
       <InteractiveEyeTest
         {...commonProps}
         {...props}

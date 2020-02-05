@@ -1,17 +1,17 @@
 :import {
-  -st-from: "wix-ui-core/dist/src/themes/backoffice/colors.st.css";
+  -st-from: 'wix-ui-core/dist/src/themes/backoffice/colors.st.css';
   -st-named: B10, D10-30, D20, D80, D60, D10;
 }
 :import {
-  -st-from: "../Foundation/stylable/typography.st.css";
-  -st-named: sizeTiny, sizeMedium, weightBold, weightNormal;
+  -st-from: '../Foundation/stylable/typography.st.css';
+  -st-named: text-medium-normal, text-medium-bold, text-tiny-normal;
 }
 :import {
-  -st-from: "../AddItem/AddItem.st.css";
+  -st-from: '../AddItem/AddItem.st.css';
   -st-default: AddItem;
 }
 :import {
-  -st-from: "../Foundation/stylable/mixins/calc_rgba.js";
+  -st-from: '../Foundation/stylable/mixins/calc_rgba.js';
   -st-default: calc_rgba;
 }
 
@@ -64,7 +64,7 @@
 
 .header {
   -st-states: active, disabled, droppable;
-  -st-mixin: weightBold;
+  -st-mixin: text-medium-bold;
   color: value(D20);
   text-align: center;
   box-sizing: border-box;
@@ -107,11 +107,11 @@
 }
 
 .title {
-  -st-mixin: sizeMedium;
+  -st-mixin: text-medium-normal;
 }
 
 .subtitle {
-  -st-mixin: sizeTiny;
+  -st-mixin: text-tiny-normal;
 }
 
 .title, .subtitle {
@@ -146,7 +146,7 @@
 }
 
 .addItemLabel {
-  -st-mixin: sizeTiny, weightNormal;
+  -st-mixin: text-tiny-normal;
 }
 
 .addItemIcon {

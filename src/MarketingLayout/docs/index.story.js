@@ -20,6 +20,7 @@ import {
   sizeMedium,
   sizeLarge,
   inverted,
+  imageBackgroundColor,
   advanced,
   description as descriptionText,
   actions,
@@ -36,7 +37,7 @@ export default {
   componentPath: '..',
 
   componentProps: {
-    title: 'Marketing Card Title',
+    title: 'Marketing Layout Title',
     description:
       'Connect to Google and get indexed in seconds so people can easily find your site.',
     actions: actions[0].value,
@@ -51,10 +52,7 @@ export default {
   },
 
   sections: [
-    header({
-      sourceUrl:
-        'https://github.com/wix/wix-style-react/tree/master/src/MarketingLayout/',
-    }),
+    header(),
 
     tabs([
       tab({
@@ -62,11 +60,9 @@ export default {
         sections: [
           columns([description(descriptionText)]),
 
-          columns([
-            importExample(
-              "import MarketingLayout from 'wix-style-react/MarketingLayout';",
-            ),
-          ]),
+          importExample(
+            "import MarketingLayout from 'wix-style-react/MarketingLayout';",
+          ),
 
           divider(),
 
@@ -75,7 +71,7 @@ export default {
           description({
             title: 'Size',
             text:
-              'Component supports three sizes small, medium, large. For each size are dedicated illustration sizes. Please note, action sizes must be adjusted too.',
+              'Component supports three sizes - small, medium and large. For each size are dedicated illustration sizes. Please note, action button sizes must be adjusted based on marketing layout size.',
           }),
           code({
             compact: true,
@@ -91,8 +87,9 @@ export default {
           }),
 
           description({
-            title: 'Invert Image',
-            text: `Card's image can be positioned on the right and the left. To change it's position use 'inverted' prop.`,
+            title: 'Image Position',
+            text:
+              'Image can be positioned on the right or left side. Position can be changed with `inverted` prop.',
           }),
           code({
             compact: true,
@@ -100,9 +97,19 @@ export default {
           }),
 
           description({
+            title: 'Image Area Background',
+            text:
+              'Use `imageBackgroundColor` prop to set a custom background color for the image area.',
+          }),
+          code({
+            compact: true,
+            source: imageBackgroundColor,
+          }),
+
+          description({
             title: 'Advanced Example',
             text:
-              'Marketing card can be customized to support complex layouts.',
+              'Marketing layout can be customized to support complex layouts. This example uses `<Card>` component as a container for marketing layout.',
           }),
           code({
             compact: true,

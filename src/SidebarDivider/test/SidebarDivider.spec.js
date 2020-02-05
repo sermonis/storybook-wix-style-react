@@ -16,12 +16,12 @@ describe('SidebarDivider', () => {
   it('should render', async () => {
     const { driver } = render(<SidebarDivider />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should render as full width', async () => {
     const { driver } = render(<SidebarDivider fullWidth />);
 
-    expect(await driver.isFullWidth()).toBeTruthy();
+    expect(await driver.isFullWidth()).toBe(true);
   });
 });

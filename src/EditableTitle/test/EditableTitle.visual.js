@@ -51,10 +51,13 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`EditableTitle/${describe}`, module).add(it, () => (
-      <div style={{ width: '300px' }}>
-        <EditableTitle {...props} />
-      </div>
-    ));
+    storiesOf(`EditableTitle${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <div style={{ width: '300px' }}>
+          <EditableTitle {...props} />
+        </div>
+      ),
+    );
   });
 });

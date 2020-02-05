@@ -1,6 +1,5 @@
 import { baseUniDriverFactory, ReactBase } from '../../test/utils/unidriver';
 import TabTypes from './core/constants/tab-types';
-import styles from './Tabs.scss';
 
 export const tabsUniDriverFactory = base => {
   const reactBase = ReactBase(base);
@@ -22,13 +21,11 @@ export const tabsUniDriverFactory = base => {
         ReactBase(item)._DEPRECATED_getClassList(),
       );
       const itemsClasses = await Promise.all(itemsClassesPromises);
-      return itemsClasses.findIndex(classList =>
-        classList.contains(styles.active),
-      );
+      return itemsClasses.findIndex(classList => classList.contains('active'));
     },
     isDefaultType: async () => {
       const classList = await reactBase._DEPRECATED_getClassList();
-      return TabTypes.every(tabType => !classList.contains(styles[tabType]));
+      return TabTypes.every(tabType => !classList.contains(tabType));
     },
     getItemsContainerClassList: async () =>
       ReactBase(await getItemsContainer())._DEPRECATED_getClassList(),
@@ -43,9 +40,9 @@ export const tabsUniDriverFactory = base => {
     },
     hasDivider: async () => {
       const classList = await reactBase._DEPRECATED_getClassList();
-      return classList.contains(styles.hasDivider);
+      return classList.contains('hasDivider');
     },
-    getSideContent: async () => findFirst(`.${styles.sideContent}`),
+    getSideContent: async () => findFirst(`.sideContent`),
     getItemsMaxWidths: async () =>
       Promise.all(
         (await getItems()).map(item =>

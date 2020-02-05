@@ -25,7 +25,7 @@ describe('Tag', () => {
     describe('size', () => {
       it('should have a default small size', async () => {
         const driver = createDriver(<Tag id={id}>{label}</Tag>);
-        expect(await driver.isSmall()).toBeTruthy();
+        expect(await driver.isSmall()).toBe(true);
       });
 
       it('should have a tiny size', async () => {
@@ -34,8 +34,8 @@ describe('Tag', () => {
             {label}
           </Tag>,
         );
-        expect(await driver.isTiny()).toBeTruthy();
-        expect(await driver.isCloseButtonSmall()).toBeTruthy();
+        expect(await driver.isTiny()).toBe(true);
+        expect(await driver.isCloseButtonSmall()).toBe(true);
         expect(await driver.getTextSize()).toBe(SIZES.tiny);
         expect(await driver.getTextWeight()).toBe(WEIGHTS.thin);
       });
@@ -46,8 +46,8 @@ describe('Tag', () => {
             {label}
           </Tag>,
         );
-        expect(await driver.isSmall()).toBeTruthy();
-        expect(await driver.isCloseButtonSmall()).toBeTruthy();
+        expect(await driver.isSmall()).toBe(true);
+        expect(await driver.isCloseButtonSmall()).toBe(true);
         expect(await driver.getTextSize()).toBe(SIZES.small);
         expect(await driver.getTextWeight()).toBe(WEIGHTS.normal);
       });
@@ -58,8 +58,8 @@ describe('Tag', () => {
             {label}
           </Tag>,
         );
-        expect(await driver.isMedium()).toBeTruthy();
-        expect(await driver.isCloseButtonSmall()).toBeTruthy();
+        expect(await driver.isMedium()).toBe(true);
+        expect(await driver.isCloseButtonSmall()).toBe(true);
         expect(await driver.getTextSize()).toBe(SIZES.small);
         expect(await driver.getTextWeight()).toBe(WEIGHTS.normal);
       });
@@ -70,7 +70,7 @@ describe('Tag', () => {
             {label}
           </Tag>,
         );
-        expect(await driver.isLarge()).toBeTruthy();
+        expect(await driver.isLarge()).toBe(true);
         expect(await driver.getTextSize()).toBe(SIZES.medium);
         expect(await driver.getTextWeight()).toBe(WEIGHTS.normal);
       });
@@ -83,7 +83,7 @@ describe('Tag', () => {
 
     it('should be removable by default', async () => {
       const driver = createDriver(<Tag id={id}>{label}</Tag>);
-      expect(await driver.isRemovable()).toBeTruthy();
+      expect(await driver.isRemovable()).toBe(true);
     });
 
     it('should not be removable', async () => {
@@ -92,7 +92,7 @@ describe('Tag', () => {
           {label}
         </Tag>,
       );
-      expect(await driver.isRemovable()).toBeFalsy();
+      expect(await driver.isRemovable()).toBe(false);
     });
 
     it('should have remove button if disabled is true', async () => {
@@ -110,7 +110,7 @@ describe('Tag', () => {
           {label}
         </Tag>,
       );
-      expect(await driver.isDisabled()).toBeTruthy();
+      expect(await driver.isDisabled()).toBe(true);
     });
 
     it('should call onRemove function on remove', async () => {
@@ -128,6 +128,7 @@ describe('Tag', () => {
     });
 
     it('should call onClick function on click', async () => {
+      const expectedMouseEvent = expect.any(Object);
       const onClick = jest.fn();
       const driver = createDriver(
         <Tag id={id} onClick={onClick}>
@@ -136,12 +137,12 @@ describe('Tag', () => {
       );
 
       await driver.click();
-      expect(onClick).toBeCalledWith(id);
+      expect(onClick).toBeCalledWith(id, expectedMouseEvent);
     });
 
     it('should not have pointer cursor when not passed onClick', async () => {
       const driver = createDriver(<Tag id={id}>{label}</Tag>);
-      expect(await driver.isClickable()).toBeFalsy();
+      expect(await driver.isClickable()).toBe(false);
     });
 
     it('should have pointer cursor when passed onClick', async () => {
@@ -150,12 +151,12 @@ describe('Tag', () => {
           {label}
         </Tag>,
       );
-      expect(await driver.isClickable()).toBeTruthy();
+      expect(await driver.isClickable()).toBe(true);
     });
 
     it('should not display thumb by default', async () => {
       const driver = createDriver(<Tag id={id}>{label}</Tag>);
-      expect(await driver.isThumbExists()).toBeFalsy();
+      expect(await driver.isThumbExists()).toBe(false);
     });
 
     it('should display thumb', async () => {
@@ -164,7 +165,7 @@ describe('Tag', () => {
           {label}
         </Tag>,
       );
-      expect(await driver.isThumbExists()).toBeTruthy();
+      expect(await driver.isThumbExists()).toBe(true);
     });
 
     describe('theme attribute', () => {

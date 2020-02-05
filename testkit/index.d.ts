@@ -13,9 +13,11 @@ import {TooltipDriver as TooltipUniDriver} from '../src/Tooltip/TooltipNext/Tool
 import {TimeTableDriver} from '../src/TimeTable/TimeTable.uni.driver';
 import {TooltipDriver} from '../src/Tooltip/Tooltip.driver';
 import {InfoIconDriver} from '../src/InfoIcon/InfoIcon.uni.driver';
+import {ImageDriver} from '../src/Image/Image.uni.driver';
 import {SocialButtonDriver} from '../src/SocialButton/SocialButton.uni.driver'
 import {ListItemSectionDriver} from '../src/ListItemSection/ListItemSection.uni.driver';
 import {ListItemSelectDriver} from '../src/ListItemSelect/ListItemSelect.uni.driver';
+import {SidePanelDriver} from '../src/SidePanel/SidePanel.uni.driver';
 
 declare namespace VanillaTestkit {
   type VanillaTestkitFactory<T extends BaseDriver> = (
@@ -150,6 +152,9 @@ declare namespace VanillaTestkit {
   export const marketingLayoutTestkitFactory: any;
   export const paletteTestkitFactory: any;
   export const warningIndicatorTestkitFactory: any;
+  export const variableInputTestkitFactory: any;
+  export const imageTestkitFactory: VanillaUniTestkitFactory<ImageDriver>;
+  export const sidePanelTestkitFactory: VanillaUniTestkitFactory<SidePanelDriver>;
   export const sideMenuDrillTestkitFactory: any;
   export const headerTestkitFactory: any;
   export const sideMenuTestkitFactory: any;

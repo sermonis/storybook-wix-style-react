@@ -1,27 +1,13 @@
 import React from 'react';
-import CodeExample from 'wix-storybook-utils/CodeExample';
-
+import { header, playground } from 'wix-storybook-utils/Sections';
 import { default as PopoverMenu } from '..';
 import { default as PopoverMenuItem } from '../../PopoverMenuItem';
 import { storySettings } from './storySettings';
 
-import ExampleBasic from './ExampleBasic';
-import ExampleBasicRaw from '!raw-loader!./ExampleBasic';
-import ExampleDisabled from './ExampleDisabled';
-import ExampleDisabledRaw from '!raw-loader!./ExampleDisabled';
-import ExampleDisabledLarge from './ExampleDisabledLarge';
-import ExampleDisabledLargeRaw from '!raw-loader!./ExampleDisabledLarge';
-import ExampleWithDivider from './ExampleWithDivider';
-import ExampleWithDividerRaw from '!raw-loader!./ExampleWithDivider';
-import { createAutoExampleWrapper } from '../../../stories/utils/AutoExampleWrapper';
+import SectionHelper from '../../SectionHelper';
+import { Layout, Cell } from '../../Layout';
 
-const exampleContainerStyle = {
-  display: 'flex',
-  backgroundColor: '#f6f8fa',
-  minHeight: '50px',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
+import { createAutoExampleWrapper } from '../../../stories/utils/AutoExampleWrapper';
 
 const exampleItems = [
   <PopoverMenuItem
@@ -77,31 +63,20 @@ export default {
     children: exampleChildren,
   },
 
-  examples: (
-    <div>
-      <CodeExample title="Standard with icons" code={ExampleBasicRaw}>
-        <div style={exampleContainerStyle}>
-          <ExampleBasic />
-        </div>
-      </CodeExample>
-      <CodeExample title="Disabled item" code={ExampleDisabledRaw}>
-        <div style={exampleContainerStyle}>
-          <ExampleDisabled />
-        </div>
-      </CodeExample>
-      <CodeExample
-        title="Disabled item within a large popover menu"
-        code={ExampleDisabledLargeRaw}
-      >
-        <div style={exampleContainerStyle}>
-          <ExampleDisabledLarge />
-        </div>
-      </CodeExample>
-      <CodeExample title="With divider" code={ExampleWithDividerRaw}>
-        <div style={exampleContainerStyle}>
-          <ExampleWithDivider />
-        </div>
-      </CodeExample>
-    </div>
-  ),
+  sections: [
+    header({
+      issueUrl: 'https://github.com/wix/wix-style-react/issues/new',
+      component: (
+        <Layout>
+          <Cell span={6}>
+            <SectionHelper title="Deprecated Component">
+              Make sure to use the same component from Next API section and
+              upgrade your api usage.
+            </SectionHelper>
+          </Cell>
+        </Layout>
+      ),
+    }),
+    playground(),
+  ],
 };

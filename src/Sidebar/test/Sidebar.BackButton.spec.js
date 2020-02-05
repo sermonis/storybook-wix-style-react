@@ -24,13 +24,13 @@ describe('Sidebar', () => {
       );
 
       let subMenuChildren = sidebar.find(`[data-hook="driven-in-children"]`);
-      expect(subMenuChildren.exists()).toBeTruthy();
+      expect(subMenuChildren.exists()).toBe(true);
 
       const backButtonEl = sidebar.find(`[data-hook="sidebar-back-button"]`);
       backButtonEl.simulate('click');
 
       subMenuChildren = sidebar.find(`[data-hook="driven-in-children"]`);
-      expect(subMenuChildren.exists()).toBeFalsy();
+      expect(subMenuChildren.exists()).toBe(false);
     });
   });
 });

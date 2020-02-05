@@ -14,40 +14,267 @@ Types of changes:
 1. **Docs** for documentation changes
 1. **Lab** components and features that are still in a work in progress
 
+## Next
+
+### Added:
+- `<Accordion/>` - Added skin prop [#4803](https://github.com/wix/wix-style-react/pull/4803)
+
+## 7.40.0 - 2020-02-05
+
+### Added:
+
+- `<SidePanel/>` - new Component [#4935](https://github.com/wix/wix-style-react/pull/4935)
+- `<CloseButton/>` - add large size support [#4941](https://github.com/wix/wix-style-react/pull/4941)
+
+### Changed
+- `<Slider/>`- changing tooltip color [#4955](https://github.com/wix/wix-style-react/pull/4955)
+
+### Fixed
+
+- `<MarketingLayout/>` - Fixed issue where background color would hide an image [#4949](https://github.com/wix/wix-style-react/pull/4949)
+- `<Slider/>`- Fixed Slider css [#4932](https://github.com/wix/wix-style-react/pull/4932)
+- `<Accordion/>`- Fixed Accordion collapse behaviour and added shadow and divider to accordion item [#4793](https://github.com/wix/wix-style-react/pull/4793)
+
+## 7.39.1 - 2020-02-03
+
+### Fixed
+
+- fixed missing types for named imports [#4945](https://github.com/wix/wix-style-react/pull/4945)
+
+## 7.39.0 - 2020-02-03
+
+### Added:
+
+- `<Image/>` - new component [#4927](https://github.com/wix/wix-style-react/pull/4927)
+
+### Changed:
+
+- `<MarketingLayout/>` - adjusted paddings, added image background [#4936](https://github.com/wix/wix-style-react/pull/4936)
+
+### Fixed:
+
+- `<Tag/>` - changed onClick callback call to pass 'event' as second parameter [#4915](https://github.com/wix/wix-style-react/pull/4915)
+
+## 7.38.1 - 2020-01-28
+
+### Fixed:
+
+- `<Sidebar/>`- Fixing scrollbar for both light and dark skins [#4925](https://github.com/wix/wix-style-react/pull/4925)
+- named-imports - implement missing exports [#4930](https://github.com/wix/wix-style-react/pull/4930)
+
+## 7.38.0 - 2020-01-27
+
+### Fixed
+
+- `<Input/>` - fixed `statusMessage` prop type warning [#4921](https://github.com/wix/wix-style-react/pull/4921)
+- `<Cell/> Layout` - Fix Firefox bug on grid text overflow [#4906](https://github.com/wix/wix-style-react/pull/4906)
+
+### Docs
+
+- `<GooglePreview/>` - fix broken playground [#4909](https://github.com/wix/wix-style-react/pull/4909)
+- `<Dropdown/>` - Improve dropdown list constraints documentation [#4911](https://github.com/wix/wix-style-react/pull/4911)
+
+## 7.37.1 - 2020-01-22
+
+### Fixed
+
+- `<Text/>` - Fix nested `<ul>` styles being applied to incorrect elements [#4905](https://github.com/wix/wix-style-react/pull/4905)
+
+## 7.37.0 - 2020-01-21
+
+### Added
+
+- `<FormField/>` - add `suffix` prop [#4887](https://github.com/wix/wix-style-react/pull/4887)
+
+### Fixed
+
+- `<VariableInput/>` - fix `onBlur` and `onChange` issues [#4894](https://github.com/wix/wix-style-react/pull/4894)
+
+### Docs
+
+- `<VariableInput/>` - change composition to use FormField's suffix [#4901](https://github.com/wix/wix-style-react/pull/4901)
+
+## 7.36.0
+
+### Added
+
+- `<Search/>` - Add support for right to left expansion [#4841](https://github.com/wix/wix-style-react/pull/4841)
+- `<Text/>` - add default styling for nested `<ul>` lists [#4876](https://github.com/wix/wix-style-react/pull/4876)
+
+### Fixed
+
+- infrastructure: fix named-importing issues [#4788](https://github.com/wix/wix-style-react/pull/4788)
+- `<Button/>` - fix standard secondary disabled color [#4897](https://github.com/wix/wix-style-react/pull/4897)
+
+## 7.35.0 - 2020-01-20
+
+### Changed
+
+- `<Checkbox>` - Stopped propagation on children
+- `<Button/>` - migrate to new disabled color [#4886](https://github.com/wix/wix-style-react/pull/4886)
+
+### Docs
+
+- `<MultiSelectCheckbox/>` - Upgraded story page to be more informative
+
+## 7.34.0 - 2020-01-16
+
+### Added
+
+- `<VariableInput/>` - add `multiline` prop [#4864](https://github.com/wix/wix-style-react/pull/4864)
+- `<MessageBoxMarketerialLayout/>` - add `primaryButtonNode` prop [#4676](https://github.com/wix/wix-style-react/pull/4676)
+- `<MessageBoxMarketerialLayout/>` - add `width` prop [#4878](https://github.com/wix/wix-style-react/pull/4878)
+- `<MessageBoxMarketerialLayout/>` - add `noBodyPadding` prop [#4882](https://github.com/wix/wix-style-react/pull/4882)
+
+### Fixed
+
+- `<Input/>` - fix Affixes' margins [#4727](https://github.com/wix/wix-style-react/pull/4727)
+
+## 7.33.0 - 2020-01-13
+
+### Changed
+
+- `<MarketingLayout/>` - Use grid for responsive layout [#4850](https://github.com/wix/wix-style-react/pull/4850)
+
+### Fixed
+
+- Revert "`<Text/>` - add default styling for nested `<ul>` lists" [#4865](https://github.com/wix/wix-style-react/pull/4865)
+
+### Docs
+
+- `<VariableInput/>` - improve docs with examples (including cheatsheet) [#4844](https://github.com/wix/wix-style-react/pull/4844)
+
+## 7.32.0 - 2020-01-13
+
+### Added
+
+- `<Text/>` - added default styling for nested `<ul>` lists [#4726](https://github.com/wix/wix-style-react/pull/4726)
+- `<FormField/>` - add new prop labelAlignment [#4814](https://github.com/wix/wix-style-react/pull/4814)
+- `<RichTextInputArea/>` - Expose plain text value with onChange event [#4820](https://github.com/wix/wix-style-react/pull/4820)
+- `<ListItemSelect/>`, `<ListItemSection/>` - added show tooltip delay of 300ms [#4816](https://github.com/wix/wix-style-react/pull/4816)
+- `<MultiSelect/>` - Add status and statusMessage props [#4828](https://github.com/wix/wix-style-react/pull/4828)
+- `<TextButton/>` - add destructive skin [#4836](https://github.com/wix/wix-style-react/pull/4836)
+- `<Calendar/>` - introduce isDayActive testkit method [#4839](https://github.com/wix/wix-style-react/pull/4839)
+- `<ModalPreviewLayout/>` - adding white tooltips to NavigationButtons & close button. [#4777](https://github.com/wix/wix-style-react/pull/4777)
+
+### Changed
+
+- `<Heading/>` - change text color to white for heading=H5, light [#4805](https://github.com/wix/wix-style-react/pull/4805)
+- `<SegmentedToggle/>` - change disabled icon and border color to have more contrast [4811](https://github.com/wix/wix-style-react/pull/4811)
+- `<FloatingNotification/>` - change `minWidth` [#4809](https://github.com/wix/wix-style-react/pull/4809)
+- `<Tooltip/>` - change `textAlign` default value [#4813](https://github.com/wix/wix-style-react/pull/4813)
+- `<TextButton/>` - migrate styesheet && update disabled styling && fix transition issues [#4818](https://github.com/wix/wix-style-react/pull/4818)
+- `<CloseButton/>` - migrate stylesheet && update disabled styling [#4834](https://github.com/wix/wix-style-react/pull/4834)
+- `<Button/>` - add new premium-light skin [#4858](https://github.com/wix/wix-style-react/pull/4858)
+- `<Slider/>` - make marks occupy space [#4837](https://github.com/wix/wix-style-react/pull/4837)
+- `<InputArea/>` - change InputArea background from transparent to white [#4843](https://github.com/wix/wix-style-react/pull/4843)
+- `<ListItemSection/>` - Disable click propogation on divider ans whitespace [#4848](https://github.com/wix/wix-style-react/pull/4848)
+
+### Fixed
+
+- `<ImageViewer/>` - do not render img html at all when imageUrl prop is not defined [#4735](https://github.com/wix/wix-style-react/pull/4735)
+- `<Badge/>` - Added missing constants to TypeScript typings [#4807](https://github.com/wix/wix-style-react/pull/4807)
+- `<IconButton/>` - migrate stylesheet && update disabled styles && fix inverted color [#4806](https://github.com/wix/wix-style-react/pull/4806)
+- `<SocialButton/>` - Horizontally align text to center [#4808](https://github.com/wix/wix-style-react/pull/4808)
+- `<MultiSelectCheckbox/>` - fix missing cursor style [#4821](https://github.com/wix/wix-style-react/pull/4821)
+- `<Notification.ActionButton/>` - do not require noop `onClick` when `type="textLink"` [#4824](https://github.com/wix/wix-style-react/pull/4824)
+- `<ColorPicker/>` - Fix color tooltip was not centered [#4812](https://github.com/wix/wix-style-react/pull/4812)
+- `<ColorPicker/>` - Fix Transparent color swatch [#4815](https://github.com/wix/wix-style-react/pull/4815)
+- `<AddItem/>` - Remove tooltip when it's empty [#4822](https://github.com/wix/wix-style-react/pull/4822)
+- `<InputArea/>` - Use default scrollbar [#4827](https://github.com/wix/wix-style-react/pull/4827)
+- `<Tag/>` - fix height when tiny and unremovable [#4857](https://github.com/wix/wix-style-react/pull/4857)
+
+### Labs
+
+- `<VariableInput/>` - create new component [#4791](https://github.com/wix/wix-style-react/pull/4791)
+- `<VariableInput/>` - add `onChange` prop [#4801](https://github.com/wix/wix-style-react/pull/4801)
+- `<VariableInput/>` - add `placeholder` prop [#4802](https://github.com/wix/wix-style-react/pull/4802)
+- `<VariableInput/>` - add `disabled` prop [#4800](https://github.com/wix/wix-style-react/pull/4800)
+- `<VariableInput/>` - add `rows` & `size` props [#4825](https://github.com/wix/wix-style-react/pull/4825)
+- `<VariableInput/>` - add `status` & `statusMessage` props [#4830](https://github.com/wix/wix-style-react/pull/4830)
+
+## 7.30.0 - 2020-01-06
+
+### Added
+
+- `<Stepper/>`- new features (compact text style, stretched fit, animation) [#4786](https://github.com/wix/wix-style-react/pull/4786)
+
+### Fixed
+
+- `<Table/>` - fix `clickRowCheckbox` in teskit [#4785](https://github.com/wix/wix-style-react/pull/4785)
+
+### Deprecated
+
+- `<PopoverMenu/>` - deprecate story [#4789](https://github.com/wix/wix-style-react/pull/4789)
+
+## 7.29.1 - 2020-01-02
+
+### Added
+
+- `<ModalPreviewLayout/>`- support navigation [#4714](https://github.com/wix/wix-style-react/pull/4714)
+- `<Table/>`- add `onCellClick` column prop [#4759](https://github.com/wix/wix-style-react/pull/4759)
+
+### Fixed
+
+- `<Table/>` - enlarge checkbox click area [#4616](https://github.com/wix/wix-style-react/pull/4616)
+- `<SidebarSectionItem/>` - fix disabled state css [#4778](https://github.com/wix/wix-style-react/pull/4778)
+
+## Infra
+
+- remove `prepublishOnly` from publish flow [#4768](https://github.com/wix/wix-style-react/pull/4768)
+- remove `.st.css` and `.scss` imports from drivers [#4773](https://github.com/wix/wix-style-react/pull/4773)
+- fix incorrect drivers import [#4781](https://github.com/wix/wix-style-react/pull/4781)
+
+## 7.28.0 - 2019-12-27
+
+### Fixed
+
+- `<PopoverMenu/>` - Fix SSR rendering [#4756](https://github.com/wix/wix-style-react/pull/4756)
+
+### Docs
+
+- `<Popover/>`- adding dataHook prop to documentation [#4754](https://github.com/wix/wix-style-react/pull/4754)
+
 ## 7.27.0 - 2019-12-25
 
 ### Docs
+
 - Storybook - Add minimum requirements (React version 16.8) [#4748](https://github.com/wix/wix-style-react/pull/4748)
 - Storybook - Fix broken links [#4745](https://github.com/wix/wix-style-react/pull/4745)
 - `<DataTable/>` - add propType for `onSortClick` [#4650](https://github.com/wix/wix-style-react/pull/4650)
 - `<Box/>` - added a small explanation
 
 ## Fixed
+
 - `<NumberInput/>`- Fixing `defaultValue` logic [#4746](https://github.com/wix/wix-style-react/pull/4746)
 
 ## 7.26.0 - 2019-12-24
 
 ### Fixed
+
 - `<DataTable/>` - fixed header cell cursor css when not sortable [#4685](https://github.com/wix/wix-style-react/pull/4685)
 - `<Stepper/>` - Use transparent background for error step circle style [#4732](https://github.com/wix/wix-style-react/pull/4732)
 - `EllipsisHOC` - Optimize rerendering issue [#4734](https://github.com/wix/wix-style-react/pull/4734)
 
 ### Added
+
 - `<InputArea/>` - adding `status` and `statusMessage` props [#4736](https://github.com/wix/wix-style-react/pull/4736)
 
 ## 7.25.0 - 2019-12-19
 
 ### Fixed
+
 - `<MessageBoxFunctionalLayout/>` - Revert element hierarchy change [#4728](https://github.com/wix/wix-style-react/pull/4728)
 
 ### Docs
+
 - Introducing Storybook version 5
 
 ## 7.24.0 - 2019-12-16
 
 ### Added
-- `<Avatar/>`- updating person svg and adding bussiness svg for `square` shape. [#4705](https://github.com/wix/wix-style-react/pull/4705)
 
+- `<Avatar/>`- updating person svg and adding bussiness svg for `square` shape. [#4705](https://github.com/wix/wix-style-react/pull/4705)
 
 ## 7.23.1 - 2019-12-16
 

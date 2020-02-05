@@ -4,7 +4,6 @@ import { withI18n } from 'storybook-addon-i18n';
 import { version } from '../../package.json';
 import { create } from '@storybook/theming';
 
-import '../../src/assets/helvetica.scss';
 import './stories.scss';
 
 function loadStories() {
@@ -12,6 +11,7 @@ function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 const theme = create({
+  base: 'light',
   brandTitle: `Wix Style React ${version}`,
   brandUrl: 'https://github.com/wix/wix-style-react',
 });

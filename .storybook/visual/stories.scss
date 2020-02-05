@@ -1,3 +1,10 @@
+:root {
+  --wsr-font-family: var(--wix-font-stack);
+  --wsr-font-weight-thin: var(--wix-font-weight-thin);
+  --wsr-font-weight-normal: var(--wix-font-weight-normal);
+  --wsr-font-weight-bold: var(--wix-font-weight-bold);
+}
+
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -5,7 +12,9 @@ html {
   margin: 0;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   transition-delay: 0ms !important;
   transition-duration: 0ms !important;
   transition: none !important;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { storiesOf } from '@storybook/react';
 import InputArea from '../InputArea';
 
@@ -41,17 +41,6 @@ const tests = [
     ],
   },
   {
-    describe: 'height',
-    its: [
-      {
-        it: 'should grow when give long text',
-        props: {
-          autoGrow: true,
-        },
-      },
-    ],
-  },
-  {
     describe: 'status',
     its: [
       {
@@ -72,8 +61,14 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`InputArea/${describe}`, module).add(it, () => (
-      <InteractiveInputArea {...props} componentDidMount={componentDidMount} />
-    ));
+    storiesOf(`InputArea${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InteractiveInputArea
+          {...props}
+          componentDidMount={componentDidMount}
+        />
+      ),
+    );
   });
 });

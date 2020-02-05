@@ -1,11 +1,7 @@
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
 import autoCompleteDriverFactory from '../AutoComplete.driver';
 import { autoCompleteUniDriverFactory } from '../AutoComplete.uni.driver';
 import AutoComplete from '../AutoComplete';
-import { autoCompleteTestkitFactory } from '../../../testkit';
-import { autoCompleteTestkitFactory as enzymeAutoCompleteTestkitFactory } from '../../../testkit/enzyme';
-import { mount } from 'enzyme';
 import {
   cleanup,
   createRendererWithDriver,
@@ -73,7 +69,6 @@ describe('Autocomplete', () => {
       );
       await inputDriver.click();
       await inputDriver.trigger('keyDown', { key: asciiA });
-      // expect(dropdownLayoutDriver.isShown()).toBeFalsy();
       expect(await dropdownLayoutDriver.optionsLength()).toBe(0);
     });
 
@@ -90,11 +85,11 @@ describe('Autocomplete', () => {
       await inputDriver.click();
       await inputDriver.trigger('keyDown', { key: asciiA });
 
-      expect(await dropdownLayoutDriver.isShown()).toBeTruthy();
+      expect(await dropdownLayoutDriver.isShown()).toBe(true);
       expect(await dropdownLayoutDriver.optionsLength()).toBe(1);
       const option = (await dropdownLayoutDriver.options())[0];
       expect(await option.content()).toBe(emptyStateMessage);
-      expect(await option.isDisabled()).toBeTruthy();
+      expect(await option.isDisabled()).toBe(true);
     });
 
     it('should show all items when focusing even if some text exist', async () => {

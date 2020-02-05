@@ -139,33 +139,39 @@ const interactiveTests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`LinearProgressBar/${describe}`, module).add(it, () => (
-      <Box
-        backgroundColor={props.light ? 'D10' : 'D80'}
-        align="center"
-        verticalAlign="middle"
-        padding="40px"
-      >
-        <Layout>
-          <Cell>
-            <LinearProgressBar dataHook={dataHook} {...props} />
-          </Cell>
-          <Cell>
-            <LinearProgressBar
-              dataHook={dataHook}
-              {...props}
-              skin={SKINS.success}
-            />
-          </Cell>
-        </Layout>
-      </Box>
-    ));
+    storiesOf(`LinearProgressBar${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <Box
+          backgroundColor={props.light ? 'D10' : 'D80'}
+          align="center"
+          verticalAlign="middle"
+          padding="40px"
+        >
+          <Layout>
+            <Cell>
+              <LinearProgressBar dataHook={dataHook} {...props} />
+            </Cell>
+            <Cell>
+              <LinearProgressBar
+                dataHook={dataHook}
+                {...props}
+                skin={SKINS.success}
+              />
+            </Cell>
+          </Layout>
+        </Box>
+      ),
+    );
   });
 });
 
 interactiveTests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`LinearProgressBar/${describe}`, module).add(it, () => (
+    storiesOf(
+      `LinearProgressBar${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => (
       <InteractiveEyeTest {...props} componentDidMount={componentDidMount} />
     ));
   });

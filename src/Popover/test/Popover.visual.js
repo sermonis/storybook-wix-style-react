@@ -77,12 +77,15 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props, componentDidMount }) => {
-    storiesOf(`Popover/${describe}`, module).add(it, () => (
-      <InteractivePopover
-        {...defaultProps}
-        {...props}
-        componentDidMount={componentDidMount}
-      />
-    ));
+    storiesOf(`Popover${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <InteractivePopover
+          {...defaultProps}
+          {...props}
+          componentDidMount={componentDidMount}
+        />
+      ),
+    );
   });
 });

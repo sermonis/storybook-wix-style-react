@@ -37,8 +37,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`FloatingNotification/${describe}`, module).add(it, () => (
-      <FloatingNotification {...defaultProps} {...props} />
-    ));
+    storiesOf(
+      `FloatingNotification${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <FloatingNotification {...defaultProps} {...props} />);
   });
 });

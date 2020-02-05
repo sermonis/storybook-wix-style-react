@@ -6,18 +6,11 @@ import styles from './ListItemSelect.st.css';
 
 import Checkbox from '../Checkbox';
 import Box from '../Box';
+import { dataHooks } from './constants';
 
 export const SIZES = {
   small: 'small',
   medium: 'medium',
-};
-
-export const DATAHOOKS = {
-  CHECKBOX: 'list-item-select-checkbox',
-  PREFIX: 'list-item-select-prefix',
-  SUFFIX: 'list-item-select-suffix',
-  TITLE: 'list-item-select-title',
-  SUBTITLE: 'list-item-select-subtitle',
 };
 
 /** ListItemSelect description */
@@ -93,7 +86,7 @@ class ListItemSelect extends React.PureComponent {
         {/* Checkbox */}
         {checkbox ? (
           <Checkbox
-            dataHook={DATAHOOKS.CHECKBOX}
+            dataHook={dataHooks.CHECKBOX}
             className={styles.fullWidthContent}
             size={size}
             checked={selected}
@@ -125,6 +118,7 @@ class ListItemSelect extends React.PureComponent {
       tagName: 'div',
       size,
       ellipsis,
+      showDelay: 300,
       skin: disabled ? 'disabled' : 'standard',
       weight: checkbox ? 'thin' : 'normal',
       light: selected && !checkbox,
@@ -142,7 +136,7 @@ class ListItemSelect extends React.PureComponent {
         {prefix && (
           <Text
             {...styles(styles.prefix, { subtitle })}
-            dataHook={DATAHOOKS.PREFIX}
+            dataHook={dataHooks.PREFIX}
             {...textProps}
             ellipsis={false}
           >
@@ -159,14 +153,14 @@ class ListItemSelect extends React.PureComponent {
           fontSize="initial"
         >
           {/* Title */}
-          <Text dataHook={DATAHOOKS.TITLE} {...textProps}>
+          <Text dataHook={dataHooks.TITLE} {...textProps}>
             {title}
           </Text>
 
           {/* Subtitle */}
           {subtitle && (
             <Text
-              dataHook={DATAHOOKS.SUBTITLE}
+              dataHook={dataHooks.SUBTITLE}
               secondary
               {...secondaryTextProps}
               size={SIZES.small}
@@ -179,7 +173,7 @@ class ListItemSelect extends React.PureComponent {
         {/* Suffix */}
         {suffix && (
           <Text
-            dataHook={DATAHOOKS.SUFFIX}
+            dataHook={dataHooks.SUFFIX}
             className={styles.suffix}
             {...secondaryTextProps}
           >

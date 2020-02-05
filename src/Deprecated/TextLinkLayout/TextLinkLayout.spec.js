@@ -9,7 +9,7 @@ describe('TextLinkLayout', () => {
   it('should have a textLinkLayout', () => {
     const driver = createDriver(<TextLinkLayout />);
 
-    expect(driver.exists()).toBeTruthy();
+    expect(driver.exists()).toBe(true);
   });
 
   it('should render children', () => {
@@ -35,41 +35,41 @@ describe('TextLinkLayout', () => {
     const driver = createDriver(
       <TextLinkLayout theme="darkBackground" size="small" />,
     );
-    expect(driver.isDarkBackground()).toBeTruthy();
+    expect(driver.isDarkBackground()).toBe(true);
   });
 
   it('should be with greyscale theme', () => {
     const driver = createDriver(
       <TextLinkLayout theme="greyScale" size="small" />,
     );
-    expect(driver.isGreyScale()).toBeTruthy();
+    expect(driver.isGreyScale()).toBe(true);
   });
 
   it('should be with light background', () => {
     const driver = createDriver(<TextLinkLayout size="small" />);
-    expect(driver.isLightBackground()).toBeTruthy();
+    expect(driver.isLightBackground()).toBe(true);
   });
 
   it('should be with underline', () => {
     const driver = createDriver(<TextLinkLayout underlineStyle="always" />);
-    expect(driver.isUnderline()).toBeTruthy();
+    expect(driver.isUnderline()).toBe(true);
   });
 
   it('should not be with underline', () => {
     const driver = createDriver(<TextLinkLayout underlineStyle="never" />);
     driver.hover();
-    expect(driver.isUnderline()).toBeFalsy();
+    expect(driver.isUnderline()).toBe(false);
   });
 
   it('should not be with underline by default', () => {
     const driver = createDriver(<TextLinkLayout />);
-    expect(driver.isUnderline()).toBeFalsy();
+    expect(driver.isUnderline()).toBe(false);
   });
 
   it('should have underline on hover', () => {
     const driver = createDriver(<TextLinkLayout />);
     driver.hover();
-    expect(driver.isUnderline()).toBeTruthy();
+    expect(driver.isUnderline()).toBe(true);
   });
 
   it('should be with display block by default', () => {
@@ -85,14 +85,14 @@ describe('TextLinkLayout', () => {
   it('should have a prefixIcon', () => {
     const driver = createDriver(<TextLinkLayout prefixIcon={<div />} />);
 
-    expect(driver.isSuffixIconExists()).toBeFalsy();
-    expect(driver.isPrefixIconExists()).toBeTruthy();
+    expect(driver.isSuffixIconExists()).toBe(false);
+    expect(driver.isPrefixIconExists()).toBe(true);
   });
 
   it('should have a suffixIcon', () => {
     const driver = createDriver(<TextLinkLayout suffixIcon={<div />} />);
 
-    expect(driver.isPrefixIconExists()).toBeFalsy();
-    expect(driver.isSuffixIconExists()).toBeTruthy();
+    expect(driver.isPrefixIconExists()).toBe(false);
+    expect(driver.isSuffixIconExists()).toBe(true);
   });
 });

@@ -6,6 +6,7 @@ import AddSmall from 'wix-ui-icons-common/AddSmall';
 import Color from 'color';
 import styles from './ColorPickerConverter.st.css';
 import Tooltip from '../Tooltip';
+import { DataHooks } from './constants';
 
 function getContrastColor(bg, light = '#ffffff', dark = '#162d3d') {
   try {
@@ -65,7 +66,7 @@ class ColorPickerConverterViewer extends PureComponent {
         style: {
           backgroundColor: noColorSelected ? undefined : color.hex(),
         },
-        'data-hook': 'color-picker-add-color',
+        'data-hook': DataHooks.addColor,
         onFocus: focusableOnFocus,
         onBlur: focusableOnBlur,
         ...styles('preview', styleProps, this.props),

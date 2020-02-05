@@ -31,7 +31,7 @@ describe('MobilePreviewWidget', () => {
   it('should render', async () => {
     const { driver } = render(<MobilePreviewWidget {...requiredProps} />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should render the mobile preview content', async () => {

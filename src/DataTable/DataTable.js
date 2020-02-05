@@ -61,12 +61,6 @@ class DataTable extends React.Component {
     }
   }
 
-  shouldComponentUpdate() {
-    // DataTable extends WixComponent which is a PureComponent, but DataTable is not pure.
-    // returning true, disables the PureComponent optimization.
-    return true;
-  }
-
   createInitialScrollingState(props) {
     return { currentPage: 0, lastPage: this.calcLastPage(props) };
   }
@@ -279,7 +273,21 @@ class DataTable extends React.Component {
         : undefined;
 
     return (
-      <td style={column.style} width={width} className={classes} key={colNum}>
+      <td
+        style={
+          typeof column.style === 'function'
+            ? column.style(column, rowData, rowNum)
+            : column.style
+        }
+        width={width}
+        className={classes}
+        onClick={
+          column.onCellClick
+            ? event => column.onCellClick(column, rowData, rowNum, event)
+            : undefined
+        }
+        key={colNum}
+      >
         {column.render && column.render(rowData, rowNum)}
       </td>
     );

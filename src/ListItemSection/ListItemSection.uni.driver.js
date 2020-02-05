@@ -1,16 +1,16 @@
 import { baseUniDriverFactory } from 'wix-ui-test-utils/base-driver';
-import { DATAHOOKS } from './ListItemSection';
+import { dataHooks } from './constants';
 
-const dataHook = dataHook => `[data-hook="${dataHook}"]`;
+const byDataHook = dataHook => `[data-hook="${dataHook}"]`;
 
 export const listItemSectionDriverFactory = base => {
   return {
     ...baseUniDriverFactory(base),
 
     /** Get title Text */
-    getTitle: base.$(dataHook(DATAHOOKS.TITLE)).text,
+    getTitle: base.$(byDataHook(dataHooks.TITLE)).text,
 
     /** Get suffix */
-    getSuffix: () => base.$(dataHook(DATAHOOKS.SUFFIX)),
+    getSuffix: () => base.$(byDataHook(dataHooks.SUFFIX)),
   };
 };

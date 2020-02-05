@@ -52,6 +52,7 @@ export class ColorViewer extends React.Component {
             onClick={disabled ? undefined : onClick}
             style={{ backgroundColor: value }}
             {...styles('root', { size })}
+            data-size={size}
           >
             {value === '' && (
               <div

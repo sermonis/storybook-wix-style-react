@@ -37,7 +37,7 @@ class Carousel extends React.Component {
     dataHook: PropTypes.string,
     /** A single CSS class name to be appended to the Carousel's wrapper element. */
     className: PropTypes.string,
-    /** Array of strings where each string is a src of an image (in \<img src="your_src" /\>) */
+    /** Array of objects where each contains the `src` of an image (in \<img src="your_src" /\>) */
     images: PropTypes.array,
     /** Any element to render inside */
     children: PropTypes.node,

@@ -91,7 +91,8 @@ export default {
             },
             {
               title: 'Size',
-              text: 'Close button has two sizes – `small` and `medium`.',
+              text:
+                'Close button has three sizes – `small`, `medium`, and `large`.',
               source: examples.sizesExamples,
             },
             {

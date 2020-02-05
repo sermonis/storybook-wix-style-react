@@ -76,10 +76,13 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`PreviewWidget/${describe}`, module).add(it, () => (
-      <PreviewWidget {...defaultProps} {...props}>
-        {childNode}
-      </PreviewWidget>
-    ));
+    storiesOf(`PreviewWidget${describe ? '/' + describe : ''}`, module).add(
+      it,
+      () => (
+        <PreviewWidget {...defaultProps} {...props}>
+          {childNode}
+        </PreviewWidget>
+      ),
+    );
   });
 });

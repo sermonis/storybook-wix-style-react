@@ -49,13 +49,8 @@ const tests = [
 ];
 
 tests.forEach(({ describe, its }) => {
-  let _describe = '';
-  if (describe) {
-    _describe += `/${describe}`;
-  }
-
   its.forEach(({ it, props }) => {
-    storiesOf(`Tabs${_describe}`, module).add(it, () => (
+    storiesOf(`Tabs${describe ? '/' + describe : ''}`, module).add(it, () => (
       <Box direction="vertical" maxWidth="800px">
         <Box margin={2}>
           <Tabs {...defaultProps} {...props} />

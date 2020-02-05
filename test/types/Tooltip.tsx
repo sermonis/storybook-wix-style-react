@@ -12,15 +12,15 @@ async function testkits() {
     dataHook: 'hi',
     wrapper: document.createElement('div'),
   });
-  console.log(await vanilla.getAlignment());
+
+  const alignment: string = vanilla.getAlignment();
 
   const enzyme = tooltipEnzymeTestkitFactory({
     dataHook: 'hi',
     wrapper: mount(<div />),
   });
 
-  const maxWidth = enzyme.getMaxWidth();
-  console.log(maxWidth && maxWidth.toLowerCase());
+  const maxWidth: string = enzyme.getMaxWidth();
 
   const vanillaUni = TooltipTestkit({
     dataHook: 'hi',
@@ -97,14 +97,14 @@ function TooltipOldContentWithAllProps() {
       popover
       maxWidth={333}
       minWidth={444}
-      onClickOutside={e => console.log(e)}
+      onClickOutside={(e: TouchEvent | MouseEvent) => undefined}
       color="#acacac"
       lineHeight={123}
       onShow={() => {}}
       onHide={() => {}}
       zIndex={999}
       appendToParent
-      appendByPredicate={el => false}
+      appendByPredicate={(el: HTMLElement) => false}
       appendTo={document.createElement('div')}
       moveBy={{ x: 3 }}
       moveArrowTo={3}

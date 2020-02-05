@@ -40,7 +40,7 @@ describe('Table Action Cell', () => {
 
   it("should have a placeholder when there's only a primary action", () => {
     const driver = createDriver(<TableActionCell {...primaryActionProps()} />);
-    expect(driver.primaryActionPlaceholderExists()).toBeTruthy();
+    expect(driver.primaryActionPlaceholderExists()).toBe(true);
   });
 
   it('should display the primary action button', () => {
@@ -50,7 +50,7 @@ describe('Table Action Cell', () => {
       <TableActionCell {...primaryActionProps(onPrimaryActionTrigger)} />,
     );
 
-    expect(driver.getPrimaryActionButtonDriver().exists()).toBeTruthy();
+    expect(driver.getPrimaryActionButtonDriver().exists()).toBe(true);
     expect(
       driver.getPrimaryActionButtonDriver().getButtonTextContent(),
     ).toEqual('primary action');
@@ -75,7 +75,7 @@ describe('Table Action Cell', () => {
       />,
     );
 
-    expect(driver.primaryActionPlaceholderExists()).toBeFalsy();
+    expect(driver.primaryActionPlaceholderExists()).toBe(false);
   });
 
   it('should put visible secondary actions in the cell', async () => {

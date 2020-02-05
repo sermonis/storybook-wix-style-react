@@ -38,7 +38,7 @@ describe('ButtonLayout', () => {
       </ButtonLayout>,
     );
 
-    expect(driver.doesComponentHasClass('myClass')).toBeTruthy();
+    expect(driver.doesComponentHasClass('myClass')).toBe(true);
   });
 
   it('should extend existing className of the element', () => {
@@ -88,20 +88,20 @@ describe('ButtonLayout', () => {
     it('should get disabled class', () => {
       const driver = createDriver(someDivWithLayout({ disabled: true }));
 
-      expect(driver.doesComponentHasClass('disabled')).toBeTruthy();
+      expect(driver.doesComponentHasClass('disabled')).toBe(true);
     });
 
     it('should have default "fullblue" style', () => {
       const driver = createDriver(someDivWithLayout());
 
-      expect(driver.doesComponentHasClass('fullblue')).toBeTruthy();
+      expect(driver.doesComponentHasClass('fullblue')).toBe(true);
     });
 
     it('should get "small" height class', () => {
       const height = 'small';
       const driver = createDriver(someDivWithLayout({ height }));
 
-      expect(driver.doesComponentHasClass(`heightsmall`)).toBeTruthy();
+      expect(driver.doesComponentHasClass(`heightsmall`)).toBe(true);
     });
 
     it('should get "large" height class', () => {
@@ -115,13 +115,13 @@ describe('ButtonLayout', () => {
       const theme = 'emptyblue';
       const driver = createDriver(someDivWithLayout({ theme }));
 
-      expect(driver.doesComponentHasClass(theme)).toBeTruthy();
+      expect(driver.doesComponentHasClass(theme)).toBe(true);
     });
 
     it('should get "hover" class', () => {
       const driver = createDriver(someDivWithLayout({ hover: true }));
 
-      expect(driver.doesComponentHasClass('hover')).toBeTruthy();
+      expect(driver.doesComponentHasClass('hover')).toBe(true);
     });
   });
 });

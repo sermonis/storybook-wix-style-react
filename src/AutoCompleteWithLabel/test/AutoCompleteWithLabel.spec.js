@@ -121,13 +121,13 @@ describe('AutoCompleteWithLabel', () => {
   it('should render as enabled', async () => {
     const { driver } = render(<AutoCompleteWithLabel />);
     const isDisabled = await driver.isDisabled();
-    expect(isDisabled).toBeFalsy();
+    expect(isDisabled).toBe(false);
   });
 
   it('should render as disabled', async () => {
     const { driver } = render(<AutoCompleteWithLabel disabled label="label" />);
     const isDisabled = await driver.isDisabled();
-    expect(isDisabled).toBeTruthy();
+    expect(isDisabled).toBe(true);
   });
 
   describe('controlled mode', () => {

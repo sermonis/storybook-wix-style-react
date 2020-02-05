@@ -14,6 +14,6 @@ describe('Palette', () => {
   it('should render', async () => {
     const { driver } = render(<Palette />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 });

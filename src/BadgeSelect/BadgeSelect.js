@@ -5,35 +5,11 @@ import style from './BadgeSelect.st.css';
 
 import DropdownLayout from '../DropdownLayout';
 import Popover from '../Popover';
-import Badge, { SKIN, TYPE, SIZE } from '../Badge';
+import Badge from '../Badge';
 import { badgeSelectItemBuilder } from '../BadgeSelectItemBuilder';
 import * as DATA_ATTR from './DataAttr';
 
-export default class BadgeSelect extends React.Component {
-  static propTypes = {
-    /** An array of options. Each option must have a unique `id`, a `text` and a `skin` whose value should match one of `<Badge/>`'s skin values */
-    options: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        skin: PropTypes.oneOf(Object.keys(SKIN)).isRequired,
-        text: PropTypes.string.isRequired,
-      }),
-    ),
-    /** The id of the selected option in the list */
-    selectedId: PropTypes.string,
-    /** Callback function called whenever the user selects a different option in the list */
-    onSelect: PropTypes.func,
-    /** The size of the `<Badge/>` */
-    size: PropTypes.oneOf(Object.keys(SIZE)),
-    /** The type of the `<Badge/>` */
-    type: PropTypes.oneOf(Object.keys(TYPE)),
-    /** Whether the text of the `<Badge/>` should be uppercase */
-    uppercase: PropTypes.bool,
-    dataHook: PropTypes.string,
-  };
-
-  static displayName = 'BadgeSelect';
-
+class BadgeSelect extends React.Component {
   _isControlled = () => {
     return typeof this.props.selectedId !== 'undefined';
   };
@@ -166,3 +142,52 @@ export default class BadgeSelect extends React.Component {
     );
   }
 }
+
+BadgeSelect.displayName = 'BadgeSelect';
+
+BadgeSelect.propTypes = {
+  /** An array of options. Each option must have a unique `id`, a `text` and a `skin` whose value should match one of `<Badge/>`'s skin values */
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      skin: PropTypes.oneOf([
+        'general',
+        'standard',
+        'danger',
+        'success',
+        'neutral',
+        'neutralLight',
+        'warning',
+        'warningLight',
+        'urgent',
+        'neutralStandard',
+        'neutralSuccess',
+        'neutralDanger',
+        'premium',
+      ]).isRequired,
+      text: PropTypes.string.isRequired,
+    }),
+  ),
+
+  /** The id of the selected option in the list */
+  selectedId: PropTypes.string,
+
+  /** Callback function called whenever the user selects a different option in the list */
+  onSelect: PropTypes.func,
+
+  /** The size of the `<Badge/>` */
+  size: PropTypes.oneOf(['small', 'medium']),
+
+  /** The type of the `<Badge/>` */
+  type: PropTypes.oneOf(['solid', 'outlined', 'transparent']),
+
+  /** Whether the text of the `<Badge/>` should be uppercase */
+  uppercase: PropTypes.bool,
+
+  /** Applied as data-hook HTML attribute that can be used to create driver in testing */
+  dataHook: PropTypes.string,
+};
+
+BadgeSelect.defaultProps = {};
+
+export default BadgeSelect;

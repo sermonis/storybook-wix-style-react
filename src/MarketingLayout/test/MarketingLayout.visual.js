@@ -4,14 +4,13 @@ import MarketingLayout from '../MarketingLayout';
 import Button from '../../Button';
 import Box from '../../Box';
 
-const images = [
-  <Box backgroundColor="lightgrey" width="126px" height="126px"></Box>,
-  <Box backgroundColor="lightgrey" width="282px" height="188px"></Box>,
-  <Box backgroundColor="lightgrey" width="360px" height="240px"></Box>,
-];
+const customImageNode = (
+  <Box backgroundColor="R00" width="100%" height="200px" />
+);
+const customImageUrl =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8Exv7FAAF8AJtZv8v8wAAAABJRU5ErkJggg==';
 
 const commonProps = {
-  image: images[0],
   title: 'Marketing Card Title',
   description:
     'Connect to Google and get indexed in seconds so people can easily find your site.',
@@ -41,14 +40,44 @@ const tests = [
         it: 'Medium',
         props: {
           size: 'medium',
-          image: images[1],
         },
       },
       {
         it: 'Large',
         props: {
           size: 'large',
-          image: images[2],
+        },
+      },
+    ],
+  },
+  {
+    describe: 'Image',
+    its: [
+      {
+        it: 'Small',
+        props: {
+          size: 'small',
+          image: customImageNode,
+        },
+      },
+      {
+        it: 'Medium',
+        props: {
+          size: 'medium',
+          image: customImageNode,
+        },
+      },
+      {
+        it: 'Large',
+        props: {
+          size: 'large',
+          image: customImageNode,
+        },
+      },
+      {
+        it: 'URL',
+        props: {
+          image: customImageUrl,
         },
       },
     ],
@@ -68,7 +97,6 @@ const tests = [
         props: {
           inverted: true,
           size: 'medium',
-          image: images[1],
         },
       },
       {
@@ -76,7 +104,6 @@ const tests = [
         props: {
           inverted: true,
           size: 'large',
-          image: images[2],
         },
       },
     ],
@@ -96,7 +123,6 @@ const tests = [
         props: {
           size: 'medium',
           actions: null,
-          image: images[1],
         },
       },
       {
@@ -104,7 +130,37 @@ const tests = [
         props: {
           size: 'large',
           actions: null,
-          image: images[2],
+        },
+      },
+    ],
+  },
+  {
+    describe: 'Image Background Color',
+    its: [
+      {
+        it: 'Custom Color',
+        props: {
+          imageBackgroundColor: '#D6453D',
+        },
+      },
+      {
+        it: 'Palette Color',
+        props: {
+          imageBackgroundColor: 'R00',
+        },
+      },
+      {
+        it: 'Inverted Layout',
+        props: {
+          inverted: true,
+          imageBackgroundColor: 'R00',
+        },
+      },
+      {
+        it: 'With Custom Image',
+        props: {
+          imageBackgroundColor: 'B20',
+          image: customImageNode,
         },
       },
     ],
@@ -113,8 +169,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`MarketingLayout/${describe}`, module).add(it, () => (
-      <MarketingLayout {...commonProps} {...props} />
-    ));
+    storiesOf(
+      `MarketingLayout${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <MarketingLayout {...commonProps} {...props} />);
   });
 });

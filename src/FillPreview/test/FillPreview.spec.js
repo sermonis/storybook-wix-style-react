@@ -12,8 +12,8 @@ describe('FillPreview', () => {
 
   it('should render with default props', async () => {
     const { driver } = render(<FillPreview />);
-    expect(await driver.exists()).toBeTruthy();
-    expect(await driver.isSelected()).toBeFalsy();
+    expect(await driver.exists()).toBe(true);
+    expect(await driver.isSelected()).toBe(false);
   });
 
   it('should call callback on click', async () => {
@@ -25,7 +25,7 @@ describe('FillPreview', () => {
 
   it('should render selected state', async () => {
     const { driver } = render(<FillPreview selected />);
-    expect(await driver.isSelected()).toBeTruthy();
+    expect(await driver.isSelected()).toBe(true);
   });
 
   describe('`selected` prop', () => {

@@ -17,6 +17,9 @@ export const calendarUniDriverFactory = base => {
     base.$(
       '[role="gridcell"][aria-selected=true]:not(.DayPicker-Day--outside)',
     );
+
+  const getVisibleDisabledList = () =>
+    base.$$('[role="gridcell"][aria-disabled=true]');
   const getYearDropdownButton = () =>
     base.$('[data-hook="datepicker-year-dropdown-button"]');
   const getMonthDropdownButton = () =>
@@ -73,6 +76,28 @@ export const calendarUniDriverFactory = base => {
       } else {
         throw new Error(
           `ERROR: CalendarDriver.clickDay() - The given date (${date.toString()}) is not visible`,
+        );
+      }
+    },
+    isDayActive: async date => {
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const day = date.getDate();
+      const value = getDayOfDate(year, month, day);
+      if (await value.exists()) {
+        return (
+          (await getVisibleDisabledList()
+            .filter(
+              async elm =>
+                await elm
+                  .$(`:scope > [data-date='${year}-${month}-${day}']`)
+                  .exists(),
+            )
+            .count()) === 0
+        );
+      } else {
+        throw new Error(
+          `ERROR: CalendarDriver.isDayActive() - The given date (${date.toString()}) is not visible`,
         );
       }
     },

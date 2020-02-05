@@ -10,9 +10,9 @@ describe('Sidebar', () => {
     it('should render when no children at all', () => {
       const sidebar = mount(<Sidebar />);
       expect(sidebar).toBeDefined();
-      expect(sidebar.exists()).toBeTruthy();
+      expect(sidebar.exists()).toBe(true);
       // const sidebarRootDiv = sidebar.find(`[data-hook="sidebar"]`);
-      // expect(sidebarRootDiv.exists()).toBeTruthy();
+      // expect(sidebarRootDiv.exists()).toBe(true);
     });
 
     it('should render when only one simple children', () => {
@@ -49,7 +49,7 @@ describe('Sidebar', () => {
       const sidebar = mount(<Sidebar />);
 
       let el1 = sidebar.find(`[data-hook="simple"]`);
-      expect(el1.exists()).toBeFalsy();
+      expect(el1.exists()).toBe(false);
 
       sidebar.setProps({
         children: (

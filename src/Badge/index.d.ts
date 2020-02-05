@@ -32,3 +32,7 @@ export type BadgeSkin =
 export type BadgeType = 'solid' | 'outlined' | 'transparent';
 
 export type BadgeSize = 'medium' | 'small';
+
+export const SIZE: { [key in BadgeSize]: BadgeSize }
+export const TYPE: { [key in BadgeType]: BadgeType }
+export const SKIN: { [key in BadgeSkin]: BadgeSkin }

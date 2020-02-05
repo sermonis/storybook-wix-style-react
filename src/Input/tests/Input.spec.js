@@ -83,7 +83,7 @@ describe('Input', () => {
           tooltipDriver.mouseEnter();
 
           return resolveIn(500).then(() => {
-            expect(onTooltipShow.calledOnce).toBeTruthy();
+            expect(onTooltipShow.calledOnce).toBe(true);
           });
         });
 
@@ -104,7 +104,7 @@ describe('Input', () => {
           tooltipDriver.mouseEnter();
 
           return resolveIn(500).then(() => {
-            expect(onTooltipShow.calledOnce).toBeTruthy();
+            expect(onTooltipShow.calledOnce).toBe(true);
           });
         });
       });
@@ -188,7 +188,7 @@ describe('Input', () => {
     describe('required attribute', () => {
       it('should pass down to the wrapped input', async () => {
         const { driver } = render(<Input required />);
-        expect(await driver.getRequired()).toBeTruthy();
+        expect(await driver.getRequired()).toBe(true);
       });
     });
 
@@ -220,20 +220,20 @@ describe('Input', () => {
     describe('readOnly attribute', () => {
       it('should pass down to the wrapped input', async () => {
         const { driver } = render(<Input readOnly />);
-        expect(await driver.getReadOnly()).toBeTruthy();
+        expect(await driver.getReadOnly()).toBe(true);
       });
 
       it('should pass down to the wrapped input with default false value', async () => {
         // change
         const { driver } = render(<Input />);
-        expect(await driver.getReadOnly()).toBeFalsy();
+        expect(await driver.getReadOnly()).toBe(false);
       });
     });
 
     describe('disableEditing attribute', () => {
       it('should pass down to the wrapped input', async () => {
         const { driver } = render(<Input disableEditing />);
-        expect(await driver.getReadOnly()).toBeTruthy();
+        expect(await driver.getReadOnly()).toBe(true);
       });
     });
 
@@ -283,7 +283,7 @@ describe('Input', () => {
       it('should display a warning icon if status is warning', async () => {
         const { driver } = render(<Input status={'warning'} />);
 
-        expect(await driver.hasWarning()).toBeTruthy();
+        expect(await driver.hasWarning()).toBe(true);
       });
     });
 
@@ -293,13 +293,13 @@ describe('Input', () => {
           <Input status={'error'} hideStatusSuffix={false} />,
         );
 
-        expect(await driver.hasSuffix()).toBeTruthy();
+        expect(await driver.hasSuffix()).toBe(true);
       });
 
       it('should hide suffix if hideStatusSuffix is true', async () => {
         const { driver } = render(<Input status={'error'} hideStatusSuffix />);
 
-        expect(await driver.hasSuffix()).toBeFalsy();
+        expect(await driver.hasSuffix()).toBe(false);
       });
     });
 
@@ -307,7 +307,7 @@ describe('Input', () => {
       it('should display an help icon if help is true', async () => {
         const { driver } = render(<Input help />);
 
-        expect(await driver.hasHelp()).toBeTruthy();
+        expect(await driver.hasHelp()).toBe(true);
       });
     });
 
@@ -339,17 +339,17 @@ describe('Input', () => {
     describe('magnifyingGlass attribute', () => {
       it('should display a magnifying glass icon if magnifyingGlass is true', async () => {
         const { driver } = render(<Input magnifyingGlass />);
-        expect(await driver.hasMagnifyingGlass()).toBeTruthy();
+        expect(await driver.hasMagnifyingGlass()).toBe(true);
       });
 
       it('should not display a magnifying glass icon if magnifyingGlass is false', async () => {
         const { driver } = render(<Input magnifyingGlass={false} />);
-        expect(await driver.hasMagnifyingGlass()).toBeFalsy();
+        expect(await driver.hasMagnifyingGlass()).toBe(false);
       });
 
       it('should not display a magnifying glass icon if error is true', async () => {
         const { driver } = render(<Input magnifyingGlass error />);
-        expect(await driver.hasMagnifyingGlass()).toBeFalsy();
+        expect(await driver.hasMagnifyingGlass()).toBe(false);
       });
 
       it('should invoke onInputClicked while click on magnifying glass icon', async () => {
@@ -372,17 +372,17 @@ describe('Input', () => {
     describe('menuArrow attribute', () => {
       it('should display a menu arrow icon if menuArrow is true', async () => {
         const { driver } = render(<Input menuArrow />);
-        expect(await driver.hasMenuArrow()).toBeTruthy();
+        expect(await driver.hasMenuArrow()).toBe(true);
       });
 
       it('should not display a menu arrow icon if menuArrow is false', async () => {
         const { driver } = render(<Input menuArrow={false} />);
-        expect(await driver.hasMenuArrow()).toBeFalsy();
+        expect(await driver.hasMenuArrow()).toBe(false);
       });
 
       it('should not display a menu arrow icon if magnifyingGlass is true', async () => {
         const { driver } = render(<Input menuArrow magnifyingGlass />);
-        expect(await driver.hasMenuArrow()).toBeFalsy();
+        expect(await driver.hasMenuArrow()).toBe(false);
       });
 
       it('should invoke onInputClicked while click on menu arrow icon', async () => {
@@ -405,12 +405,12 @@ describe('Input', () => {
     describe('rtl attribute', () => {
       it('should have rtl if rtl prop is true', async () => {
         const { driver } = render(<Input rtl />);
-        expect(await driver.isRTL()).toBeTruthy();
+        expect(await driver.isRTL()).toBe(true);
       });
 
       it('should not have rtl if rtl prop is false', async () => {
         const { driver } = render(<Input rtl={false} />);
-        expect(await driver.isRTL()).toBeFalsy();
+        expect(await driver.isRTL()).toBe(false);
       });
     });
 
@@ -490,41 +490,41 @@ describe('Input', () => {
     describe('forceFocus attribute', () => {
       it('should have focus class on input if forceFocus is true', async () => {
         const { driver } = render(<Input forceFocus />);
-        expect(await driver.isFocusedStyle()).toBeTruthy();
+        expect(await driver.isFocusedStyle()).toBe(true);
       });
     });
 
     describe('forceHover attribute', () => {
       it('should have hover class on input if forceHover is true', async () => {
         const { driver } = render(<Input forceHover />);
-        expect(await driver.isHoveredStyle()).toBeTruthy();
+        expect(await driver.isHoveredStyle()).toBe(true);
       });
 
       it('should be hovered if forceFocus is false and forceHover is true', async () => {
         const { driver } = render(<Input forceHover forceFocus={false} />);
-        expect(await driver.isHoveredStyle()).toBeTruthy();
+        expect(await driver.isHoveredStyle()).toBe(true);
       });
     });
 
     describe('disable attribute', () => {
       it('should have disabled class on input if disabled is true', async () => {
         const { driver } = render(<Input disabled />);
-        expect(await driver.isDisabled()).toBeTruthy();
+        expect(await driver.isDisabled()).toBe(true);
       });
     });
 
     describe('autoFocus attribute', () => {
       it('Mounting an input element with autoFocus=false, should give it the focus', async () => {
         const { driver, rerender } = render(<Input autoFocus={false} />);
-        expect(await driver.isFocus()).toBeFalsy();
+        expect(await driver.isFocus()).toBe(false);
 
         rerender(<Input autoFocus />);
-        expect(await driver.isFocus()).toBeFalsy();
+        expect(await driver.isFocus()).toBe(false);
       });
       //
       // it('Mounting an input element with autoFocus=true, gives it the focus', async () => {
       //   const { driver } = render(<Input autoFocus />);
-      //   expect(await driver.isFocus()).toBeTruthy();
+      //   expect(await driver.isFocus()).toBe(true);
       // });
 
       describe('with value attribute', () => {
@@ -540,9 +540,9 @@ describe('Input', () => {
     describe('driver.focus', () => {
       it('calling driver.focus (without enzyme) should give focus to the input', async () => {
         const { driver } = render(<Input autoFocus={false} />);
-        expect(await driver.isFocus()).toBeFalsy();
+        expect(await driver.isFocus()).toBe(false);
         await driver.focus();
-        expect(await driver.isFocus()).toBeTruthy();
+        expect(await driver.isFocus()).toBe(true);
       });
     });
 
@@ -559,27 +559,27 @@ describe('Input', () => {
     describe('theme attribute', () => {
       it('should set the theme by default to "normal"', async () => {
         const { driver } = render(<Input />);
-        expect(await driver.isOfStyle('normal')).toBeTruthy();
+        expect(await driver.isOfStyle('normal')).toBe(true);
       });
 
       it('should allowing setting the theme to "paneltitle"', async () => {
         const { driver } = render(<Input theme="paneltitle" />);
-        expect(await driver.isOfStyle('paneltitle')).toBeTruthy();
+        expect(await driver.isOfStyle('paneltitle')).toBe(true);
       });
 
       it('should allow setting the theme to "material"', async () => {
         const { driver } = render(<Input theme="material" />);
-        expect(await driver.isOfStyle('material')).toBeTruthy();
+        expect(await driver.isOfStyle('material')).toBe(true);
       });
 
       it('should allow setting the theme to "flat"', async () => {
         const { driver } = render(<Input theme="flat" />);
-        expect(await driver.isOfStyle('flat')).toBeTruthy();
+        expect(await driver.isOfStyle('flat')).toBe(true);
       });
 
       it('should allow setting the theme to "flatdark"', async () => {
         const { driver } = render(<Input theme="flatdark" />);
-        expect(await driver.isOfStyle('flatdark')).toBeTruthy();
+        expect(await driver.isOfStyle('flatdark')).toBe(true);
       });
     });
 
@@ -663,7 +663,7 @@ describe('Input', () => {
           );
           await driver.clickClear();
           expect(onClear).toHaveBeenCalledTimes(1);
-          expect(onClear.mock.calls[0][0]).toBeTruthy;
+          expect(onClear.mock.calls[0][0]).toBeTruthy();
         });
       });
 
@@ -730,13 +730,13 @@ describe('Input', () => {
         const { driver } = render(
           <Input prefix={<div className="my-button" />} />,
         );
-        expect(await driver.hasPrefix()).toBeTruthy();
-        expect(await driver.prefixComponentExists('.my-button')).toBeTruthy();
+        expect(await driver.hasPrefix()).toBe(true);
+        expect(await driver.prefixComponentExists('.my-button')).toBe(true);
       });
 
       it('should add `withPrefix` classname to input', async () => {
         const { driver } = render(<Input prefix="hello" />);
-        expect(await driver.hasPrefixClass()).toBeTruthy();
+        expect(await driver.hasPrefixClass()).toBe(true);
       });
 
       it('should invoke onInputClicked while click on custom affix', async () => {
@@ -796,23 +796,23 @@ describe('Input', () => {
         const { driver } = render(
           <Input suffix={<div className="my-button" />} />,
         );
-        expect(await driver.hasSuffix()).toBeTruthy();
+        expect(await driver.hasSuffix()).toBe(true);
         expect(await driver.suffixComponentExists('.my-button')).toEqual(true);
       });
 
       it('should add `withSuffix` classname to input', async () => {
         const { driver } = render(<Input suffix="hello" />);
-        expect(await driver.hasSuffixClass()).toBeTruthy();
+        expect(await driver.hasSuffixClass()).toBe(true);
       });
 
       it('should add `withSuffixes` classname to input when more than 1 suffix applied', async () => {
         const { driver } = render(<Input suffix="hello" magnifyingGlass />);
-        expect(await driver.hasSuffixesClass()).toBeTruthy();
+        expect(await driver.hasSuffixesClass()).toBe(true);
       });
 
       it('should render menu arrow as the last suffix', async () => {
         const { driver } = render(<Input suffix="hello" menuArrow />);
-        expect(await driver.isMenuArrowLast()).toBeTruthy();
+        expect(await driver.isMenuArrowLast()).toBe(true);
       });
 
       it('should invoke onInputClicked while click on custom affix', async () => {
@@ -918,7 +918,7 @@ describe('Input', () => {
         );
         const classes = await driver.getInputElementClasses();
         expect(classes.contains(className)).toEqual(false);
-        expect(await driver.suffixComponentExists('.my-button')).toBeTruthy();
+        expect(await driver.suffixComponentExists('.my-button')).toBe(true);
       });
     });
 

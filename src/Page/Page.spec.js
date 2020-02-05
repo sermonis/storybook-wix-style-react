@@ -48,7 +48,7 @@ describe('Page', () => {
 
     it('should initialize component', async () => {
       const { driver } = render(renderPageWithProps());
-      expect(await driver.exists()).toBeTruthy();
+      expect(await driver.exists()).toBe(true);
     });
 
     describe('backgroundImage', () => {
@@ -56,12 +56,12 @@ describe('Page', () => {
         const { driver } = render(
           renderPageWithProps({ backgroundImageUrl: '/some/image' }),
         );
-        expect(await driver.backgroundImageExists()).toBeTruthy();
+        expect(await driver.backgroundImageExists()).toBe(true);
       });
 
       it('should not initialize component with background image', async () => {
         const { driver } = render(renderPageWithProps());
-        expect(await driver.backgroundImageExists()).toBeFalsy();
+        expect(await driver.backgroundImageExists()).toBe(false);
       });
     });
 
@@ -70,7 +70,7 @@ describe('Page', () => {
         const { driver } = render(
           renderPageWithProps({ className: 'myClass' }),
         );
-        expect(await driver.hasClass('myClass')).toBeTruthy();
+        expect(await driver.hasClass('myClass')).toBe(true);
       });
     });
 
@@ -79,12 +79,12 @@ describe('Page', () => {
         const { driver } = render(
           renderPageWithProps({ gradientClassName: 'class' }),
         );
-        expect(await driver.gradientClassNameExists()).toBeTruthy();
+        expect(await driver.gradientClassNameExists()).toBe(true);
       });
 
       it('should not initialize component with gradient class name by default', async () => {
         const { driver } = render(renderPageWithProps());
-        expect(await driver.gradientClassNameExists()).toBeFalsy();
+        expect(await driver.gradientClassNameExists()).toBe(false);
       });
     });
 
@@ -132,12 +132,12 @@ describe('Page', () => {
           </Page>,
         );
 
-        expect(await driver.tailExists()).toBeTruthy();
+        expect(await driver.tailExists()).toBe(true);
       });
 
       it('should not attach a tail component', async () => {
         const { driver } = render(renderPageWithProps());
-        expect(await driver.tailExists()).toBeFalsy();
+        expect(await driver.tailExists()).toBe(false);
       });
     });
 

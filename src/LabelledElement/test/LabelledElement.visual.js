@@ -41,8 +41,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`LabelledElement/${describe}`, module).add(it, () => (
-      <LabelledElement {...commonProps} {...props} />
-    ));
+    storiesOf(
+      `LabelledElement${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <LabelledElement {...commonProps} {...props} />);
   });
 });

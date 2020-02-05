@@ -30,7 +30,7 @@ describe('Carousel', () => {
 
     it('should be rendered', async () => {
       const driver = createDriver(<Carousel />);
-      expect(await driver.exists()).toBeTruthy();
+      expect(await driver.exists()).toBe(true);
     });
 
     it('should not render the images when child nodes are supplied', async () => {
@@ -56,7 +56,7 @@ describe('Carousel', () => {
         const driver = createDriver(
           <Carousel images={[{ src: 'image1.jpg' }, { src: 'image2.jpg' }]} />,
         );
-        expect(await driver.isLoading()).toBeTruthy();
+        expect(await driver.isLoading()).toBe(true);
       });
 
       it('should hide the loader when images are loaded', async () => {
@@ -67,7 +67,7 @@ describe('Carousel', () => {
         await driver.loadImages();
 
         setTimeout(async () => {
-          expect(await driver.isLoading()).toBeFalsy();
+          expect(await driver.isLoading()).toBe(false);
           expect(await driver.getImages().length).toEqual(2);
         });
       });
@@ -128,7 +128,7 @@ describe('Carousel', () => {
         const expectedClassName = 'some-selector';
         const driver = createDriver(<Carousel className={expectedClassName} />);
 
-        expect(await driver.hasClass(expectedClassName)).toBeTruthy();
+        expect(await driver.hasClass(expectedClassName)).toBe(true);
       });
     });
 

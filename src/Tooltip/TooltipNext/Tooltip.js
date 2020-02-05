@@ -1,8 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import { Tooltip as CoreTooltip } from 'wix-ui-core/dist/src/components/tooltip';
-
 import Text from '../../Text';
 import styles from './Tooltip.st.css';
 
@@ -20,7 +18,7 @@ class Tooltip extends React.PureComponent {
     /** tooltip content. Can be either string or renderable node */
     content: PropTypes.node,
     /** align tooltip content */
-    textAlign: PropTypes.oneOf(['center', 'start']),
+    textAlign: PropTypes.oneOf(['start', 'center']),
     /** time in milliseconds to wait before showing the tooltip */
     enterDelay: PropTypes.number,
     /**  time in milliseconds to wait before hiding the tooltip. Defaults to 0. */
@@ -73,7 +71,7 @@ class Tooltip extends React.PureComponent {
     maxWidth: 204,
     flip: true,
     fixed: false,
-    textAlign: 'center',
+    textAlign: 'start',
     size: 'medium',
     zIndex: 6000,
   };

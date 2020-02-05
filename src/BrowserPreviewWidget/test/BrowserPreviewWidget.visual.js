@@ -66,8 +66,9 @@ const tests = [
 
 tests.forEach(({ describe, its }) => {
   its.forEach(({ it, props }) => {
-    storiesOf(`BrowserPreviewWidget/${describe}`, module).add(it, () => (
-      <BrowserPreviewWidget {...commonProps} {...props} />
-    ));
+    storiesOf(
+      `BrowserPreviewWidget${describe ? '/' + describe : ''}`,
+      module,
+    ).add(it, () => <BrowserPreviewWidget {...commonProps} {...props} />);
   });
 });

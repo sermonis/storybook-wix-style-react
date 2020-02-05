@@ -15,7 +15,7 @@ describe('SidebarHeader', () => {
   it('should render', async () => {
     const { driver } = render(<SidebarHeader title={title} />);
 
-    expect(await driver.exists()).toBeTruthy();
+    expect(await driver.exists()).toBe(true);
   });
 
   it('should render the `title` prop', async () => {

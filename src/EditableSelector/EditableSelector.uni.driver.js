@@ -26,9 +26,9 @@ export const editableSelectorUniDriverFactory = (base, body) => {
     },
     isEditing: () => isEditRowActive(),
     isEditingRow: async () =>
-      (await isEditRowActive()) && editableRowDriver().getText(),
+      !!((await isEditRowActive()) && (await editableRowDriver().getText())),
     isAddingRow: async () =>
-      (await isEditRowActive()) && !(await editableRowDriver().getText()),
+      !!((await isEditRowActive()) && !(await editableRowDriver().getText())),
     newRowButton,
     deleteButtonAt,
     editButtonAt,

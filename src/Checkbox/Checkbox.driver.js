@@ -1,23 +1,24 @@
-import { isClassExists } from '../../test/utils';
 import { labelDriverFactory } from 'wix-ui-backoffice/dist/src/components/Label/Label.driver';
 import { testkitFactoryCreator } from 'wix-ui-test-utils/vanilla';
 //TODO - add tooltip classic driver in the correct place
 import { tooltipDriverFactory } from 'wix-ui-core/dist/src/components/tooltip/Tooltip.driver';
-import styles from './Checkbox.scss';
+
+import { dataHooks } from './constants';
+import * as DATA_ATTR from './DataAttr';
 
 const labelTestkitFactory = testkitFactoryCreator(labelDriverFactory);
 
 const checkboxDriverFactory = ({ element, eventTrigger }) => {
   const byHook = hook => element.querySelector(`[data-hook*="${hook}"]`);
   const input = () => element.querySelector('input');
-  const checkbox = () => element.querySelector(styles.checkbox);
+  const checkbox = () => element.querySelector(dataHooks.box);
   const labelDriver = () =>
-    labelTestkitFactory({ wrapper: element, dataHook: 'checkbox-label' });
+    labelTestkitFactory({ wrapper: element, dataHook: dataHooks.label });
   const isChecked = () => input().checked;
 
   const getErrorMessage = async () => {
     const tooltipTestkit = tooltipDriverFactory({
-      element: byHook('checkbox-box'),
+      element: byHook(dataHooks.boxTooltip),
       eventTrigger,
     });
 
@@ -41,15 +42,12 @@ const checkboxDriverFactory = ({ element, eventTrigger }) => {
     focus: () => eventTrigger.focus(checkbox()),
     /** trigger blur on the element */
     blur: () => eventTrigger.blur(checkbox()),
-    /**
-     * Focus related testing is done in e2e tests only.
-     * @deprecated
-     */
-    hasFocusState: () => element.getAttribute('data-focus'),
     isChecked: () => isChecked(),
-    isDisabled: () => isClassExists(element, styles.disabled),
-    isIndeterminate: () => isClassExists(element, styles.indeterminate),
-    hasError: () => isClassExists(element, styles.hasError),
+    isDisabled: () => element.getAttribute(DATA_ATTR.DATA_DISABLED) === 'true',
+    isIndeterminate: () =>
+      element.getAttribute(DATA_ATTR.DATA_CHECK_TYPE) ===
+      DATA_ATTR.CHECK_TYPES.INDETERMINATE,
+    hasError: () => element.getAttribute(DATA_ATTR.DATA_HAS_ERROR) === 'true',
     getLabel: () => labelDriver().getLabelText(),
     getLabelDriver: () => labelDriver(),
     getErrorMessage,

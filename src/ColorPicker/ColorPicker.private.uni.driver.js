@@ -1,11 +1,12 @@
 import publicDriverFactory from './ColorPicker.uni.driver';
 import { ReactBase } from '../../test/utils/unidriver';
+import { DataHooks } from './constants';
 
 export const colorPickerUniDriverFactory = base => ({
   ...publicDriverFactory(base),
 
   selectBlackColor: async () =>
-    ReactBase(base.$('[data-hook="color-picker-hsb"]'))._private.mouseDown({
+    ReactBase(base.$(`[data-hook="${DataHooks.hsb}"]`))._private.mouseDown({
       clientX: 1,
       clientY: 1,
     }),
