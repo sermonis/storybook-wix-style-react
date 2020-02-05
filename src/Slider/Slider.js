@@ -24,18 +24,16 @@ export default class Slider extends Component {
 
     if (this._isCustomMarks()) {
       const { marks } = this.props;
-      for (const [key, value] of Object.entries(marks)) {
+
+      Object.entries(marks).map(([key, value]) => {
         marksLabels[key] = {
-          label: this._createMarkLabel(value),
+          label: this._createMarkLabel(value, true),
         };
-      }
+      });
     } else {
       range({ min, max, step }).map(key => {
         marksLabels[key] = {
-          label:
-            key === min || key === max
-              ? this._createMarkLabel(key)
-              : this._createMarkLabel(''),
+          label: this._createMarkLabel(key, key === min || key === max),
         };
       });
     }
@@ -50,12 +48,12 @@ export default class Slider extends Component {
     );
   }
 
-  _createMarkLabel(value) {
+  _createMarkLabel(value, shouldRenderText) {
     return (
       <div>
         <div className={styles.markLine} />
         <div className={styles.markValue}>
-          <div className={styles.markText}>{value}</div>
+          {shouldRenderText && <div className={styles.markText}>{value}</div>}
         </div>
       </div>
     );
