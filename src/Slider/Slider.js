@@ -20,24 +20,48 @@ const range = ({ min, max, step }) => {
 export default class Slider extends Component {
   _getMarks() {
     const { min, max, step } = this.props;
+    const marksLabels = {};
 
-    return range({ min, max, step }).reduce((acc, curr) => {
-      acc[curr] = {
-        label: (
-          <div>
-            <div className={styles.markLine} />
-            <div className={styles.markValue}>
-              {(curr === min || curr === max) && (
-                <div className={styles.markText}>{curr}</div>
-              )}
+    if (this._isCustomMarks()) {
+      const { marks } = this.props;
+      for (const [key, value] of Object.entries(marks)) {
+        marksLabels[key] = {
+          label: (
+            <div>
+              <div className={styles.markLine} />
+              <div className={styles.markValue}>
+                <div className={styles.markText}>{value}</div>
+              </div>
             </div>
-          </div>
-        ),
-      };
+          ),
+        };
+      }
+    } else {
+      range({ min, max, step }).map(key => {
+        marksLabels[key] = {
+          label: (
+            <div>
+              <div className={styles.markLine} />
+              <div className={styles.markValue}>
+                {(key === min || key === max) && (
+                  <div className={styles.markText}>{key}</div>
+                )}
+              </div>
+            </div>
+          ),
+        };
+      });
+    }
 
-      return acc;
-    }, {});
+    return marksLabels;
   }
+
+  _isCustomMarks = () => {
+    const { marks } = this.props;
+    return !(
+      Object.entries(marks).length === 0 && marks.constructor === Object
+    );
+  };
 
   _renderHandle = props => {
     const { displayTooltip, disabled } = this.props;
@@ -115,6 +139,11 @@ Slider.propTypes = {
   /** The absolute minimum of the slider's range */
   min: PropTypes.number,
 
+  /** slider marks. The key determines the position, and the value determines what will show. The object structure should be either
+   * ```{ number : number}``` / ```{ number : string }```
+   * */
+  marks: PropTypes.object,
+
   /** Called after every value change */
   onAfterChange: PropTypes.func,
 
@@ -149,6 +178,7 @@ Slider.defaultProps = {
   id: generateID(),
   displayTooltip: true,
   displayMarks: true,
+  marks: {},
   rtl: false,
   disabled: false,
 };
