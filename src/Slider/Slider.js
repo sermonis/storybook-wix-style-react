@@ -27,13 +27,13 @@ export default class Slider extends Component {
 
       Object.entries(marks).map(([key, value]) => {
         marksLabels[key] = {
-          label: this._createMarkLabel(value, true),
+          label: this._createMarkNode(value, true),
         };
       });
     } else {
       range({ min, max, step }).map(key => {
         marksLabels[key] = {
-          label: this._createMarkLabel(key, key === min || key === max),
+          label: this._createMarkNode(key, key === min || key === max),
         };
       });
     }
@@ -48,7 +48,7 @@ export default class Slider extends Component {
     );
   }
 
-  _createMarkLabel(value, shouldRenderText) {
+  _createMarkNode(value, shouldRenderText) {
     return (
       <div>
         <div className={styles.markLine} />
