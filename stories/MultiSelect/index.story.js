@@ -1,6 +1,5 @@
 import React from 'react';
 import MultiSelect from '../../src/MultiSelect';
-import allComponents from '../utils/allComponents';
 
 import {
   header,
@@ -130,8 +129,8 @@ export default {
           'Tag Input’s label can be position on top, left or can be hidden. Additional properties behave accordingly.',
         source: examples.labelPosition,
       },
-    ].map(({ title, text, source }) =>
-      columns([description({ title, text }), code({ source })]),
+    ].map(({ title: exampleTitle, text, source }) =>
+      columns([description({ title: exampleTitle, text }), code({ source })]),
     ),
 
     divider(),
