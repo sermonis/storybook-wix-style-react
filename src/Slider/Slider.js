@@ -26,29 +26,16 @@ export default class Slider extends Component {
       const { marks } = this.props;
       for (const [key, value] of Object.entries(marks)) {
         marksLabels[key] = {
-          label: (
-            <div>
-              <div className={styles.markLine} />
-              <div className={styles.markValue}>
-                <div className={styles.markText}>{value}</div>
-              </div>
-            </div>
-          ),
+          label: this._createMarkLabel(value),
         };
       }
     } else {
       range({ min, max, step }).map(key => {
         marksLabels[key] = {
-          label: (
-            <div>
-              <div className={styles.markLine} />
-              <div className={styles.markValue}>
-                {(key === min || key === max) && (
-                  <div className={styles.markText}>{key}</div>
-                )}
-              </div>
-            </div>
-          ),
+          label:
+            key === min || key === max
+              ? this._createMarkLabel(key)
+              : this._createMarkLabel(''),
         };
       });
     }
@@ -56,12 +43,23 @@ export default class Slider extends Component {
     return marksLabels;
   }
 
-  _isCustomMarks = () => {
+  _isCustomMarks() {
     const { marks } = this.props;
     return !(
       Object.entries(marks).length === 0 && marks.constructor === Object
     );
-  };
+  }
+
+  _createMarkLabel(value) {
+    return (
+      <div>
+        <div className={styles.markLine} />
+        <div className={styles.markValue}>
+          <div className={styles.markText}>{value}</div>
+        </div>
+      </div>
+    );
+  }
 
   _renderHandle = props => {
     const { displayTooltip, disabled } = this.props;
